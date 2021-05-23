@@ -1,4 +1,4 @@
-package net.jupw.hubertus.configuration
+package net.jupw.hubertus.business.configuration
 
 import net.jupw.hubertus.util.Displayable
 
