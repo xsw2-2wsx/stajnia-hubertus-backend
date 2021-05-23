@@ -1,4 +1,4 @@
-package net.jupw.hubertus.business.configuration
+package net.jupw.hubertus.app.configuration
 
 interface ConfigurationEntry {
     val key: ConfigurationKey
