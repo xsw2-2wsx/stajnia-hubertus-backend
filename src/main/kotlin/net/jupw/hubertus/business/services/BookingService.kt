@@ -36,8 +36,6 @@ class BookingService(
 
         var rangeStart = newBooking.startTime
 
-        println(changePoints.toList().forEach(::println))
-
         for(date in changePoints) {
             val pointSum = toCheck
                 .filter { !it.startTime.isAfter(rangeStart) }
