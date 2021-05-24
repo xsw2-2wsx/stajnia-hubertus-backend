@@ -4,7 +4,6 @@ import net.jupw.hubertus.business.ConfKeys
 import net.jupw.hubertus.business.Configuration
 import net.jupw.hubertus.business.exceptions.ActivityTypeNotAllowedException
 import net.jupw.hubertus.business.exceptions.InsufficientSpaceException
-import net.jupw.hubertus.business.util.betweenExclusive
 import net.jupw.hubertus.business.util.filterBetweenExclusive
 import net.jupw.hubertus.business.value.Booking
 import java.time.LocalDateTime
@@ -20,7 +19,7 @@ class BookingService(
         val maxPoints = conf[ConfKeys.MAX_POINTS].toDouble()
 
         val toCheck = otherBookings
-            .filterBetweenExclusive(newBooking.startTime, newBooking.endTime)
+            .filterPresentBetween(newBooking.startTime, newBooking.endTime)
             .toMutableList()
 
         toCheck.add(newBooking)
@@ -50,8 +49,8 @@ class BookingService(
         }
     }
 
-    private fun Collection<Booking>.filterBetweenExclusive(start: LocalDateTime, end: LocalDateTime)
-        = filter { it.startTime.betweenExclusive(start, end) || it.endTime.betweenExclusive(start, end) }
+    private fun Collection<Booking>.filterPresentBetween(start: LocalDateTime, end: LocalDateTime)
+        = filter { it.startTime.isBefore(end) && it.endTime.isAfter(start) }
 
 
 }
