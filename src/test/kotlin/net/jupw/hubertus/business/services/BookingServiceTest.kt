@@ -141,6 +141,32 @@ internal class BookingServiceTest {
 
     }
 
+    @Test
+    fun `Test same range`() {
+        val newBooking = bookingMock(
+            LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0)),
+            LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)),
+            ActivityTypeMock(points = 1.0),
+        )
+
+        val bookings = listOf(
+            bookingMock(
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0)),
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)),
+                ActivityTypeMock(points = 3.0),
+            ),
+            bookingMock(
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0)),
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)),
+                ActivityTypeMock(points = 3.0),
+            ),
+        ).toMutableList()
+
+        assertThrows<InsufficientSpaceException> {
+            bookingService.validate(newBooking, bookings)
+        }
+    }
+
 
 
 }
