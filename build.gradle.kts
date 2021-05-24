@@ -44,6 +44,15 @@ dependencies {
 	}
 }
 
+tasks.bootRun.configure {
+	systemProperty("spring.profiles.active", "dev")
+}
+
+tasks.test.configure {
+	systemProperty("spring.profiles.active", "dev")
+}
+
+
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
