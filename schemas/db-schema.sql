@@ -10,7 +10,7 @@ CREATE TABLE users (
     users_password varchar(100) NOT NULL,
     users_phone varchar(15) NULL,
     users_email varchar(30) NULL,
-    is_locked tinyint(1) DEFAULT false,
+    is_locked tinyint(1) NOT NULL DEFAULT false,
     KEY (users_name)
 );
 
