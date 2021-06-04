@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.5.0"
 	kotlin("plugin.spring") version "1.5.0"
 	kotlin("plugin.jpa") version "1.5.0"
+	id("org.hidetake.swagger.generator") version "2.18.2"
 }
 
 group = "net.jupw"
@@ -17,6 +18,9 @@ repositories {
 }
 
 dependencies {
+	swaggerCodegen("io.swagger.codegen.v3:swagger-codegen-cli:3.0.26")
+	implementation("io.swagger.core.v3:swagger-core:2.1.9")
+
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -44,6 +48,25 @@ dependencies {
 	configurations {
 		all {
 			exclude(module = "spring-boot-starter-logging")
+		}
+	}
+}
+
+swaggerSources {
+	register("hubertus") {
+		setInputFile(file("api/openapi.yaml"))
+		code.apply {
+			language = "spring"
+			configFile = file("swagger-codegen-spring-config.json")
+			outputDir = file("build/generated/")
+		}
+	}
+}
+
+sourceSets {
+	main.configure {
+		java {
+			srcDir("build/generated/src/main/java")
 		}
 	}
 }
