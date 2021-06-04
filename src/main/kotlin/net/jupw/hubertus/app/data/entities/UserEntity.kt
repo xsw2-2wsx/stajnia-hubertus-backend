@@ -18,10 +18,10 @@ class UserEntity (
     var password: String,
 
     @Column(name = "users_phone")
-    var phone: String,
+    var phone: String?,
 
     @Column(name = "users_email")
-    var email: String,
+    var email: String?,
 
     @Column(name = "is_locked")
     var isLocked: Boolean,
@@ -32,6 +32,10 @@ class UserEntity (
         joinColumns = [JoinColumn(
             name = "users_id",
             referencedColumnName = "users_id"
+        )],
+        inverseJoinColumns = [JoinColumn(
+            name = "roles_id",
+            referencedColumnName = "roles_id"
         )],
     )
     var roles: List<RoleEntity>
