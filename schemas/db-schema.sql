@@ -7,6 +7,7 @@ USE hubertus;
 CREATE TABLE users (
     users_id int NOT NULL primary key AUTO_INCREMENT,
     users_name varchar(20) NOT NULL,
+    users_password varchar(100) NOT NULL,
     users_phone varchar(15) NULL,
     users_email varchar(30) NULL,
     is_locked tinyint(1) DEFAULT false,

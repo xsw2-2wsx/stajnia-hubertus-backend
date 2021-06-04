@@ -14,6 +14,9 @@ class UserEntity (
     @Column(name = "users_name")
     var name: String,
 
+    @Column(name = "users_password")
+    var password: String,
+
     @Column(name = "users_phone")
     var phone: String,
 
