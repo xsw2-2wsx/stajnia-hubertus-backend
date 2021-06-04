@@ -3,6 +3,7 @@ package net.jupw.hubertus.app.security
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
+import net.jupw.hubertus.app.interactor.UserInteractor
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.http.HttpHeaders
@@ -17,7 +18,7 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter(private val usersService: AppUserDetailsService, private val jwtConf: JWTConfiguration) : OncePerRequestFilter() {
+class JWTAuthenticationFilter(private val usersService: UserInteractor, private val jwtConf: JWTConfiguration) : OncePerRequestFilter() {
 
     companion object {
         private val log: Logger = LogManager.getLogger()
@@ -53,7 +54,7 @@ class JWTAuthenticationFilter(private val usersService: AppUserDetailsService, p
         if(!userDetails.isAccountNonLocked)
             throw LockedException("User ${userDetails.username} failed token authentication due to account being locked")
 
-        val auth = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+        val auth = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())
         auth.details = WebAuthenticationDetailsSource().buildDetails(request)
 
         SecurityContextHolder.getContext().authentication = auth

@@ -1,5 +1,6 @@
 package net.jupw.hubertus.app.security
 
+import net.jupw.hubertus.app.interactor.UserInteractor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.AuthenticationManager
@@ -22,7 +23,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     private lateinit var authEntryPoint: AuthEntryPoint
 
     @Autowired
-    private lateinit var userDetailsService: AppUserDetailsService
+    private lateinit var userDetailsService: UserInteractor
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth?.userDetailsService(userDetailsService)
