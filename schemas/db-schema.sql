@@ -9,6 +9,7 @@ CREATE TABLE users (
     users_name varchar(20) NOT NULL,
     users_phone varchar(15) NULL,
     users_email varchar(30) NULL,
+    is_locked tinyint(1) DEFAULT false,
     KEY (users_name)
 );
 
