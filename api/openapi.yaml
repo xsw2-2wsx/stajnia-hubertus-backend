@@ -50,6 +50,9 @@ components:
         password:
           type: string
           description: User password
+      required:
+        - username
+        - password
 
     AuthenticatedResponse:
       description: Response sent upon sucessfull authentication
