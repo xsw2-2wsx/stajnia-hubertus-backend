@@ -16,7 +16,7 @@ components:
       bearerFormat: JWT
 
   schemas:
-    SubError:
+    ApiSubError:
       description: A standard sub error schema
       type: object
       properties:
@@ -25,7 +25,7 @@ components:
         suggestedAction:
           type: string
 
-    Error:
+    ApiError:
       description: A standard error schema
       properties:
         status:
@@ -39,7 +39,7 @@ components:
         subErrors:
           type: array
           items:
-            $ref: "#/components/schemas/SubError"
+            $ref: "#/components/schemas/ApiSubError"
 
     AuthenticationRequest:
       description: The request that allows to obtain authentication token.
@@ -67,12 +67,12 @@ components:
       required: true
 
   responses:
-    ErrorResponse:
+    ApiErrorResponse:
       description: A response sent upon an error
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: "#/components/schemas/ApiError"
 
     AuthenticatedResponse:
       description: A response containing authentication token
@@ -94,4 +94,4 @@ paths:
         '200':
           $ref: "#/components/responses/AuthenticatedResponse"
         default:
-          $ref: "#/components/responses/ErrorResponse"
+          $ref: "#/components/responses/ApiErrorResponse"
