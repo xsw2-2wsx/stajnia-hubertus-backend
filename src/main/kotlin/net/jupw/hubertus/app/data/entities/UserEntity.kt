@@ -20,6 +20,9 @@ class UserEntity (
     @Column(name = "users_email")
     var email: String,
 
+    @Column(name = "is_locked")
+    var isLocked: Boolean,
+
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(
         name = "users_roles",
