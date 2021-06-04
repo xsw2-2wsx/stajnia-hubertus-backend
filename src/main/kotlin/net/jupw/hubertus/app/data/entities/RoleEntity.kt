@@ -14,6 +14,8 @@ class RoleEntity(
     @Column(name = "roles_name")
     var name: String,
 
+    @Column(name = "roles_description")
+
     @ElementCollection
     @CollectionTable(name = "authorities", joinColumns = [ JoinColumn(name = "roles_id") ])
     var authorities: List<String>
