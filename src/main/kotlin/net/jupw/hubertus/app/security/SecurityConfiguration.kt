@@ -42,7 +42,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
         http.exceptionHandling().authenticationEntryPoint(authEntryPoint)
 
         http.authorizeRequests()
-            .antMatchers("/api/v1/auth").permitAll()
+            .antMatchers("/auth").permitAll()
             .anyRequest().authenticated()
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
