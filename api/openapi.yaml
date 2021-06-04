@@ -1,0 +1,97 @@
+openapi: 3.0.4
+info:
+  title: Hubertus Stable
+  description: This project allows for making online bookings for a
+    riding hall in a stable.
+  version: 0.1.0
+servers:
+  - url: http://localhost:8080/api/v1
+    description: development server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    SubError:
+      description: A standard sub error schema
+      type: object
+      properties:
+        message:
+          type: string
+        suggestedAction:
+          type: string
+
+    Error:
+      description: A standard error schema
+      properties:
+        status:
+          type: integer
+          minimum: 400
+          description: A HTTP error code
+        message:
+          type: string
+        suggestedAction:
+          type: string
+        subErrors:
+          type: array
+          items:
+            $ref: "#/components/schemas/SubError"
+
+    AuthenticationRequest:
+      description: The request that allows to obtain authentication token.
+      properties:
+        username:
+          type: string
+          description: Username of the user
+        password:
+          type: string
+          description: User password
+
+    AuthenticatedResponse:
+      description: Response sent upon sucessfull authentication
+      properties:
+        token:
+          type: string
+          description: A web token that allows for future authentication
+
+  requestBodies:
+    AuthenticationResponseBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticationRequest"
+      required: true
+
+  responses:
+    ErrorResponse:
+      description: A response sent upon an error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    AuthenticatedResponse:
+      description: A response containing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthenticatedResponse"
+
+security:
+  - bearerAuth: []
+
+paths:
+  /auth:
+    summary: Allows for obtaining authentication token
+    post:
+      requestBody:
+        $ref: "#/components/requestBodies/AuthenticationResponseBody"
+      responses:
+        '200':
+          $ref: "#/components/responses/AuthenticatedResponse"
+        default:
+          $ref: "#/components/responses/ErrorResponse"
