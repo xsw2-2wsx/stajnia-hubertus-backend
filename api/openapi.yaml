@@ -42,7 +42,7 @@ components:
             $ref: "#/components/schemas/ApiSubError"
 
     AuthenticationRequest:
-      description: The request that allows to obtain authentication token.
+      description: Allows for authentication
       properties:
         username:
           type: string
@@ -62,7 +62,7 @@ components:
           description: A web token that allows for future authentication
 
   requestBodies:
-    AuthenticationResponseBody:
+    AuthenticationRequestBody:
       content:
         application/json:
           schema:
@@ -87,10 +87,15 @@ components:
 security:
   - bearerAuth: []
 
+tags:
+  - name: authentication
+
 paths:
   /auth:
     summary: Allows for obtaining authentication token
     post:
+      tags:
+        - authentication
       requestBody:
         $ref: "#/components/requestBodies/AuthenticationResponseBody"
       responses:
