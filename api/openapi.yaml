@@ -94,6 +94,13 @@ components:
           type: string
           description: A username of user to be created
 
+    ResetPasswordResponse:
+      description: Contains a new password for the user
+      properties:
+        newPassword:
+          type: string
+
+
   requestBodies:
     AuthenticationRequestBody:
       content:
@@ -146,9 +153,8 @@ components:
       content:
         application/json:
           schema:
-            properties:
-              newPassword:
-                type: string
+            $ref: "#/components/schemas/ResetPasswordResponse"
+
 
 security:
   - bearerAuth: []
