@@ -16,6 +16,12 @@ components:
       bearerFormat: JWT
 
   schemas:
+    Id:
+      description: An unique identifier
+      type: integer
+      minimum: 0
+
+
     ApiSubError:
       description: A standard sub error schema
       type: object
@@ -41,6 +47,26 @@ components:
           items:
             $ref: "#/components/schemas/ApiSubError"
 
+
+    User:
+      description: Represents a user
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        isLocked:
+          type: boolean
+        authorities:
+          type: array
+          items:
+            type: string
+            description: Represent user permissions
+
     AuthenticationRequest:
       description: Allows for authentication
       properties:
@@ -61,12 +87,26 @@ components:
           type: string
           description: A web token that allows for future authentication
 
+    CreateUserRequest:
+      description: Provides information about a user to be created
+      properties:
+        username:
+          type: string
+          description: A username of user to be created
+
   requestBodies:
     AuthenticationRequestBody:
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/AuthenticationRequest"
+      required: true
+
+    CreateUserRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateUserRequest"
       required: true
 
   responses:
@@ -84,11 +124,38 @@ components:
           schema:
             $ref: "#/components/schemas/AuthenticatedResponse"
 
+    UserResponse:
+      description: Contains a single user
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+
+    UserListResponse:
+      description: Contains a list of users
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/User"
+
+
+    ResetPasswordResponse:
+      description: Contains a new password for user
+      content:
+        application/json:
+          schema:
+            properties:
+              newPassword:
+                type: string
+
 security:
   - bearerAuth: []
 
 tags:
   - name: authentication
+  - name: user managment
 
 paths:
   /auth:
@@ -103,3 +170,72 @@ paths:
           $ref: "#/components/responses/AuthenticatedResponse"
         default:
           $ref: "#/components/responses/ApiErrorResponse"
+
+  /users:
+    summary: Manages users
+    get:
+      description: Fetches all users
+      tags:
+        - user managment
+      responses:
+        '200':
+          $ref: "#/components/responses/UserListResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    post:
+      description: Creates a user with specified username and sends it back
+      tags:
+        - user managment
+      requestBody:
+        $ref: "#/components/requestBodies/CreateUserRequestBody"
+      responses:
+        '200':
+          $ref: "#/components/responses/UserResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    delete:
+      description: Deletes specified user
+      tags:
+        - user managment
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          description: An id of user to be deleted
+          schema:
+            $ref: "#/components/schemas/Id"
+      responses:
+        '200':
+          description: Operation sucessfull
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+  /users/{userId}/resetpassword:
+    summary: Resets specified user password
+    patch:
+      tags:
+        - user managment
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/Id"
+      responses:
+        '200':
+          $ref: "#/components/responses/ResetPasswordResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+
+
+
+
+
+
+
+
+
+
