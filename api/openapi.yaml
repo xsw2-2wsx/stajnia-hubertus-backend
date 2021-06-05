@@ -59,7 +59,7 @@ components:
           type: string
         email:
           type: string
-        isLocked:
+        locked:
           type: boolean
         authorities:
           type: array
