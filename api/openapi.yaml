@@ -138,13 +138,6 @@ components:
           schema:
             $ref: "#/components/schemas/User"
 
-    UserCreatedResponse:
-      description: Contains information about newly created user
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/responses/UserPasswordResponse"
-
     UserListResponse:
       description: Contains a list of users
       content:
@@ -204,7 +197,7 @@ paths:
         $ref: "#/components/requestBodies/CreateUserRequestBody"
       responses:
         '200':
-          $ref: "#/components/responses/UserCreatedResponse"
+          $ref: "#/components/responses/UserPasswordResponse"
         default:
           $ref: "#/components/responses/ApiErrorResponse"
 

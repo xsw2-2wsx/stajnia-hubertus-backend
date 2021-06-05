@@ -9,15 +9,15 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
-import java.lang.Exception
 import java.lang.IllegalStateException
 import java.security.SecureRandom
 import java.util.*
+import javax.transaction.Transactional
 
 @Service
 class UserInteractor : UserDetailsService {
@@ -31,6 +31,11 @@ class UserInteractor : UserDetailsService {
 
     @Autowired
     private lateinit var userRepository: UserRepository
+    
+    val authenticatedUser: User
+        get() = SecurityContextHolder.getContext().authentication.principal as User
+
+    fun findAllUsers(): List<User> = userRepository.findAll().map { it.toUser() }
 
     fun findUserById(id: Int): User =
         userRepository.findByIdOrNull(id)?.toUser()?: throw UserNotFoundException(id)
@@ -53,6 +58,19 @@ class UserInteractor : UserDetailsService {
         } catch (e: UsernameNotFoundException) {
             throw IllegalStateException("Created user does not exist", e)
         }
+    }
+
+    fun deleteUser(id: Int) {
+        userRepository.deleteById(id)
+        log.info("User with id $id has been deleted by user with username ${ authenticatedUser.name }")
+    }
+
+    @Transactional
+    fun resetPassword(id: Int): String {
+        val user = userRepository.findByIdOrNull(id)?: throw UserNotFoundException(id)
+        user.password = secRandomString(GENERATED_PASSWD_LEN)
+        log.info("Password of user ${ user.name } has been reset by ${ authenticatedUser.name }")
+        return user.password
     }
 
     private fun secRandomString(len: Int) =
