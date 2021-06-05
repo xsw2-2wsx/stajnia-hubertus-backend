@@ -97,7 +97,7 @@ paths:
       tags:
         - authentication
       requestBody:
-        $ref: "#/components/requestBodies/AuthenticationResponseBody"
+        $ref: "#/components/requestBodies/AuthenticationRequestBody"
       responses:
         '200':
           $ref: "#/components/responses/AuthenticatedResponse"
