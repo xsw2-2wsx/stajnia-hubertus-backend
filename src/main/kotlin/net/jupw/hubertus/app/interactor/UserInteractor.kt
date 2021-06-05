@@ -13,8 +13,8 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import java.lang.IllegalStateException
 import java.security.SecureRandom
 import java.util.*
 import javax.transaction.Transactional
@@ -31,6 +31,9 @@ class UserInteractor : UserDetailsService {
 
     @Autowired
     private lateinit var userRepository: UserRepository
+
+    @Autowired
+    private lateinit var passwordEncoder: PasswordEncoder
     
     val authenticatedUser: User
         get() = SecurityContextHolder.getContext().authentication.principal as User
@@ -46,18 +49,16 @@ class UserInteractor : UserDetailsService {
         userRepository.findByName(username?: "")?.toUser()?:
         throw UsernameNotFoundException("User with username $username not found")
 
-    fun createUser(username: String): User {
+    fun createUser(username: String): String {
         if(userExists(username)) throw UserAlreadyExistException(username)
 
+        val password = secRandomString(GENERATED_PASSWD_LEN)
+
         userRepository.save(UserEntity(
-            0, username, secRandomString(GENERATED_PASSWD_LEN), null, null, false, emptyList()
+            0, username, passwordEncoder.encode(password), null, null, false, emptyList()
         ))
 
-        return try {
-            loadUserByUsername(username)
-        } catch (e: UsernameNotFoundException) {
-            throw IllegalStateException("Created user does not exist", e)
-        }
+        return password
     }
 
     fun deleteUser(id: Int) {
@@ -68,9 +69,10 @@ class UserInteractor : UserDetailsService {
     @Transactional
     fun resetPassword(id: Int): String {
         val user = userRepository.findByIdOrNull(id)?: throw UserNotFoundException(id)
-        user.password = secRandomString(GENERATED_PASSWD_LEN)
+        val newPassword = secRandomString(GENERATED_PASSWD_LEN)
+        user.password = passwordEncoder.encode(newPassword)
         log.info("Password of user ${ user.name } has been reset by ${ authenticatedUser.name }")
-        return user.password
+        return newPassword
     }
 
     private fun secRandomString(len: Int) =

@@ -36,6 +36,7 @@ class JWTAuthenticationFilter(private val usersService: UserInteractor, private 
 
     }
 
+    // TODO: handle account deleted or locked
     private fun authenticateWithToken(token: String, request: HttpServletRequest) = try {
 
         val userid: Int = Jwts
