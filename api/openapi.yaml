@@ -94,8 +94,8 @@ components:
           type: string
           description: A username of user to be created
 
-    ResetPasswordResponse:
-      description: Contains a new password for the user
+    UserPassword:
+      description: Contains a password for the user
       properties:
         newPassword:
           type: string
@@ -138,6 +138,13 @@ components:
           schema:
             $ref: "#/components/schemas/User"
 
+    UserCreatedResponse:
+      description: Contains information about newly created user
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/UserPasswordResponse"
+
     UserListResponse:
       description: Contains a list of users
       content:
@@ -148,12 +155,12 @@ components:
               $ref: "#/components/schemas/User"
 
 
-    ResetPasswordResponse:
+    UserPasswordResponse:
       description: Contains a new password for user
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ResetPasswordResponse"
+            $ref: "#/components/schemas/UserPassword"
 
 
 security:
@@ -197,7 +204,7 @@ paths:
         $ref: "#/components/requestBodies/CreateUserRequestBody"
       responses:
         '200':
-          $ref: "#/components/responses/UserResponse"
+          $ref: "#/components/responses/UserCreatedResponse"
         default:
           $ref: "#/components/responses/ApiErrorResponse"
 
@@ -231,17 +238,6 @@ paths:
             $ref: "#/components/schemas/Id"
       responses:
         '200':
-          $ref: "#/components/responses/ResetPasswordResponse"
+          $ref: "#/components/responses/UserPasswordResponse"
         default:
           $ref: "#/components/responses/ApiErrorResponse"
-
-
-
-
-
-
-
-
-
-
-
