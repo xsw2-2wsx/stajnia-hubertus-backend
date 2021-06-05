@@ -47,7 +47,7 @@ class JWTAuthenticationFilter(private val usersService: UserInteractor, private 
             .subject
             .toInt()
 
-        val userDetails = usersService.findUserDetailsByUserId(userid)
+        val userDetails = usersService.findUserById(userid)
 
         if(!userDetails.isEnabled)
             throw DisabledException("User ${userDetails.username} failed token authentication due to account being disabled")
