@@ -2,6 +2,7 @@ package net.jupw.hubertus.api
 
 import net.jupw.hubertus.api.models.ApiError
 import net.jupw.hubertus.api.models.ApiSubError
+import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
 import net.jupw.hubertus.app.exceptions.UserNotFoundException
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -74,7 +75,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     ): ResponseEntity<Any> = error {
         status = HttpStatus.BAD_REQUEST.value()
     } as ResponseEntity<Any>
-    
+
     override fun handleHttpMediaTypeNotSupported(
         ex: HttpMediaTypeNotSupportedException,
         headers: HttpHeaders,
@@ -218,6 +219,14 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
             subErrors = subErrorCollection
         }
     }
+
+    @ExceptionHandler(UserAlreadyExistException::class)
+    fun handleUserAlreadyExistsException(ex: UserAlreadyExistException) =
+        error {
+            status = HttpStatus.CONFLICT.value()
+            message = "Użytkownik o tej nazwie już istnieje"
+            suggestedAction = "Wybierz inną nazwę"
+        }
 
     override fun handleMethodArgumentNotValid(
         ex: MethodArgumentNotValidException,
