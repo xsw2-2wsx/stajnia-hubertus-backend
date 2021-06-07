@@ -10,5 +10,4 @@ fun User.convertToModel(): UserModel = UserModel().also {
     it.email = email
     it.phone = phone
     it.isLocked = isLocked
-    it.authorities = authorities
 }

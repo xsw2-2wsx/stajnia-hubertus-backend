@@ -1,6 +1,5 @@
 package net.jupw.hubertus.api.controllers
 
-import net.jupw.hubertus.api.models.CreateUserRequest
 import net.jupw.hubertus.api.models.User
 import net.jupw.hubertus.app.interactor.UserInteractor
 import net.jupw.hubertus.api.converters.convertToModel
@@ -27,8 +26,8 @@ class UsersController : UsersApi {
             .toMutableList()
             .toResponseEntity()
 
-    override fun usersPost(body: CreateUserRequest): ResponseEntity<UserPassword> = UserPassword().apply {
-        newPassword = userInteractor.createUser(body.username)
+    override fun usersPost(body: User): ResponseEntity<UserPassword> = UserPassword().apply {
+        newPassword = userInteractor.createUser(body.name)
     }.toResponseEntity()
 
     override fun usersUserIdResetpasswordPatch(userId: Int): ResponseEntity<UserPassword> = UserPassword().apply {
