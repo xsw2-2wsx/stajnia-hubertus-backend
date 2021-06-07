@@ -11,11 +11,14 @@ class ActivityEntity(
     @Column(name = "activities_id")
     var id: Int,
 
-    @Column(name = "activities_name")
+    @Column(name = "name")
     var name: String,
 
-    @Column(name = "activities_description")
+    @Column(name = "description")
     var description: String,
+
+    @Column(name = "points")
+    var points: Int,
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "activity_constraints", joinColumns = [ JoinColumn(name = "activities_id" ) ])

@@ -41,8 +41,9 @@ CREATE TABLE authorities (
 
 CREATE TABLE activities(
     activities_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    activities_name varchar(30) NOT NULL,
-    activities_description varchar(100) NULL,
+    name varchar(30) NOT NULL,
+    description varchar(100) NULL,
+    points int NOT NULL,
     UNIQUE KEY (activities_name)
 );
 
