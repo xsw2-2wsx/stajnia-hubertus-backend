@@ -30,6 +30,11 @@ class UsersController : UsersApi {
         newPassword = userInteractor.createUser(body.name)
     }.toResponseEntity()
 
+    override fun usersPut(u: User): ResponseEntity<Void> {
+        userInteractor.modifyUser(u.id, u.name, u.email, u.phone, u.isLocked)
+        return ResponseEntity.ok().build()
+    }
+
     override fun usersUserIdResetpasswordPatch(userId: Int): ResponseEntity<UserPassword> = UserPassword().apply {
         newPassword = userInteractor.resetPassword(userId)
     }.toResponseEntity()

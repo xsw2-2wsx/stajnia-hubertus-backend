@@ -61,6 +61,24 @@ class UserInteractor : UserDetailsService {
         return password
     }
 
+    @Transactional
+    fun modifyUser(id: Int, name: String, email: String?, phone: String?, isLocked: Boolean) {
+        val userToEdit = userRepository.findByIdOrNull(id)?: throw UserNotFoundException(id)
+        val userWithUsername = userRepository.findByName(name)
+
+        if(userWithUsername != null && userWithUsername.id != userToEdit.id)
+            throw UserAlreadyExistException(name)
+
+        userToEdit.let {
+            it.name = name
+            it.email = email
+            it.phone = phone
+            it.isLocked = isLocked
+        }
+
+        log.info("User ${userToEdit.name} (id ${userToEdit.id}) has been modified by ${authenticatedUser.name}")
+    }
+
     fun deleteUser(id: Int) {
         userRepository.deleteById(id)
         log.info("User with id $id has been deleted by user with username ${ authenticatedUser.name }")
