@@ -224,6 +224,24 @@ paths:
         default:
           $ref: "#/components/responses/ApiErrorResponse"
 
+  /users/{userId}:
+    summary: Operations on the user with specified id
+    get:
+      tags:
+        - user managment
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/Id"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/UserResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
   /users/{userId}/resetpassword:
     summary: Resets specified user password
     patch:
