@@ -61,6 +61,9 @@ components:
           type: string
         locked:
           type: boolean
+      required:
+        - name
+        - locked
 
     AuthenticationRequest:
       description: Allows for authentication
