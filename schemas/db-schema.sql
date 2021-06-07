@@ -15,7 +15,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE roles (
-    roles_id int NOT NULL primary key AUTO_INCREMENT,
+    roles_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     roles_name varchar(20) NOT NULL,
     roles_description varchar(100) NULL
 );
@@ -38,3 +38,19 @@ CREATE TABLE authorities (
     CONSTRAINT authorities_roles_id_to_roles FOREIGN KEY (roles_id) REFERENCES roles(roles_id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE activities(
+    activities_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    activities_name varchar(30) NOT NULL,
+    activities_description varchar(100) NULL,
+    UNIQUE KEY (activities_name)
+)
+
+CREATE TABLE activity_constraints(
+    activities_id int NOT NULL,
+    time_start time NOT NULL,
+    time_end time NOT NULL,
+    KEY (activities_id),
+    CONSTRAINT activity_constraints_activities_id_to_activities FOREIGN KEY (activities_id) REFERENCES activities(activities_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+)
