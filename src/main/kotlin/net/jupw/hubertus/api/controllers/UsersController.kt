@@ -38,4 +38,9 @@ class UsersController : UsersApi {
     override fun usersUserIdResetpasswordPatch(userId: Int): ResponseEntity<UserPassword> = UserPassword().apply {
         newPassword = userInteractor.resetPassword(userId)
     }.toResponseEntity()
+
+    override fun usersUserIdGet(userId: Int): ResponseEntity<User> =
+        userInteractor.findUserById(userId)
+            .convertToModel()
+            .toResponseEntity()
 }
