@@ -82,13 +82,6 @@ components:
           type: string
           description: A web token that allows for future authentication
 
-    CreateUserRequest:
-      description: Provides information about a user to be created
-      properties:
-        username:
-          type: string
-          description: A username of user to be created
-
     UserPassword:
       description: Contains a password for the user
       properties:
@@ -104,11 +97,11 @@ components:
             $ref: "#/components/schemas/AuthenticationRequest"
       required: true
 
-    CreateUserRequestBody:
+    UserRequestBody:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateUserRequest"
+            $ref: "#/components/schemas/User"
       required: true
 
   responses:
@@ -185,16 +178,31 @@ paths:
           $ref: "#/components/responses/ApiErrorResponse"
 
     post:
-      description: Creates a user with specified username and sends it back
+      description: Creates a user with specified username and sends back its password
       tags:
         - user managment
       requestBody:
-        $ref: "#/components/requestBodies/CreateUserRequestBody"
+        $ref: "#/components/requestBodies/UserRequestBody"
       responses:
         '200':
           $ref: "#/components/responses/UserPasswordResponse"
         default:
           $ref: "#/components/responses/ApiErrorResponse"
+
+
+    put:
+      description: Edits a user
+      tags:
+        - user managment
+      requestBody:
+        $ref: "#/components/requestBodies/UserRequestBody"
+      responses:
+        '200':
+          description: Operation successfull
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+
 
     delete:
       description: Deletes specified user
