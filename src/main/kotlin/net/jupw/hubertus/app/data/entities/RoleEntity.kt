@@ -15,8 +15,10 @@ class RoleEntity(
     var name: String,
 
     @Column(name = "roles_description")
+    var description: String,
 
-    @ElementCollection
-    @CollectionTable(name = "authorities", joinColumns = [ JoinColumn(name = "roles_id") ])
-    var authorities: List<String>
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "authorities", joinColumns = [ JoinColumn(name = "roles_id" ) ])
+    @Column(name = "authorities_name")
+    var authorities: List<String>,
 )
