@@ -44,7 +44,7 @@ CREATE TABLE activities(
     activities_name varchar(30) NOT NULL,
     activities_description varchar(100) NULL,
     UNIQUE KEY (activities_name)
-)
+);
 
 CREATE TABLE activity_constraints(
     activities_id int NOT NULL,
@@ -53,4 +53,4 @@ CREATE TABLE activity_constraints(
     KEY (activities_id),
     CONSTRAINT activity_constraints_activities_id_to_activities FOREIGN KEY (activities_id) REFERENCES activities(activities_id)
         ON UPDATE CASCADE ON DELETE CASCADE
-)
+);
