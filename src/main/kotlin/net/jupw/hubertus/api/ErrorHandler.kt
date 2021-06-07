@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.LockedException
@@ -82,6 +83,14 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         error {
             status = HttpStatus.FORBIDDEN.value()
             message = "Twoje konto zostało zablokowane"
+        }
+
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleAccessDenied(ex: AccessDeniedException) =
+        error {
+            status = HttpStatus.FORBIDDEN.value()
+            message = "Nie masz uprawnień do wykonania tej czynności"
+            suggestedAction = "Skontaktuj się z administratorem w celu nadania uprawnień"
         }
 
     @ExceptionHandler(ConstraintViolationException::class)
