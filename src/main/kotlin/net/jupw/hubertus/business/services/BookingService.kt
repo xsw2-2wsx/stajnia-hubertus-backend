@@ -4,8 +4,10 @@ import net.jupw.hubertus.business.ConfKeys
 import net.jupw.hubertus.business.Configuration
 import net.jupw.hubertus.business.exceptions.ActivityTypeNotAllowedException
 import net.jupw.hubertus.business.exceptions.InsufficientSpaceException
+import net.jupw.hubertus.business.exceptions.NotEnoughPrecedenceException
 import net.jupw.hubertus.business.util.filterBetweenExclusive
 import net.jupw.hubertus.business.value.Booking
+import java.time.Duration
 import java.time.LocalDateTime
 
 class BookingService(
@@ -15,6 +17,11 @@ class BookingService(
     fun validate(newBooking: Booking, otherBookings: Collection<Booking>) {
         if(!newBooking.activityType.isAllowed(newBooking.startTime, newBooking.endTime))
             throw ActivityTypeNotAllowedException(newBooking.activityType)
+
+        val precedence = Duration.between(LocalDateTime.now(), newBooking.startTime)
+        val minBookingPrecedence = Duration.ofMillis(conf[ConfKeys.MIN_BOOKING_PRECEDENCE_HOURS].toLong())
+        if(minBookingPrecedence > Duration.ZERO && precedence <= minBookingPrecedence)
+                throw NotEnoughPrecedenceException(newBooking, precedence, minBookingPrecedence)
 
         val maxPoints = conf[ConfKeys.MAX_POINTS].toDouble()
 

@@ -6,12 +6,16 @@ import net.jupw.hubertus.business.entities.ActivityType
 import net.jupw.hubertus.business.entities.BookingOwner
 import net.jupw.hubertus.business.exceptions.ActivityTypeNotAllowedException
 import net.jupw.hubertus.business.exceptions.InsufficientSpaceException
+import net.jupw.hubertus.business.exceptions.NotEnoughPrecedenceException
 import net.jupw.hubertus.business.value.Booking
 import net.jupw.hubertus.mocks.business.entities.ActivityTypeMock
 import net.jupw.hubertus.mocks.business.value.bookingMock
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.*
 import org.mockito.kotlin.*
+import org.mockito.*
+import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -21,10 +25,10 @@ internal class BookingServiceTest {
 
     private val configuration: Configuration = mock {
         on { get(ConfKeys.MAX_POINTS) } doReturn "6"
+        on { get(ConfKeys.MIN_BOOKING_PRECEDENCE_HOURS) } doReturn "0"
     }
 
     private var bookingService: BookingService = BookingService(configuration)
-
 
     @Test
     fun `Throw exception when Activity is not allowed`() {
@@ -167,6 +171,33 @@ internal class BookingServiceTest {
         }
     }
 
+    @Test
+    fun `Test precedence`() {
+        whenever(configuration[ConfKeys.MIN_BOOKING_PRECEDENCE_HOURS]) doReturn Duration.ofHours(2).toMillis().toString()
 
+        assertDoesNotThrow {
+            bookingService.validate(bookingMock(
+                LocalDateTime.now().plusHours(3),
+                LocalDateTime.now().plusHours(4),
+                ActivityTypeMock()
+            ), emptyList())
+        }
+
+        assertDoesNotThrow {
+            bookingService.validate(bookingMock(
+                LocalDateTime.now().plusHours(2).plusSeconds(1),
+                LocalDateTime.now().plusHours(4),
+                ActivityTypeMock()
+            ), emptyList())
+        }
+
+        assertThrows<NotEnoughPrecedenceException> {
+            bookingService.validate(bookingMock(
+                LocalDateTime.now().plusHours(2).minusSeconds(1),
+                LocalDateTime.now().plusHours(5),
+                ActivityTypeMock()
+            ), emptyList())
+        }
+    }
 
 }
