@@ -61,11 +61,6 @@ components:
           type: string
         locked:
           type: boolean
-        authorities:
-          type: array
-          items:
-            type: string
-            description: Represent user permissions
 
     AuthenticationRequest:
       description: Allows for authentication
