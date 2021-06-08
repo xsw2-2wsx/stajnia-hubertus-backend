@@ -44,7 +44,7 @@ CREATE TABLE activities(
     name varchar(30) NOT NULL,
     description varchar(100) NULL,
     points decimal NOT NULL,
-    UNIQUE KEY (activities_name)
+    UNIQUE KEY (name)
 );
 
 CREATE TABLE activity_constraints(
