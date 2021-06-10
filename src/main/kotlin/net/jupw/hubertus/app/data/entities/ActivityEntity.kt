@@ -18,7 +18,7 @@ class ActivityEntity(
     var description: String,
 
     @Column(name = "points")
-    var points: Int,
+    var points: Double,
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "activity_constraints", joinColumns = [ JoinColumn(name = "activities_id" ) ])
