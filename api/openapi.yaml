@@ -364,7 +364,7 @@ paths:
     delete:
       tags:
         - activities
-      description: Deletes specified user
+      description: Deletes specified activity
       parameters:
         - name: activityId
           in: query
