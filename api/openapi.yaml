@@ -92,6 +92,40 @@ components:
         newPassword:
           type: string
 
+    ActivityConstraint:
+      description: Represents a single time constraint for activity. It allows the actvity to take place within a range
+      properties:
+        startTime:
+          type: string
+          format: time
+        endTime:
+          type: string
+          format: time
+      required:
+        - startTime
+        - endTime
+
+    Activity:
+      description: Represents a single activity
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        description:
+          type: string
+        points:
+          type: number
+          minimum: 0
+        constraints:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityConstraint"
+      required:
+        - name
+        - description
+        - points
+
 
   requestBodies:
     AuthenticationRequestBody:
