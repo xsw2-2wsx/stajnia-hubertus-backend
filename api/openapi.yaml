@@ -147,6 +147,13 @@ components:
             $ref: "#/components/schemas/User"
       required: true
 
+    ActivityRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Activity"
+      required: true
+
   responses:
     ApiErrorResponse:
       description: A response sent upon an error
@@ -186,6 +193,24 @@ components:
           schema:
             $ref: "#/components/schemas/UserPassword"
 
+    ActivityResponse:
+      description: Contains a single activity
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Activity"
+
+    ActivityListResponse:
+      description: Contains a list of activities
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Activity"
+
+
+
 
 security:
   - bearerAuth: []
@@ -193,6 +218,7 @@ security:
 tags:
   - name: authentication
   - name: user managment
+  - name: activities
 
 paths:
   /auth:
@@ -298,3 +324,76 @@ paths:
           $ref: "#/components/responses/UserPasswordResponse"
         default:
           $ref: "#/components/responses/ApiErrorResponse"
+
+
+  /activities:
+    summary: Operations on Activities and their constraints
+    get:
+      tags:
+        - activities
+      responses:
+        '200':
+          $ref: "#/components/responses/ActivityListResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    post:
+      tags:
+        - activities
+      description: Creates a new activity
+      requestBody:
+        $ref: "#/components/requestBodies/ActivityRequestBody"
+      responses:
+        '200':
+          description: Activity addedd
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    put:
+      tags:
+        - activities
+      description: Replaces an Activity
+      requestBody:
+        $ref: "#/components/requestBodies/ActivityRequestBody"
+      responses:
+        '200':
+          description: Activity addedd
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    delete:
+      tags:
+        - activities
+      description: Deletes specified user
+      parameters:
+        - name: activityId
+          in: query
+          required: true
+          description: An id of activity to be deleted
+          schema:
+            $ref: "#/components/schemas/Id"
+      responses:
+        '200':
+          description: Operation sucessfull
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+  /activities/{activityId}:
+    summary: Operations on the activity with specified id
+    get:
+      tags:
+        - activities
+      parameters:
+        - name: activityId
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/Id"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/ActivityResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+
