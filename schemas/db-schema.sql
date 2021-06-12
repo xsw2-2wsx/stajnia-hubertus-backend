@@ -43,8 +43,8 @@ CREATE TABLE activities(
     activities_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name varchar(30) NOT NULL,
     description varchar(100) NULL,
-    points int NOT NULL,
-    UNIQUE KEY (activities_name)
+    points decimal NOT NULL,
+    UNIQUE KEY (name)
 );
 
 CREATE TABLE activity_constraints(

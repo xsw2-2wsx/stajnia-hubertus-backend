@@ -200,4 +200,25 @@ internal class BookingServiceTest {
         }
     }
 
+    @Test
+    fun `Test continuous`() {
+        val newBooking = bookingMock(
+            LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)),
+            LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 0)),
+            ActivityTypeMock(points = 3.0),
+        )
+
+        val bookings = listOf(
+            bookingMock(
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0)),
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)),
+                ActivityTypeMock(points = 6.0),
+            ),
+        ).toMutableList()
+
+        assertDoesNotThrow {
+            bookingService.validate(newBooking, bookings)
+        }
+    }
+
 }
