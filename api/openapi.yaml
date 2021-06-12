@@ -21,6 +21,13 @@ components:
       type: integer
       minimum: 0
 
+    Time:
+      description: Represents a time of the day
+      type: string
+      pattern: "^(2[0-3]|[01][0-9]):?([0-5][0-9]):?([0-5][0-9])$"
+      example: "14:04:25"
+      format: time
+
 
     ApiSubError:
       description: A standard sub error schema
@@ -96,11 +103,9 @@ components:
       description: Represents a single time constraint for activity. It allows the actvity to take place within a range
       properties:
         startTime:
-          type: string
-          format: time
+          $ref: "#/components/schemas/Time"
         endTime:
-          type: string
-          format: time
+          $ref: "#/components/schemas/Time"
       required:
         - startTime
         - endTime
