@@ -17,7 +17,7 @@ components:
 
   schemas:
     Id:
-      description: An unique identifier
+      description: An unique identifier. When creating a new entity, leave it at 0 for it to be choosen automatically
       type: integer
       minimum: 0
 
@@ -127,6 +127,7 @@ components:
           items:
             $ref: "#/components/schemas/ActivityConstraint"
       required:
+        - id
         - name
         - description
         - points
