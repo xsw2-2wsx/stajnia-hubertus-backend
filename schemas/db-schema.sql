@@ -55,3 +55,12 @@ CREATE TABLE activity_constraints(
     CONSTRAINT activity_constraints_activities_id_to_activities FOREIGN KEY (activities_id) REFERENCES activities(activities_id)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE configuration(
+    configuration_id int NOT NULL PRIMARY KEY auto_increment,
+    configuration_key varchar(150) NOT NULL,
+    configuration_value varchar(100) NOT NULL,
+    configuration_group varchar(100) NOT NULL,
+    KEY (configuration_key),
+    KEY (configuration_group)
+);
