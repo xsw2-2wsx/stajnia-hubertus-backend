@@ -1,6 +1,6 @@
 package net.jupw.hubertus.app.configuration
 
-interface Configuration : ConfigurationGroup {
+interface Configuration : ConfigurationGroup, net.jupw.hubertus.business.Configuration {
 
     operator fun get(key: ConfigurationGroupKey): ConfigurationGroup
 
