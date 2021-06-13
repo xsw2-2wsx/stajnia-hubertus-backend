@@ -1,7 +1,7 @@
 package net.jupw.hubertus.app.configuration
 
 interface ConfigurationGroup {
-    val key: ConfigurationGroupKey
+    val groupKey: ConfigurationGroupKey
 
     val entries: Collection<ConfigurationEntry>
 
