@@ -3,7 +3,7 @@ package net.jupw.hubertus.app.data.entities
 import javax.persistence.*
 
 @Entity
-@Table(name = "activity_constraints")
+@Table(name = "activities")
 class ActivityEntity(
 
     @Id
