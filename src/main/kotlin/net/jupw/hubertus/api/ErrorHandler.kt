@@ -2,6 +2,7 @@ package net.jupw.hubertus.api
 
 import net.jupw.hubertus.api.models.ApiError
 import net.jupw.hubertus.api.models.ApiSubError
+import net.jupw.hubertus.app.exceptions.ActivityDoesNotExistException
 import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
 import net.jupw.hubertus.app.exceptions.UserNotFoundException
 import org.apache.logging.log4j.LogManager
@@ -252,6 +253,14 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
             subErrors = apiSubErrors
         } as ResponseEntity<Any>
     }
+
+    @ExceptionHandler(ActivityDoesNotExistException::class)
+    fun handleActivityDoesNotExistException(ex: ActivityDoesNotExistException) =
+        error {
+            status = HttpStatus.NOT_FOUND.value()
+            message = "Aktywność nie istnieje"
+            suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION
+        }
 
     override fun handleMissingPathVariable(
         ex: MissingPathVariableException,

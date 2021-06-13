@@ -3,7 +3,7 @@ package net.jupw.hubertus.app.data.entities
 import javax.persistence.*
 
 @Entity
-@Table(name = "activity_constraints")
+@Table(name = "activities")
 class ActivityEntity(
 
     @Id
@@ -18,7 +18,7 @@ class ActivityEntity(
     var description: String,
 
     @Column(name = "points")
-    var points: Int,
+    var points: Double,
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "activity_constraints", joinColumns = [ JoinColumn(name = "activities_id" ) ])

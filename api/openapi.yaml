@@ -17,9 +17,16 @@ components:
 
   schemas:
     Id:
-      description: An unique identifier
+      description: An unique identifier. When creating a new entity, leave it at 0 for it to be choosen automatically
       type: integer
       minimum: 0
+
+    Time:
+      description: Represents a time of the day
+      type: string
+      pattern: "^(2[0-3]|[01][0-9]):?([0-5][0-9]):?([0-5][0-9])$"
+      example: "14:04:25"
+      format: time
 
 
     ApiSubError:
@@ -92,6 +99,40 @@ components:
         newPassword:
           type: string
 
+    ActivityConstraint:
+      description: Represents a single time constraint for activity. It allows the actvity to take place within a range
+      properties:
+        startTime:
+          $ref: "#/components/schemas/Time"
+        endTime:
+          $ref: "#/components/schemas/Time"
+      required:
+        - startTime
+        - endTime
+
+    Activity:
+      description: Represents a single activity
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        description:
+          type: string
+        points:
+          type: number
+          minimum: 0
+        constraints:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityConstraint"
+      required:
+        - id
+        - name
+        - description
+        - points
+        - constraints
+
 
   requestBodies:
     AuthenticationRequestBody:
@@ -106,6 +147,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/User"
+      required: true
+
+    ActivityRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Activity"
       required: true
 
   responses:
@@ -147,6 +195,24 @@ components:
           schema:
             $ref: "#/components/schemas/UserPassword"
 
+    ActivityResponse:
+      description: Contains a single activity
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Activity"
+
+    ActivityListResponse:
+      description: Contains a list of activities
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Activity"
+
+
+
 
 security:
   - bearerAuth: []
@@ -154,6 +220,7 @@ security:
 tags:
   - name: authentication
   - name: user managment
+  - name: activities
 
 paths:
   /auth:
@@ -259,3 +326,76 @@ paths:
           $ref: "#/components/responses/UserPasswordResponse"
         default:
           $ref: "#/components/responses/ApiErrorResponse"
+
+
+  /activities:
+    summary: Operations on Activities and their constraints
+    get:
+      tags:
+        - activities
+      responses:
+        '200':
+          $ref: "#/components/responses/ActivityListResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    post:
+      tags:
+        - activities
+      description: Creates a new activity
+      requestBody:
+        $ref: "#/components/requestBodies/ActivityRequestBody"
+      responses:
+        '200':
+          description: Activity addedd
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    put:
+      tags:
+        - activities
+      description: Replaces an Activity
+      requestBody:
+        $ref: "#/components/requestBodies/ActivityRequestBody"
+      responses:
+        '200':
+          description: Activity addedd
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    delete:
+      tags:
+        - activities
+      description: Deletes specified activity
+      parameters:
+        - name: activityId
+          in: query
+          required: true
+          description: An id of activity to be deleted
+          schema:
+            $ref: "#/components/schemas/Id"
+      responses:
+        '200':
+          description: Operation sucessfull
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+  /activities/{activityId}:
+    summary: Operations on the activity with specified id
+    get:
+      tags:
+        - activities
+      parameters:
+        - name: activityId
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/Id"
+
+      responses:
+        '200':
+          $ref: "#/components/responses/ActivityResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+
