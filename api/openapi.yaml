@@ -130,6 +130,7 @@ components:
         - name
         - description
         - points
+        - constraints
 
 
   requestBodies:
