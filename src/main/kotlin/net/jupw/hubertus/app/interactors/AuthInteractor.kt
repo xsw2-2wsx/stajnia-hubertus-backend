@@ -1,4 +1,4 @@
-package net.jupw.hubertus.app.interactor
+package net.jupw.hubertus.app.interactors
 
 import io.jsonwebtoken.Jwts
 import net.jupw.hubertus.app.entities.User

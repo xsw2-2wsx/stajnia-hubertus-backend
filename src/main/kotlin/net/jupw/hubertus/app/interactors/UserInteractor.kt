@@ -1,4 +1,4 @@
-package net.jupw.hubertus.app.interactor
+package net.jupw.hubertus.app.interactors
 
 import net.jupw.hubertus.app.data.entities.UserEntity
 import net.jupw.hubertus.app.data.repositories.UserRepository

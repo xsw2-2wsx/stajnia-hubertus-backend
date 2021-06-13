@@ -1,6 +1,6 @@
 package net.jupw.hubertus.app.security
 
-import net.jupw.hubertus.app.interactor.UserInteractor
+import net.jupw.hubertus.app.interactors.UserInteractor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.AuthenticationManager

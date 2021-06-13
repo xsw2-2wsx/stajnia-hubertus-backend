@@ -1,7 +1,7 @@
 package net.jupw.hubertus.api.controllers
 
 import net.jupw.hubertus.api.models.User
-import net.jupw.hubertus.app.interactor.UserInteractor
+import net.jupw.hubertus.app.interactors.UserInteractor
 import net.jupw.hubertus.api.converters.convertToModel
 import net.jupw.hubertus.api.models.UserPassword
 import net.jupw.hubertus.api.toResponseEntity

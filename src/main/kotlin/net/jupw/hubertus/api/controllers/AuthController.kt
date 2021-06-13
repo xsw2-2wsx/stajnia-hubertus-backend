@@ -3,7 +3,7 @@ package net.jupw.hubertus.api.controllers
 import net.jupw.hubertus.api.models.AuthenticatedResponse
 import net.jupw.hubertus.api.models.AuthenticationRequest
 import net.jupw.hubertus.api.toResponseEntity
-import net.jupw.hubertus.app.interactor.AuthInteractor
+import net.jupw.hubertus.app.interactors.AuthInteractor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController

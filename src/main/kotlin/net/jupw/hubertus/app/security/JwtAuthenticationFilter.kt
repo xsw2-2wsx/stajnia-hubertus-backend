@@ -3,7 +3,7 @@ package net.jupw.hubertus.app.security
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
-import net.jupw.hubertus.app.interactor.UserInteractor
+import net.jupw.hubertus.app.interactors.UserInteractor
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.http.HttpHeaders
