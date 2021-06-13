@@ -7,10 +7,10 @@ import javax.persistence.Embeddable
 @Embeddable
 class ActivityConstraintEmbeddable(
 
-    @Column(name = "time_start")
+    @Column(name = "activity_constraints_time_start")
     var startTime: LocalTime,
 
-    @Column(name = "time_end")
+    @Column(name = "activity_constraints_time_end")
     var endTime: LocalTime,
 
 )

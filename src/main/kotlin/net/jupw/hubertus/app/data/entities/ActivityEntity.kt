@@ -11,13 +11,13 @@ class ActivityEntity(
     @Column(name = "activities_id")
     var id: Int,
 
-    @Column(name = "name")
+    @Column(name = "activities_name")
     var name: String,
 
-    @Column(name = "description")
+    @Column(name = "activities_description")
     var description: String,
 
-    @Column(name = "points")
+    @Column(name = "activities_points")
     var points: Double,
 
     @ElementCollection(fetch = FetchType.EAGER)

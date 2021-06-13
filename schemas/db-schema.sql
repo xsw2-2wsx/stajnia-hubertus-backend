@@ -41,16 +41,16 @@ CREATE TABLE authorities (
 
 CREATE TABLE activities(
     activities_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name varchar(30) NOT NULL,
-    description varchar(100) NULL,
-    points decimal NOT NULL,
-    UNIQUE KEY (name)
+    activities_name varchar(30) NOT NULL,
+    activities_description varchar(100) NULL,
+    activities_points decimal NOT NULL,
+    UNIQUE KEY (activities_name)
 );
 
 CREATE TABLE activity_constraints(
     activities_id int NOT NULL,
-    time_start time NOT NULL,
-    time_end time NOT NULL,
+    activity_constraints_time_start time NOT NULL,
+    activity_constraints_time_end time NOT NULL,
     KEY (activities_id),
     CONSTRAINT activity_constraints_activities_id_to_activities FOREIGN KEY (activities_id) REFERENCES activities(activities_id)
         ON UPDATE CASCADE ON DELETE CASCADE
