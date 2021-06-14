@@ -1,6 +1,5 @@
 package net.jupw.hubertus.util.validation
 
-import net.jupw.hubertus.app.configuration.exceptions.ConfigurationValidationException
 import java.lang.Exception
 import java.lang.IllegalStateException
 import java.time.LocalTime
@@ -21,7 +20,7 @@ infix fun Requirement.and(other: Requirement): Requirement = { report ->
 
 class RequirementBuilder {
 
-    fun notBlank(): Requirement = {
+    val notBlank: Requirement = {
         if (it.isBlank()) listOf(FailedRequirement(it, "wartość nie może być pusta"))
 
         listOf()
@@ -42,7 +41,7 @@ class RequirementBuilder {
         emptyList()
     }
 
-    fun time(): Requirement = {
+    val time: Requirement = {
         try {
             LocalTime.parse(it)
             emptyList()
@@ -51,7 +50,7 @@ class RequirementBuilder {
         }
     }
 
-    fun int(): Requirement = {
+    val int: Requirement = {
         try {
             if(it.toDouble().compareTo(it.toInt()) != 0)
                 throw IllegalStateException()
@@ -61,7 +60,7 @@ class RequirementBuilder {
         }
     }
 
-    fun number(): Requirement = {
+    val number: Requirement = {
         if(it.toDoubleOrNull() == null)
             listOf(FailedRequirement(it, "musi być liczbą"))
         emptyList()

@@ -17,20 +17,18 @@ enum class ConfKeys : ConfigurationKey {
         """.trimIndent()
 
         override fun validate(value: String) = value.validate {
-            notBlank() and number() and min(0.0)
+            notBlank and number and min(0.0)
         }
-
     },
     MIN_BOOKING_PRECEDENCE_HOURS {
         override val displayName: String = "Minimalne wyprzedzenie rezerwacji"
 
         override val defaultValue: String = "3600000"
 
-        override val description: String
-            get() = super.description + ". Wartość 0 wyłącza tą opcję"
+        override val description: String = ". Wartość 0 wyłącza tą opcję"
 
         override fun validate(value: String) = value.validate {
-            notBlank() and number() and min(0.0)
+            notBlank and number and min(0.0)
         }
 
     },
