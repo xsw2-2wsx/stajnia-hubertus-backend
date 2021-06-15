@@ -19,7 +19,7 @@ class BookingService(
             throw ActivityTypeNotAllowedException(newBooking.activityType)
 
         val precedence = Duration.between(LocalDateTime.now(), newBooking.startTime)
-        val minBookingPrecedence = Duration.ofMillis(conf[ConfKeys.MIN_BOOKING_PRECEDENCE_HOURS].toLong())
+        val minBookingPrecedence = Duration.ofMillis(conf[ConfKeys.MIN_BOOKING_PRECEDENCE_MS].toLong())
         if(minBookingPrecedence > Duration.ZERO && precedence <= minBookingPrecedence)
                 throw NotEnoughPrecedenceException(newBooking, precedence, minBookingPrecedence)
 

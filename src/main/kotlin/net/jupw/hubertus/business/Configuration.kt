@@ -7,7 +7,7 @@ interface Configuration {
     companion object {
         enum class Key {
             MAX_POINTS,
-            MIN_BOOKING_PRECEDENCE_HOURS
+            MIN_BOOKING_PRECEDENCE_MS
         }
     }
 }

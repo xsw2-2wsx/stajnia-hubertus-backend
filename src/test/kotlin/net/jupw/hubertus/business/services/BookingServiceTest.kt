@@ -2,7 +2,6 @@ package net.jupw.hubertus.business.services
 
 import net.jupw.hubertus.business.ConfKeys
 import net.jupw.hubertus.business.Configuration
-import net.jupw.hubertus.business.entities.ActivityType
 import net.jupw.hubertus.business.entities.BookingOwner
 import net.jupw.hubertus.business.exceptions.ActivityTypeNotAllowedException
 import net.jupw.hubertus.business.exceptions.InsufficientSpaceException
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import org.mockito.kotlin.*
-import org.mockito.*
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -25,7 +23,7 @@ internal class BookingServiceTest {
 
     private val configuration: Configuration = mock {
         on { get(ConfKeys.MAX_POINTS) } doReturn "6"
-        on { get(ConfKeys.MIN_BOOKING_PRECEDENCE_HOURS) } doReturn "0"
+        on { get(ConfKeys.MIN_BOOKING_PRECEDENCE_MS) } doReturn "0"
     }
 
     private var bookingService: BookingService = BookingService(configuration)
@@ -173,7 +171,7 @@ internal class BookingServiceTest {
 
     @Test
     fun `Test precedence`() {
-        whenever(configuration[ConfKeys.MIN_BOOKING_PRECEDENCE_HOURS]) doReturn Duration.ofHours(2).toMillis().toString()
+        whenever(configuration[ConfKeys.MIN_BOOKING_PRECEDENCE_MS]) doReturn Duration.ofHours(2).toMillis().toString()
 
         assertDoesNotThrow {
             bookingService.validate(bookingMock(

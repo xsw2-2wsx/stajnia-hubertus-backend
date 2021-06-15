@@ -20,7 +20,7 @@ enum class ConfKeys : ConfigurationKey {
             notBlank and number and min(0.0)
         }
     },
-    MIN_BOOKING_PRECEDENCE_HOURS {
+    MIN_BOOKING_PRECEDENCE_MS {
         override val displayName: String = "Minimalne wyprzedzenie rezerwacji"
 
         override val defaultValue: String = "3600000"
