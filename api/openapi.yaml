@@ -133,6 +133,59 @@ components:
         - points
         - constraints
 
+    ConfigurationEntry:
+      description: Holds a key-value configuration pair
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+        - key
+        - value
+
+    ConfigurationGroupKey:
+      description: A set of configuration entries
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - key
+        - name
+        - description
+
+    ConfigurationKey:
+      description: Metadata about entry
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        defaultValue:
+          type: string
+        description:
+          type: string
+      required:
+        - key
+        - name
+        - defaultValue
+        - description
+
+    ConfigurationEntrySchema:
+      description: Key metadata and current value
+      properties:
+        key:
+          $ref: "#/components/schemas/ConfigurationKey"
+        value:
+          type: string
+      required:
+        - key
+        - value
+
 
   requestBodies:
     AuthenticationRequestBody:
@@ -154,6 +207,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Activity"
+      required: true
+
+    ConfigurationEntryRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConfigurationEntry"
       required: true
 
   responses:
@@ -211,6 +271,29 @@ components:
             items:
               $ref: "#/components/schemas/Activity"
 
+    ConfigurationGroupsResponse:
+      description: Constains configuration groups
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/ConfigurationGroupKey"
+
+    ConfigurationEntrySchemaRespone:
+      description: Contains configuration entry schema
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConfigurationEntrySchema"
+
+    ConfigurationEntryResponse:
+      description: Contains a single configuration entry
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConfigurationEntry"
+
 
 
 
@@ -221,6 +304,7 @@ tags:
   - name: authentication
   - name: user managment
   - name: activities
+  - name: configuration
 
 paths:
   /auth:
@@ -398,4 +482,87 @@ paths:
         default:
           $ref: "#/components/responses/ApiErrorResponse"
 
+
+  /configuration:
+    summary: App configuration
+    get:
+      tags:
+        - configuration
+      responses:
+        '200':
+          $ref: "#/components/responses/ConfigurationGroupsResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+  /configuration/{groupKey}:
+    summary: Operation on configuration group
+    parameters:
+      - name: groupKey
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - configuration
+      responses:
+        '200':
+          $ref: "#/components/responses/ConfigurationEntrySchemaRespone"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    post:
+      tags:
+        - configuration
+      requestBody:
+        $ref: "#/components/requestBodies/ConfigurationEntryRequestBody"
+      responses:
+        '200':
+          description:  Operation completed successfully
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+
+  /configuration/{groupKey}/{key}:
+    summary: Operations on a specific entry
+    parameters:
+      - name: groupKey
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+
+    get:
+      tags:
+        - configuration
+      responses:
+        '200':
+          $ref: "#/components/responses/ConfigurationEntryResponse"
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    post:
+      tags:
+        - configuration
+      requestBody:
+        $ref: "#/components/requestBodies/ConfigurationEntryRequestBody"
+      responses:
+        '200':
+          description:  Operation sucessfull
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
+
+    delete:
+      tags:
+        - configuration
+      responses:
+        '200':
+          description:  Operation sucessfull
+        default:
+          $ref: "#/components/responses/ApiErrorResponse"
 
