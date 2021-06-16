@@ -285,7 +285,9 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ConfigurationEntrySchema"
+            type: array
+            items:
+              $ref: "#/components/schemas/ConfigurationEntrySchema"
 
     ConfigurationEntryResponse:
       description: Contains a single configuration entry
