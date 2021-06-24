@@ -1,6 +1,7 @@
 package net.jupw.hubertus.app.configuration
 
 enum class ConfGroupKeys : ConfigurationGroupKey {
+
     DEFAULT {
         override fun createKey(key: String): ConfigurationKey =
             ConfKeys.valueOf(key)
@@ -12,6 +13,16 @@ enum class ConfGroupKeys : ConfigurationGroupKey {
     }
 
     ;
+
+    companion object {
+        fun valueOfOrNull(value: String): ConfGroupKeys? = try {
+            valueOf(value)
+        } catch(e: Exception) {
+            null
+        }
+
+    }
+
 
     override val key: String
         get() = name
