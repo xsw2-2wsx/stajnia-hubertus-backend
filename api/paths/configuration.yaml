@@ -1,0 +1,9 @@
+summary: App configuration
+get:
+  tags:
+    - configuration
+  responses:
+    '200':
+      $ref: "../responses/ConfigurationGroupsResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

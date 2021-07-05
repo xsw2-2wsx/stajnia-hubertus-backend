@@ -1,0 +1,11 @@
+description: Allows for authentication
+properties:
+  username:
+    type: string
+    description: Username of the user
+  password:
+    type: string
+    description: User password
+required:
+  - username
+  - password

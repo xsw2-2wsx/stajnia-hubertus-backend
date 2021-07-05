@@ -1,0 +1,5 @@
+description: A response sent upon an error
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ApiError.yaml"

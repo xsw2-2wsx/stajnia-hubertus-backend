@@ -1,0 +1,12 @@
+description: A set of configuration entries
+properties:
+  key:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
+required:
+  - key
+  - name
+  - description

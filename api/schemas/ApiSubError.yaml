@@ -1,0 +1,7 @@
+description: A standard sub error schema
+type: object
+properties:
+  message:
+    type: string
+  suggestedAction:
+    type: string

@@ -1,0 +1,21 @@
+description: Represents a single activity
+properties:
+  id:
+    $ref: "Id.yaml"
+  name:
+    type: string
+  description:
+    type: string
+  points:
+    type: number
+    minimum: 0
+  constraints:
+    type: array
+    items:
+      $ref: "ActivityConstraint.yaml"
+required:
+  - id
+  - name
+  - description
+  - points
+  - constraints

@@ -1,0 +1,7 @@
+description: Constains configuration groups
+content:
+  application/json:
+    schema:
+      type: array
+      items:
+        $ref: "../schemas/ConfigurationGroupKey.yaml"

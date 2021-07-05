@@ -1,0 +1,11 @@
+AuthenticationRequestBody:
+  $ref: "AuthenticationRequestBody.yaml"
+
+  UserRequestBody:
+    $ref: "UserRequestBody.yaml"
+
+  ActivityRequestBody:
+    $ref: "ActivityRequestBody.yaml"
+
+  ConfigurationEntryRequestBody:
+    $ref: "ConfigurationEntryRequestBody.yaml"

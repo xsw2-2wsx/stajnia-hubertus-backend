@@ -1,0 +1,14 @@
+description: A standard error schema
+properties:
+  status:
+    type: integer
+    minimum: 400
+    description: A HTTP error code
+  message:
+    type: string
+  suggestedAction:
+    type: string
+  subErrors:
+    type: array
+    items:
+      $ref: "ApiSubError.yaml"

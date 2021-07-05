@@ -1,0 +1,15 @@
+description: Metadata about entry
+properties:
+  key:
+    type: string
+  name:
+    type: string
+  defaultValue:
+    type: string
+  description:
+    type: string
+required:
+  - key
+  - name
+  - defaultValue
+  - description

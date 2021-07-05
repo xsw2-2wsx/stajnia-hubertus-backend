@@ -1,0 +1,9 @@
+description: Key metadata and current value
+properties:
+  key:
+    $ref: "ConfigurationKey.yaml"
+  value:
+    type: string
+required:
+  - key
+  - value

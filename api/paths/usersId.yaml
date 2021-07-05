@@ -1,0 +1,16 @@
+summary: Operations on the user with specified id
+get:
+  tags:
+    - user managment
+  parameters:
+    - name: userId
+      in: path
+      required: true
+      schema:
+        $ref: "../schemas/Id.yaml"
+
+  responses:
+    '200':
+      $ref: "../responses/UserResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
