@@ -1,0 +1,50 @@
+summary: Operations on Activities and their constraints
+get:
+  tags:
+    - activities
+  responses:
+    '200':
+      $ref: "../responses/ActivityListResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  tags:
+    - activities
+  description: Creates a new activity
+  requestBody:
+    $ref: "../requestBodies/ActivityRequestBody.yaml"
+  responses:
+    '200':
+      description: Activity addedd
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+put:
+  tags:
+    - activities
+  description: Replaces an Activity
+  requestBody:
+    $ref: "../requestBodies/ActivityRequestBody.yaml"
+  responses:
+    '200':
+      description: Activity addedd
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+delete:
+  tags:
+    - activities
+  description: Deletes specified activity
+  parameters:
+    - name: activityId
+      in: query
+      required: true
+      description: An id of activity to be deleted
+      schema:
+        $ref: "../schemas/Id.yaml"
+  responses:
+    '200':
+      description: Operation sucessfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

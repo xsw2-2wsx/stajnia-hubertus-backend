@@ -1,0 +1,41 @@
+summary: Operations on a specific entry
+parameters:
+  - name: groupKey
+    in: path
+    required: true
+    schema:
+      type: string
+  - name: key
+    in: path
+    required: true
+    schema:
+      type: string
+
+get:
+  tags:
+    - configuration
+  responses:
+    '200':
+      $ref: "../responses/ConfigurationEntryResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  tags:
+    - configuration
+  requestBody:
+    $ref: "../requestBodies/ConfigurationEntryRequestBody.yaml"
+  responses:
+    '200':
+      description:  Operation sucessfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+delete:
+  tags:
+    - configuration
+  responses:
+    '200':
+      description:  Operation sucessfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

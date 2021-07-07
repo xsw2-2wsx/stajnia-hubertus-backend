@@ -1,0 +1,15 @@
+summary: Resets specified user password
+patch:
+  tags:
+    - user managment
+  parameters:
+    - name: userId
+      in: path
+      required: true
+      schema:
+        $ref: "../schemas/Id.yaml"
+  responses:
+    '200':
+      $ref: "../responses/UserPasswordResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

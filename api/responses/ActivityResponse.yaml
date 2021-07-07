@@ -1,0 +1,5 @@
+description: Contains a single activity
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/Activity.yaml"

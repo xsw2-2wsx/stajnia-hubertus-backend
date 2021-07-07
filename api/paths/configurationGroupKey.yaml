@@ -1,0 +1,26 @@
+summary: Operation on configuration group
+parameters:
+  - name: groupKey
+    in: path
+    required: true
+    schema:
+      type: string
+get:
+  tags:
+    - configuration
+  responses:
+    '200':
+      $ref: "../responses/ConfigurationEntrySchemaResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  tags:
+    - configuration
+  requestBody:
+    $ref: "../requestBodies/ConfigurationEntryRequestBody.yaml"
+  responses:
+    '200':
+      description:  Operation completed successfully
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

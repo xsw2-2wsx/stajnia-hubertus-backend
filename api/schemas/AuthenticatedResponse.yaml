@@ -1,0 +1,5 @@
+description: Response sent upon sucessfull authentication
+properties:
+  token:
+    type: string
+    description: A web token that allows for future authentication

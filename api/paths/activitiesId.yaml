@@ -1,0 +1,16 @@
+summary: Operations on the activity with specified id
+get:
+  tags:
+    - activities
+  parameters:
+    - name: activityId
+      in: path
+      required: true
+      schema:
+        $ref: "../schemas/Id.yaml"
+
+  responses:
+    '200':
+      $ref: "../responses/ActivityResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

@@ -1,0 +1,9 @@
+description: Represents a single time constraint for activity. It allows the actvity to take place within a range
+properties:
+  startTime:
+    $ref: "Time.yaml"
+  endTime:
+    $ref: "Time.yaml"
+required:
+  - startTime
+  - endTime

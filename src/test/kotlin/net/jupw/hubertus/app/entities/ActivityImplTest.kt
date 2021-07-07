@@ -21,7 +21,7 @@ internal class ActivityImplTest {
     @Test
     fun `Test is allowed for fully include constraint`() {
         val activity = testActivity(listOf(
-            ActivityConstraintImpl(0, LocalTime.of(9, 0), LocalTime.of(15, 0))
+            ActivityConstraintImpl(LocalTime.of(9, 0), LocalTime.of(15, 0))
         ))
 
         assertTrue {
@@ -58,8 +58,8 @@ internal class ActivityImplTest {
     fun `Test is allowed with constraint changes`() {
 
         val constraints = LinkedList<ActivityConstraintImpl>().apply {
-            add(ActivityConstraintImpl(0, LocalTime.of(9, 0), LocalTime.of(10, 0)))
-            add(ActivityConstraintImpl(0, LocalTime.of(11, 0), LocalTime.of(12, 0)))
+            add(ActivityConstraintImpl(LocalTime.of(9, 0), LocalTime.of(10, 0)))
+            add(ActivityConstraintImpl(LocalTime.of(11, 0), LocalTime.of(12, 0)))
         }
 
         val activity = testActivity(constraints)
@@ -86,7 +86,7 @@ internal class ActivityImplTest {
         }
 
         constraints.add(
-            ActivityConstraintImpl(0, LocalTime.of(10, 0), LocalTime.of(11, 0))
+            ActivityConstraintImpl(LocalTime.of(10, 0), LocalTime.of(11, 0))
         )
 
         assertTrue {
@@ -107,8 +107,8 @@ internal class ActivityImplTest {
     @Test
     fun `Test date change`() {
         val constraints = LinkedList<ActivityConstraintImpl>().apply {
-            add(ActivityConstraintImpl(0, LocalTime.of(23, 0), LocalTime.of(1, 0)))
-            add(ActivityConstraintImpl(0, LocalTime.of(1, 0), LocalTime.of(2, 0)))
+            add(ActivityConstraintImpl(LocalTime.of(23, 0), LocalTime.of(1, 0)))
+            add(ActivityConstraintImpl(LocalTime.of(1, 0), LocalTime.of(2, 0)))
         }
 
         val activity = testActivity(constraints)
@@ -139,7 +139,7 @@ internal class ActivityImplTest {
     @Test
     fun `test date change on 0h0m`() {
         val constraints = LinkedList<ActivityConstraintImpl>().apply {
-            add(ActivityConstraintImpl(0, LocalTime.of(22, 0), LocalTime.of(0, 0)))
+            add(ActivityConstraintImpl(LocalTime.of(22, 0), LocalTime.of(0, 0)))
         }
 
         val activity = testActivity(constraints)
@@ -162,7 +162,7 @@ internal class ActivityImplTest {
     @Test
     fun `test ranges when start before end`() {
         val constraints = LinkedList<ActivityConstraintImpl>().apply {
-            add(ActivityConstraintImpl(0, LocalTime.of(10, 0), LocalTime.of(15, 0)))
+            add(ActivityConstraintImpl(LocalTime.of(10, 0), LocalTime.of(15, 0)))
         }
 
         val activity = testActivity(constraints)
@@ -178,7 +178,7 @@ internal class ActivityImplTest {
     @Test
     fun `test ranges when end before start`() {
         val constraints = LinkedList<ActivityConstraintImpl>().apply {
-            add(ActivityConstraintImpl(0, LocalTime.of(22, 0), LocalTime.of(1, 0)))
+            add(ActivityConstraintImpl(LocalTime.of(22, 0), LocalTime.of(1, 0)))
         }
 
         val activity = testActivity(constraints)

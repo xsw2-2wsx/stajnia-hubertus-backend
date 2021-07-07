@@ -1,0 +1,5 @@
+description: A response containing authentication token
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/AuthenticatedResponse.yaml"

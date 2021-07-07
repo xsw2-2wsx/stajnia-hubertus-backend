@@ -1,0 +1,43 @@
+Id:
+  $ref: "Id.yaml"
+
+Time:
+  $ref: "Time.yaml"
+
+
+ApiSubError:
+  $ref: "ApiSubError.yaml"
+
+ApiError:
+  $ref: "ApiError.yaml"
+
+
+User:
+  $ref: "User.yaml"
+
+AuthenticationRequest:
+  $ref: "AuthenticationRequest.yaml"
+
+AuthenticatedResponse:
+  $ref: "AuthenticatedResponse.yaml"
+
+UserPassword:
+  $ref: "UserPassword.yaml"
+
+ActivityConstraint:
+  $ref: "ActivityConstraint.yaml"
+
+Activity:
+  $ref: "Activity.yaml"
+
+ConfigurationEntry:
+  $ref: "ConfigurationEntry.yaml"
+
+ConfigurationGroupKey:
+  $ref: "ConfigurationGroupKey.yaml"
+
+ConfigurationKey:
+  $ref: "ConfigurationKey.yaml"
+
+ConfigurationEntrySchema:
+  $ref: "ConfigurationEntrySchema.yaml"

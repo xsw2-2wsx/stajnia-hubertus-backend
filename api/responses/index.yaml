@@ -1,0 +1,30 @@
+ApiErrorResponse:
+  $ref: "ApiErrorResponse.yaml"
+
+AuthenticatedResponse:
+  $ref: "AuthenticatedResponse.yaml"
+
+UserResponse:
+  $ref: "UserResponse.yaml"
+
+UserListResponse:
+  $ref: "UserListResponse.yaml"
+
+
+UserPasswordResponse:
+  $ref: "UserPasswordResponse.yaml"
+
+ActivityResponse:
+  $ref: "ActivityResponse.yaml"
+
+ActivityListResponse:
+  $ref: "ActivityListResponse.yaml"
+
+ConfigurationGroupsResponse:
+  $ref: "ConfigurationGroupsResponse.yaml"
+
+ConfigurationEntrySchemaRespone:
+  $ref: "ConfigurationEntrySchemaResponse.yaml"
+
+ConfigurationEntryResponse:
+  $ref: "ConfigurationEntryResponse.yaml"

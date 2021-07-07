@@ -1,0 +1,54 @@
+summary: Manages users
+get:
+  description: Fetches all users
+  tags:
+    - user managment
+  responses:
+    '200':
+      $ref: "../responses/UserListResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  description: Creates a user with specified username and sends back its password
+  tags:
+    - user managment
+  requestBody:
+    $ref: "../requestBodies/UserRequestBody.yaml"
+  responses:
+    '200':
+      $ref: "../responses/UserPasswordResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+
+put:
+  description: Edits a user
+  tags:
+    - user managment
+  requestBody:
+    $ref: "../requestBodies/UserRequestBody.yaml"
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+
+
+delete:
+  description: Deletes specified user
+  tags:
+    - user managment
+  parameters:
+    - name: userId
+      in: query
+      required: true
+      description: An id of user to be deleted
+      schema:
+        $ref: "../schemas/Id.yaml"
+  responses:
+    '200':
+      description: Operation sucessfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

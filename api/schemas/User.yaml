@@ -1,0 +1,16 @@
+description: Represents a user
+properties:
+  id:
+    $ref: "Id.yaml"
+  name:
+    type: string
+  phone:
+    type: string
+  email:
+    type: string
+  locked:
+    type: boolean
+required:
+  - id
+  - name
+  - locked
