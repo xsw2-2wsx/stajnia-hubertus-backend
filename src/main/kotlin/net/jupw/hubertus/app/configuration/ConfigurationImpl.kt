@@ -24,7 +24,8 @@ class ConfigurationImpl : Configuration {
 
     override val groupKey: ConfigurationGroupKey = ConfGroupKeys.DEFAULT
 
-    override val entries: Collection<ConfigurationEntry> = groups[ConfGroupKeys.DEFAULT]!!.entries
+    override val entries: Collection<ConfigurationEntry>
+        get() = groups[ConfGroupKeys.DEFAULT]!!.entries
 
     override fun get(key: ConfigurationKey): String = groups[ConfGroupKeys.DEFAULT]!![key]
 
