@@ -13,7 +13,7 @@ enum class ConfKeys : ConfigurationKey {
         override val description: String = """
             Zajętość obliczana jest poprzez zsumowanie punktów aktywności wszystkich rezerwacji, które są w danym
             momencie aktywne. $displayName oznacza liczbę punktów która nie może zostać przekroczona. Jeśli będzie 
-            to konieczne, system odmówi użytkowniką składania nowych rezerwacji.
+            to konieczne, system odmówi użytkownikom składania nowych rezerwacji.
         """.trimIndent()
 
         override fun validate(value: String) = value.validate {
@@ -25,7 +25,7 @@ enum class ConfKeys : ConfigurationKey {
 
         override val defaultValue: String = "3600000"
 
-        override val description: String = ". Wartość 0 wyłącza tą opcję"
+        override val description: String = "$displayName. Wartość 0 wyłącza tą opcję"
 
         override fun validate(value: String) = value.validate {
             notBlank and number and min(0.0)
