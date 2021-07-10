@@ -26,4 +26,4 @@ ConfigurationEntrySchemaRespone:
   $ref: "ConfigurationEntrySchemaResponse.yaml"
 
 ConfigurationEntryResponse:
-  $ref: "ConfigurationEntryResponse.yaml"
+  $ref: "ConfigurationValueResponse.yaml"

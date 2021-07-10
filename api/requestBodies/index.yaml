@@ -8,4 +8,4 @@ AuthenticationRequestBody:
     $ref: "ActivityRequestBody.yaml"
 
   ConfigurationEntryRequestBody:
-    $ref: "ConfigurationEntryRequestBody.yaml"
+    $ref: "ConfigurationValueRequestBody.yaml"

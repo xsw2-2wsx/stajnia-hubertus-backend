@@ -30,8 +30,8 @@ ActivityConstraint:
 Activity:
   $ref: "Activity.yaml"
 
-ConfigurationEntry:
-  $ref: "ConfigurationEntry.yaml"
+ConfigurationValue:
+  $ref: "ConfigurationValue.yaml"
 
 ConfigurationGroupKey:
   $ref: "ConfigurationGroupKey.yaml"

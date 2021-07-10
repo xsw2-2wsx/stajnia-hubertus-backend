@@ -2,4 +2,4 @@ description: Contains a single configuration entry
 content:
   application/json:
     schema:
-      $ref: "../schemas/ConfigurationEntry.yaml"
+      $ref: "../schemas/ConfigurationValue.yaml"

@@ -1,0 +1,6 @@
+description: Holds a configuration value
+properties:
+  value:
+    type: string
+required:
+  - value

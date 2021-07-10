@@ -16,7 +16,7 @@ get:
     - configuration
   responses:
     '200':
-      $ref: "../responses/ConfigurationEntryResponse.yaml"
+      $ref: "../responses/ConfigurationValueResponse.yaml"
     default:
       $ref: "../responses/ApiErrorResponse.yaml"
 
@@ -24,7 +24,7 @@ post:
   tags:
     - configuration
   requestBody:
-    $ref: "../requestBodies/ConfigurationEntryRequestBody.yaml"
+    $ref: "../requestBodies/ConfigurationValueRequestBody.yaml"
   responses:
     '200':
       description:  Operation sucessfull
