@@ -6,7 +6,7 @@ import net.jupw.hubertus.app.configuration.ConfigurationKey
 
 typealias ConfigurationGroupKeyModel = net.jupw.hubertus.api.models.ConfigurationGroupKey
 typealias ConfigurationKeyModel = net.jupw.hubertus.api.models.ConfigurationKey
-typealias ConfigurationEntryModel = net.jupw.hubertus.api.models.ConfigurationEntry
+typealias ConfigurationValueModel = net.jupw.hubertus.api.models.ConfigurationValue
 typealias ConfigurationEntrySchemaModel = net.jupw.hubertus.api.models.ConfigurationEntrySchema
 
 fun ConfigurationGroupKey.toModel() = ConfigurationGroupKeyModel(
@@ -16,8 +16,7 @@ fun ConfigurationGroupKey.toModel() = ConfigurationGroupKeyModel(
 )
 
 
-fun ConfigurationEntry.toModel() = ConfigurationEntryModel(
-    key = key.key,
+fun ConfigurationEntry.toModel() = ConfigurationValueModel(
     value = value
 )
 
