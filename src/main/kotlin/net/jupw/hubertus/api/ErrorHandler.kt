@@ -7,6 +7,7 @@ import net.jupw.hubertus.app.configuration.exceptions.InvalidConfigurationKeyExc
 import net.jupw.hubertus.app.exceptions.ActivityDoesNotExistException
 import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
 import net.jupw.hubertus.app.exceptions.UserNotFoundException
+import net.jupw.hubertus.util.validation.ValidationException
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.beans.ConversionNotSupportedException
@@ -320,4 +321,14 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
             message = "Nie można było ustawić tej konfiguracji",
         ) as ResponseEntity<Any>
 
+    @ExceptionHandler(ValidationException::class)
+    fun handleValidationException(ex: ValidationException) = error (
+        status = HttpStatus.BAD_REQUEST,
+        message = "Nieprawidłowe dane - '${ex.report.value}'",
+        suggestedAction = "Zapoznaj się z błędami i popraw dane",
+        subErrors = ex.report.failedRequirement.map { ApiSubError(
+            message = it.message,
+            suggestedAction = "popraw dane"
+        ) }
+    )
 }
