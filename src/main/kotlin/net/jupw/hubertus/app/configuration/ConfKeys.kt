@@ -34,6 +34,14 @@ enum class ConfKeys : ConfigurationKey {
     },
     ;
 
+    companion object {
+        fun valueOfOrNull(value: String): ConfigurationKey? = try {
+            ConfKeys.valueOf(value)
+        } catch(e: Exception) {
+            null
+        }
+    }
+
 
 
     override val key: String

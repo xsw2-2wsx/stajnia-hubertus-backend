@@ -2,6 +2,8 @@ package net.jupw.hubertus.api
 
 import net.jupw.hubertus.api.models.ApiError
 import net.jupw.hubertus.api.models.ApiSubError
+import net.jupw.hubertus.app.configuration.exceptions.ConfigurationGroupDoesNotExistException
+import net.jupw.hubertus.app.configuration.exceptions.InvalidConfigurationKeyException
 import net.jupw.hubertus.app.exceptions.ActivityDoesNotExistException
 import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
 import net.jupw.hubertus.app.exceptions.UserNotFoundException
@@ -38,6 +40,7 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
 
+// TODO: Fix method naming convention
 @Suppress("UNCHECKED_CAST", "UNUSED")
 @ControllerAdvice
 class ErrorHandler : ResponseEntityExceptionHandler() {
@@ -303,5 +306,19 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         log.error(ex.stackTraceToString())
         return error()
     }
-    
+
+    @ExceptionHandler(ConfigurationGroupDoesNotExistException::class)
+    fun handleConfigurationGroupDoesNotExistException(ex: ConfigurationGroupDoesNotExistException): ResponseEntity<Any> =
+        error(
+            status = HttpStatus.BAD_REQUEST,
+            message = "Nie znaleziono żądanej konfiguracji"
+        ) as ResponseEntity<Any>
+
+    @ExceptionHandler(InvalidConfigurationKeyException::class)
+    fun handleInvalidConfigurationKeyException(ex: InvalidConfigurationKeyException): ResponseEntity<Any> =
+        error(
+            status = HttpStatus.BAD_REQUEST,
+            message = "Nie można było ustawić tej konfiguracji",
+        ) as ResponseEntity<Any>
+
 }
