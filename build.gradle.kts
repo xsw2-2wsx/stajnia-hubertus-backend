@@ -6,7 +6,7 @@ plugins {
 	kotlin("jvm") version "1.5.0"
 	kotlin("plugin.spring") version "1.5.0"
 	kotlin("plugin.jpa") version "1.5.0"
-	id("org.hidetake.swagger.generator") version "2.18.2"
+	id("org.openapi.generator") version "5.2.0"
 }
 
 group = "net.jupw"
@@ -17,9 +17,8 @@ repositories {
 	mavenCentral()
 }
 
+
 dependencies {
-	swaggerCodegen("io.swagger.codegen.v3:swagger-codegen-cli:3.0.26")
-	implementation("io.swagger.core.v3:swagger-core:2.1.9")
 
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
@@ -52,23 +51,28 @@ dependencies {
 	}
 }
 
-swaggerSources {
-	register("hubertus") {
-		setInputFile(file("api/openapi.yaml"))
-		code.apply {
-			language = "spring"
-			configFile = file("swagger-codegen-spring-config.json")
-			outputDir = file("build/generated/")
+sourceSets {
+	main {
+		java {
+			srcDir("build/generate-resources/main/src/main/kotlin")
 		}
 	}
 }
 
-sourceSets {
-	main.configure {
-		java {
-			srcDir("build/generated/src/main/java")
-		}
-	}
+openApiGenerate {
+	inputSpec.set("$rootDir/api/openapi.yaml")
+	generatorName.set("kotlin-spring")
+
+	skipValidateSpec.set(true)
+	configFile.set("swagger-codegen-spring-config.json")
+	generateApiDocumentation.set(true)
+
+
+
+}
+
+tasks.compileKotlin.configure {
+	dependsOn(tasks.openApiGenerate)
 }
 
 tasks.bootRun.configure {

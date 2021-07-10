@@ -61,4 +61,3 @@ paths:
 
   /configuration/{groupKey}/{key}:
     $ref: "./paths/configurationEntry.yaml"
-

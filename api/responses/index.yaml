@@ -10,7 +10,6 @@ UserResponse:
 UserListResponse:
   $ref: "UserListResponse.yaml"
 
-
 UserPasswordResponse:
   $ref: "UserPasswordResponse.yaml"
 
