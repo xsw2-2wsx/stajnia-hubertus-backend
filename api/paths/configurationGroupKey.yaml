@@ -13,14 +13,3 @@ get:
       $ref: "../responses/ConfigurationEntrySchemaResponse.yaml"
     default:
       $ref: "../responses/ApiErrorResponse.yaml"
-
-post:
-  tags:
-    - configuration
-  requestBody:
-    $ref: "../requestBodies/ConfigurationValueRequestBody.yaml"
-  responses:
-    '200':
-      description:  Operation completed successfully
-    default:
-      $ref: "../responses/ApiErrorResponse.yaml"
