@@ -66,9 +66,6 @@ openApiGenerate {
 	skipValidateSpec.set(true)
 	configFile.set("swagger-codegen-spring-config.json")
 	generateApiDocumentation.set(true)
-
-
-
 }
 
 tasks.compileKotlin.configure {

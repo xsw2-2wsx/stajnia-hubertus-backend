@@ -40,7 +40,6 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
 
-// TODO: Fix method naming convention
 @Suppress("UNCHECKED_CAST", "UNUSED")
 @ControllerAdvice
 class ErrorHandler : ResponseEntityExceptionHandler() {
@@ -207,7 +206,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         )
 
     @ExceptionHandler(ConstraintViolationException::class)
-    fun handleConstraintViolationException(ex: ConstraintViolationException): ResponseEntity<ApiError> {
+    fun handleConstraintViolation(ex: ConstraintViolationException): ResponseEntity<ApiError> {
         val subErrorCollection = ex.constraintViolations.map { ApiSubError(
             message = "Nieprawidłowa wartość: ${it.invalidValue} - ${it.message}",
             suggestedAction = RECHECK_DATA_SUGGESTED_ACTION
@@ -222,7 +221,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     }
 
     @ExceptionHandler(UserAlreadyExistException::class)
-    fun handleUserAlreadyExistsException(ex: UserAlreadyExistException) =
+    fun handleUserAlreadyExists(ex: UserAlreadyExistException) =
         error (
             status = HttpStatus.CONFLICT,
             message = "Użytkownik o tej nazwie już istnieje",
@@ -253,7 +252,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     }
 
     @ExceptionHandler(ActivityDoesNotExistException::class)
-    fun handleActivityDoesNotExistException(ex: ActivityDoesNotExistException) =
+    fun handleActivityDoesNotExist(ex: ActivityDoesNotExistException) =
         error (
             status = HttpStatus.NOT_FOUND,
             message = "Aktywność nie istnieje",
@@ -308,14 +307,14 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     }
 
     @ExceptionHandler(ConfigurationGroupDoesNotExistException::class)
-    fun handleConfigurationGroupDoesNotExistException(ex: ConfigurationGroupDoesNotExistException): ResponseEntity<Any> =
+    fun handleConfigurationGroupDoesNotExist(ex: ConfigurationGroupDoesNotExistException): ResponseEntity<Any> =
         error(
             status = HttpStatus.BAD_REQUEST,
             message = "Nie znaleziono żądanej konfiguracji"
         ) as ResponseEntity<Any>
 
     @ExceptionHandler(InvalidConfigurationKeyException::class)
-    fun handleInvalidConfigurationKeyException(ex: InvalidConfigurationKeyException): ResponseEntity<Any> =
+    fun handleInvalidConfigurationKey(ex: InvalidConfigurationKeyException): ResponseEntity<Any> =
         error(
             status = HttpStatus.BAD_REQUEST,
             message = "Nie można było ustawić tej konfiguracji",
