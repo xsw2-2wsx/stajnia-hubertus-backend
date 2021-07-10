@@ -22,23 +22,23 @@ class RequirementBuilder {
 
     val notBlank: Requirement = {
         if (it.isBlank()) listOf(FailedRequirement(it, "wartość nie może być pusta"))
-
-        listOf()
+        else listOf()
     }
 
     fun minLen(min: Int): Requirement = {
         if(it.length < min) listOf(FailedRequirement(it, "musi mieć długość conajmniej $min znaków"))
-        emptyList()
+        else emptyList()
     }
 
     fun maxLen(max: Int): Requirement = {
         if(it.length > max) listOf(FailedRequirement(it, "musi mieć długość co najwyżej $max znaków"))
-        emptyList()
+        else emptyList()
     }
 
     fun lenInRange(range: IntRange): Requirement = {
+
         if(it.length !in range) listOf(FailedRequirement(it, "musi mieć długość pomiędzy ${range.first} oraz ${range.last} (włącznie)"))
-        emptyList()
+        else emptyList()
     }
 
     val time: Requirement = {
@@ -61,9 +61,8 @@ class RequirementBuilder {
     }
 
     val number: Requirement = {
-        if(it.toDoubleOrNull() == null)
-            listOf(FailedRequirement(it, "musi być liczbą"))
-        emptyList()
+        if(it.toDoubleOrNull() == null) listOf(FailedRequirement(it, "musi być liczbą"))
+        else emptyList()
     }
 
     fun min(min: Double): Requirement = {
