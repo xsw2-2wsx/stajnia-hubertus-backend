@@ -56,16 +56,13 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     @Autowired
     private lateinit var request: HttpServletRequest
 
-    private fun error(conf: ApiError.() -> Unit): ResponseEntity<ApiError> {
-        val error = ApiError().apply {
-            status = HttpStatus.INTERNAL_SERVER_ERROR.value()
-            message = UNKNOWN_ERROR_MESSAGE
-            suggestedAction = CONTACT_ADMIN_SUGGESTED_ACTION
-            subErrors = emptyList()
-        }
-        error.conf()
-        return error.toResponseEntity(status = HttpStatus.valueOf(error.status))
-    }
+    private fun error(
+        status: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR,
+        message: String = UNKNOWN_ERROR_MESSAGE,
+        suggestedAction: String = CONTACT_ADMIN_SUGGESTED_ACTION,
+        subErrors: List<ApiSubError> = emptyList(),
+    ): ResponseEntity<ApiError> =
+        ApiError(status.value(), message, suggestedAction, subErrors = subErrors).toResponseEntity(status = status)
 
 
     override fun handleHttpRequestMethodNotSupported(
@@ -73,90 +70,90 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+    ) as ResponseEntity<Any>
 
     override fun handleHttpMediaTypeNotSupported(
         ex: HttpMediaTypeNotSupportedException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+    ) as ResponseEntity<Any>
 
     override fun handleHttpMediaTypeNotAcceptable(
         ex: HttpMediaTypeNotAcceptableException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleServletRequestBindingException(
         ex: ServletRequestBindingException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleConversionNotSupported(
         ex: ConversionNotSupportedException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleHttpMessageNotWritable(
         ex: HttpMessageNotWritableException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleMissingServletRequestPart(
         ex: MissingServletRequestPartException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleBindException(
         ex: BindException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleNoHandlerFoundException(
         ex: NoHandlerFoundException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleAsyncRequestTimeoutException(
         ex: AsyncRequestTimeoutException,
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         webRequest: WebRequest
-    ): ResponseEntity<Any>? = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any>? = error (
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     override fun handleExceptionInternal(
         ex: java.lang.Exception,
@@ -164,70 +161,70 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         headers: HttpHeaders,
         httpStatus: HttpStatus,
         request: WebRequest
-    ): ResponseEntity<Any> = error {
-        status = HttpStatus.BAD_REQUEST.value()
-    } as ResponseEntity<Any>
+    ): ResponseEntity<Any> = error(
+        status = HttpStatus.BAD_REQUEST
+        ) as ResponseEntity<Any>
 
     @ExceptionHandler(UserNotFoundException::class)
     fun handleUserNotFound(ex: UserNotFoundException) =
-        error {
-            status = HttpStatus.NOT_FOUND.value()
-            message = "Podany użytkownik nie istnieje"
-            suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION
-        }
+        error(
+            status = HttpStatus.NOT_FOUND,
+            message = "Podany użytkownik nie istnieje",
+            suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
+        )
 
     @ExceptionHandler(BadCredentialsException::class)
     fun handleBadCredentials(ex: BadCredentialsException): ResponseEntity<ApiError> =
-        error {
-            status = HttpStatus.UNAUTHORIZED.value()
-            message = "Nieprawidłowa nazwa użytkownika lub hasło"
-            suggestedAction = "Upewnij się, że CapsLock jest wyłączony i spróbuj ponownie"
-        }
+        error (
+            status = HttpStatus.UNAUTHORIZED,
+            message = "Nieprawidłowa nazwa użytkownika lub hasło",
+            suggestedAction = "Upewnij się, że CapsLock jest wyłączony i spróbuj ponownie",
+        )
 
     @ExceptionHandler(DisabledException::class)
     fun handleAccountDisabled(ex: DisabledException): ResponseEntity<ApiError> =
-        error {
-            status = HttpStatus.FORBIDDEN.value()
-            message = "Twoje konto zostało wyłączone"
-        }
+        error (
+            status = HttpStatus.FORBIDDEN,
+            message = "Twoje konto zostało wyłączone",
+        )
 
     @ExceptionHandler(LockedException::class)
     fun handleAccountLocked(ex: LockedException) =
-        error {
-            status = HttpStatus.FORBIDDEN.value()
-            message = "Twoje konto zostało zablokowane"
-        }
+        error (
+            status = HttpStatus.FORBIDDEN,
+            message = "Twoje konto zostało zablokowane",
+        )
 
     @ExceptionHandler(AccessDeniedException::class)
     fun handleAccessDenied(ex: AccessDeniedException) =
-        error {
-            status = HttpStatus.FORBIDDEN.value()
-            message = "Nie masz uprawnień do wykonania tej czynności"
-            suggestedAction = "Skontaktuj się z administratorem w celu nadania uprawnień"
-        }
+        error (
+            status = HttpStatus.FORBIDDEN,
+            message = "Nie masz uprawnień do wykonania tej czynności",
+            suggestedAction = "Skontaktuj się z administratorem w celu nadania uprawnień",
+        )
 
     @ExceptionHandler(ConstraintViolationException::class)
     fun handleConstraintViolationException(ex: ConstraintViolationException): ResponseEntity<ApiError> {
-        val subErrorCollection = ex.constraintViolations.map { ApiSubError().apply {
-            message = "Nieprawidłowa wartość: ${it.invalidValue} - ${it.message}"
+        val subErrorCollection = ex.constraintViolations.map { ApiSubError(
+            message = "Nieprawidłowa wartość: ${it.invalidValue} - ${it.message}",
             suggestedAction = RECHECK_DATA_SUGGESTED_ACTION
-        }}
+        )}
 
-        return error {
-            status = HttpStatus.BAD_REQUEST.value()
-            message = "Nieprawidłowe dane"
-            suggestedAction = RECHECK_DATA_SUGGESTED_ACTION
-            subErrors = subErrorCollection
-        }
+        return error (
+            status = HttpStatus.BAD_REQUEST,
+            message = "Nieprawidłowe dane",
+            suggestedAction = RECHECK_DATA_SUGGESTED_ACTION,
+            subErrors = subErrorCollection,
+        )
     }
 
     @ExceptionHandler(UserAlreadyExistException::class)
     fun handleUserAlreadyExistsException(ex: UserAlreadyExistException) =
-        error {
-            status = HttpStatus.CONFLICT.value()
-            message = "Użytkownik o tej nazwie już istnieje"
-            suggestedAction = "Wybierz inną nazwę"
-        }
+        error (
+            status = HttpStatus.CONFLICT,
+            message = "Użytkownik o tej nazwie już istnieje",
+            suggestedAction = "Wybierz inną nazwę",
+        )
 
     override fun handleMethodArgumentNotValid(
         ex: MethodArgumentNotValidException,
@@ -238,29 +235,27 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         val apiSubErrors: MutableList<ApiSubError> = LinkedList()
 
         ex.bindingResult.fieldErrors.forEach {
-            apiSubErrors.add(
-                ApiSubError().apply {  
-                    message = "Nieprawidłowa wartość: ${it.rejectedValue} - ${it.defaultMessage}"
-                    suggestedAction = RECHECK_DATA_SUGGESTED_ACTION
-                }
-            )
+            apiSubErrors.add(ApiSubError (
+                    message = "Nieprawidłowa wartość: ${it.rejectedValue} - ${it.defaultMessage}",
+                    suggestedAction = RECHECK_DATA_SUGGESTED_ACTION,
+                ))
         }
 
-        return error {
-            status = HttpStatus.BAD_REQUEST.value()
-            message = "Nieprawidłowe dane"
-            suggestedAction = RECHECK_DATA_SUGGESTED_ACTION
-            subErrors = apiSubErrors
-        } as ResponseEntity<Any>
+        return error (
+            status = HttpStatus.BAD_REQUEST,
+            message = "Nieprawidłowe dane",
+            suggestedAction = RECHECK_DATA_SUGGESTED_ACTION,
+            subErrors = apiSubErrors,
+        ) as ResponseEntity<Any>
     }
 
     @ExceptionHandler(ActivityDoesNotExistException::class)
     fun handleActivityDoesNotExistException(ex: ActivityDoesNotExistException) =
-        error {
-            status = HttpStatus.NOT_FOUND.value()
-            message = "Aktywność nie istnieje"
-            suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION
-        }
+        error (
+            status = HttpStatus.NOT_FOUND,
+            message = "Aktywność nie istnieje",
+            suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
+        )
 
     override fun handleMissingPathVariable(
         ex: MissingPathVariableException,
@@ -268,9 +263,9 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         httpStatus: HttpStatus,
         request: WebRequest
     ): ResponseEntity<Any> =
-        error {
-            status = HttpStatus.BAD_REQUEST.value()
-        } as ResponseEntity<Any>
+        error (
+            status = HttpStatus.BAD_REQUEST,
+        ) as ResponseEntity<Any>
 
     override fun handleMissingServletRequestParameter(
         ex: MissingServletRequestParameterException,
@@ -278,9 +273,9 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         httpStatus: HttpStatus,
         request: WebRequest
     ): ResponseEntity<Any> =
-        error {
-            status = HttpStatus.BAD_REQUEST.value()
-        } as ResponseEntity<Any>
+        error (
+            status = HttpStatus.BAD_REQUEST,
+        ) as ResponseEntity<Any>
 
     override fun handleTypeMismatch(
         ex: TypeMismatchException,
@@ -288,9 +283,9 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         httpStatus: HttpStatus,
         request: WebRequest
     ): ResponseEntity<Any> =
-        error {
-            status = HttpStatus.BAD_REQUEST.value()
-        } as ResponseEntity<Any>
+        error (
+            status = HttpStatus.BAD_REQUEST,
+        ) as ResponseEntity<Any>
 
     override fun handleHttpMessageNotReadable(
         ex: HttpMessageNotReadableException,
@@ -298,15 +293,15 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         httpStatus: HttpStatus,
         request: WebRequest
     ): ResponseEntity<Any> =
-        error {
-            status = HttpStatus.BAD_REQUEST.value()
-        } as ResponseEntity<Any>
+        error (
+            status = HttpStatus.BAD_REQUEST,
+        ) as ResponseEntity<Any>
 
     @ExceptionHandler(Exception::class)
     fun handleGenericException(ex: java.lang.Exception): ResponseEntity<ApiError> {
         log.error("An unexpected exception has been caught")
         log.error(ex.stackTraceToString())
-        return error {  }
+        return error()
     }
     
 }

@@ -18,23 +18,23 @@ class ActivitiesController : ActivitiesApi {
     override fun activitiesActivityIdGet(activityId: Int): ResponseEntity<Activity> =
         activityInteractor.findActivityById(activityId).toModel().toResponseEntity()
 
-    override fun activitiesGet(): ResponseEntity<MutableList<Activity>> =
+    override fun activitiesGet(): ResponseEntity<List<Activity>> =
         activityInteractor.findActivities().map { it.toModel() }.toMutableList().toResponseEntity()
 
-    override fun activitiesDelete(activityId: Int): ResponseEntity<Void> {
+    override fun activitiesDelete(activityId: Int): ResponseEntity<Unit> {
         activityInteractor.deleteActivity(activityId)
         return ResponseEntity.ok().build()
     }
 
-    override fun activitiesPost(a: Activity): ResponseEntity<Void> {
-        activityInteractor.saveActivity(a.id, a.name, a.description, a.points.toDouble(), a.constraints.map {
+    override fun activitiesPost(activity: Activity): ResponseEntity<Unit> {
+        activityInteractor.saveActivity(activity.id, activity.name, activity.description, activity.points.toDouble(), activity.constraints.map {
             Pair(LocalTime.parse(it.startTime), LocalTime.parse(it.endTime))
         })
         return ResponseEntity.ok().build()
     }
 
-    override fun activitiesPut(a: Activity): ResponseEntity<Void> {
-        activityInteractor.modifyActivity(a.id, a.name, a.description, a.points.toDouble(), a.constraints.map {
+    override fun activitiesPut(activity: Activity): ResponseEntity<Unit> {
+        activityInteractor.modifyActivity(activity.id, activity.name, activity.description, activity.points.toDouble(), activity.constraints.map {
             Pair(LocalTime.parse(it.startTime), LocalTime.parse(it.endTime))
         })
         return ResponseEntity.ok().build()

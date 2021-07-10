@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.security.SecureRandom
 import java.util.*
+import java.util.Collections.emptyList
 import javax.transaction.Transactional
 
 @Service
