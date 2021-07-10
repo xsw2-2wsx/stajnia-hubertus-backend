@@ -4,6 +4,7 @@ import net.jupw.hubertus.app.data.repositories.ConfigurationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
+import javax.transaction.Transactional
 
 @Component
 class ConfigurationImpl : Configuration {
@@ -35,6 +36,7 @@ class ConfigurationImpl : Configuration {
 
     override fun save(entry: ConfigurationEntry) = groups[ConfGroupKeys.DEFAULT]!!.save(entry)
 
+    @Transactional
     override fun remove(key: ConfigurationKey) = groups[ConfGroupKeys.DEFAULT]!!.remove(key)
 
     override fun get(key: net.jupw.hubertus.business.Configuration.Companion.Key): String =
