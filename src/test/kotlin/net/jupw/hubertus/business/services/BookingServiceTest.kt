@@ -32,7 +32,7 @@ internal class BookingServiceTest {
     fun `Throw exception when Activity is not allowed`() {
         val activity = ActivityTypeMock(isAllowed = false)
 
-        val booking = Booking(LocalDateTime.now(), LocalDateTime.now(), activity, "test", object : BookingOwner{})
+        val booking = bookingMock(LocalDateTime.now(), LocalDateTime.now(), activity)
 
         assertThrows<ActivityTypeNotAllowedException> {
             bookingService.validate(booking, emptyList())
