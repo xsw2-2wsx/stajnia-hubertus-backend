@@ -4,6 +4,8 @@ Id:
 Time:
   $ref: "Time.yaml"
 
+DateTime:
+    $ref: "DateTime.yaml"
 
 ApiSubError:
   $ref: "ApiSubError.yaml"
@@ -41,3 +43,6 @@ ConfigurationKey:
 
 ConfigurationEntrySchema:
   $ref: "ConfigurationEntrySchema.yaml"
+
+Booking:
+    $ref: "Booking.yaml"

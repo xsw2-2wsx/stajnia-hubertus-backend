@@ -1,0 +1,4 @@
+description: Represents a date and time
+type: string
+example: 2021-07-11T14:46:12
+format: date-time

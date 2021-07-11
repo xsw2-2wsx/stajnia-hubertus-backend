@@ -30,6 +30,7 @@ tags:
   - name: user managment
   - name: activities
   - name: configuration
+  - name: bookings
 
 paths:
   /auth:
@@ -61,3 +62,9 @@ paths:
 
   /configuration/{groupKey}/{key}:
     $ref: "./paths/configurationEntry.yaml"
+
+  /bookings:
+    $ref: "./paths/bookings.yaml"
+
+  /bookings/{bookingId}:
+    $ref: "./paths/bookingsId.yaml"

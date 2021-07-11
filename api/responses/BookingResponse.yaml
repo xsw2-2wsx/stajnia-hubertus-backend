@@ -1,0 +1,5 @@
+description: Contains a single booking
+content:
+    application/json:
+        schema:
+          $ref: "../schemas/Booking.yaml"

@@ -1,0 +1,7 @@
+description: Contains a list of bookings
+content:
+    application/json:
+        schema:
+          type: array
+          items:
+              $ref: "../schemas/Booking.yaml"

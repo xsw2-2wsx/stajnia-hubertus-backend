@@ -1,0 +1,32 @@
+description: Represents a booking
+properties:
+  id:
+    $ref: "Id.yaml"
+
+  creationTime:
+    $ref: "DateTime.yaml"
+
+  startTime:
+    $ref: "DateTime.yaml"
+
+  endTime:
+    $ref: "DateTime.yaml"
+
+  activityId:
+    $ref: "Id.yaml"
+
+  subject:
+    type: string
+    maxLength: 15
+
+  userId:
+    $ref: "Id.yaml"
+
+required:
+  - id
+  - creationTime
+  - startTime
+  - endTime
+  - activityId
+  - subject
+  - userId

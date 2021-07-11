@@ -9,3 +9,6 @@ AuthenticationRequestBody:
 
   ConfigurationEntryRequestBody:
     $ref: "ConfigurationValueRequestBody.yaml"
+
+  BookingRequestBody:
+    $ref: "BookingRequestBody.yaml"

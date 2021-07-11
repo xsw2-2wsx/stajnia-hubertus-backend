@@ -1,0 +1,24 @@
+summary: Operations on bookings
+parameters:
+  - name: bookingId
+    in: query
+    required: true
+get:
+  tags:
+    - bookings
+
+  responses:
+    '200':
+      $ref: "../responses/BookingResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+delete:
+  tags:
+    - bookings
+
+  responses:
+    '200':
+      description: Operation successful
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

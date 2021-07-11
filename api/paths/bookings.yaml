@@ -1,0 +1,47 @@
+summary: Operations on bookings
+get:
+  tags:
+    - bookings
+
+  parameters:
+    - name: rangeStart
+      in: query
+    - name: rangeEnd
+      in: query
+    - name: startTimeStart
+      in: query
+    - name: startTimeEnd
+      in: query
+    - name: endTimestart
+      in: query
+    - name: endTimeEnd
+      in: query
+    - name: creationTimeStart
+      in: query
+    - name: creationTimeEnd
+      in: query
+    - name: userId
+      in: query
+    - name: activityId
+      in: query
+    - name: subject
+      in: query
+
+  responses:
+      '200':
+        $ref: "../responses/BookingListResponse.yaml"
+      default:
+        $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  tags:
+    - bookings
+
+  requestBody:
+    $ref: "../requestBodies/BookingRequestBody.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

@@ -27,3 +27,9 @@ ConfigurationEntrySchemaRespone:
 
 ConfigurationEntryResponse:
   $ref: "ConfigurationValueResponse.yaml"
+
+BookingResponse:
+  $ref: "BookingResponse.yaml"
+
+BookingListResponse:
+  $ref: "BookingListResponse.yaml"
