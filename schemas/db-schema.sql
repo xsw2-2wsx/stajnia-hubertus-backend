@@ -73,7 +73,8 @@ CREATE TABLE bookings(
     activities_id int NOT NULL,
     subject varchar(15) NOT NULL,
     users_id int NOT NULL,
-    KEY (start_time, end_time),
+    KEY (start_time),
+    KEY (end_time),
     KEY (activities_id),
     KEY (users_id),
     CONSTRAINT activities_id_to_activities FOREIGN KEY (activities_id) REFERENCES activities(activities_id)
