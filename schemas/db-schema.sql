@@ -64,3 +64,20 @@ CREATE TABLE configuration(
     KEY (configuration_key),
     KEY (configuration_group)
 );
+
+CREATE TABLE bookings(
+    bookings_id int NOT NULL PRIMARY KEY auto_increment,
+    creation_time timestamp NOT NULL default CURRENT_TIMESTAMP,
+    start_time datetime NOT NULL,
+    end_time datetime NOT NULL,
+    activities_id int NOT NULL,
+    subject varchar(15) NOT NULL,
+    users_id int NOT NULL,
+    KEY (start_time, end_time),
+    KEY (activities_id),
+    KEY (users_id),
+    CONSTRAINT activities_id_to_activities FOREIGN KEY (activities_id) REFERENCES activities(activities_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT users_id_to_users FOREIGN KEY (users_id) REFERENCES users(users_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
