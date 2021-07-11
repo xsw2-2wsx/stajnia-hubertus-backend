@@ -33,30 +33,30 @@ class ActivityInteractor {
         name: String,
         description: String,
         points: Double,
-        constraints: List<Pair<LocalTime, LocalTime>>
+        constraints: Set<Pair<LocalTime, LocalTime>>
     ) =
         activityRepository.save(ActivityEntity(
             id, name, description, points,
-            constraints.map { ActivityConstraintEmbeddable(it.first, it.second) }
+            constraints.map { ActivityConstraintEmbeddable(it.first, it.second) }.toSet()
         ))
 
     @Transactional
-    fun setConstraints(id: Int, constraint: List<Pair<LocalTime, LocalTime>>) {
+    fun setConstraints(id: Int, constraint: Set<Pair<LocalTime, LocalTime>>) {
         val activity = activityRepository.findByIdOrNull(1)?:
             throw ActivityDoesNotExistException(id)
 
-        activity.constraints = constraint.map { it.toConstraint() }
+        activity.constraints = constraint.map { it.toConstraint() }.toSet()
     }
 
     @Transactional
-    fun modifyActivity(id: Int, name: String, description: String, points: Double, constraints: List<Pair<LocalTime, LocalTime>>) {
+    fun modifyActivity(id: Int, name: String, description: String, points: Double, constraints: Set<Pair<LocalTime, LocalTime>>) {
         val activityToEdit = activityRepository.findByIdOrNull(id)?: throw ActivityDoesNotExistException(id)
         activityToEdit.let {
             it.id = id
             it.name = name
             it.description = description
             it.points = points
-            it.constraints = constraints.map { p ->  p.toConstraint() }
+            it.constraints = constraints.map { p ->  p.toConstraint() }.toSet()
         }
     }
 
@@ -69,7 +69,7 @@ class ActivityInteractor {
         name,
         description,
         points,
-        constraints.map { it.toActivityConstraint() }
+        constraints.map { it.toActivityConstraint() }.toSet()
     )
 
     fun Activity.toEntity() = ActivityEntity(
@@ -77,7 +77,7 @@ class ActivityInteractor {
         name,
         description,
         points,
-        constraints.map { it.toEntity() }
+        constraints.map { it.toEntity() }.toSet()
     )
 
     fun ActivityConstraintEmbeddable.toActivityConstraint() = ActivityConstraintImpl(

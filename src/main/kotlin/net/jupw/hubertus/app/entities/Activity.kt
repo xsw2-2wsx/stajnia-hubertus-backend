@@ -16,6 +16,6 @@ interface Activity : ActivityType {
 
     override var points: Double
 
-    var constraints: List<ActivityConstraint>
+    var constraints: Set<ActivityConstraint>
 
 }

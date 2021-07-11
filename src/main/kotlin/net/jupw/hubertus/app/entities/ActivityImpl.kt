@@ -7,7 +7,7 @@ class ActivityImpl(
     override var name: String,
     override var description: String,
     override var points: Double,
-    override var constraints: List<ActivityConstraint>
+    override var constraints: Set<ActivityConstraint>
 ) : Activity {
     override fun isAllowed(start: LocalDateTime, end: LocalDateTime): Boolean {
         var currentTime = start

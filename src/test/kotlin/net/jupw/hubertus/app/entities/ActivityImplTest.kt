@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Assertions.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.util.*
+import kotlin.collections.LinkedHashSet
 
 internal class ActivityImplTest {
 
-    private fun testActivity(constraints: List<ActivityConstraint>) = ActivityImpl(
+    private fun testActivity(constraints: Set<ActivityConstraint>) = ActivityImpl(
         -1,
         "",
         "",
@@ -20,7 +20,7 @@ internal class ActivityImplTest {
 
     @Test
     fun `Test is allowed for fully include constraint`() {
-        val activity = testActivity(listOf(
+        val activity = testActivity(setOf(
             ActivityConstraintImpl(LocalTime.of(9, 0), LocalTime.of(15, 0))
         ))
 
@@ -57,7 +57,7 @@ internal class ActivityImplTest {
     @Test
     fun `Test is allowed with constraint changes`() {
 
-        val constraints = LinkedList<ActivityConstraintImpl>().apply {
+        val constraints = LinkedHashSet<ActivityConstraintImpl>().apply {
             add(ActivityConstraintImpl(LocalTime.of(9, 0), LocalTime.of(10, 0)))
             add(ActivityConstraintImpl(LocalTime.of(11, 0), LocalTime.of(12, 0)))
         }
@@ -106,7 +106,7 @@ internal class ActivityImplTest {
 
     @Test
     fun `Test date change`() {
-        val constraints = LinkedList<ActivityConstraintImpl>().apply {
+        val constraints = LinkedHashSet<ActivityConstraintImpl>().apply {
             add(ActivityConstraintImpl(LocalTime.of(23, 0), LocalTime.of(1, 0)))
             add(ActivityConstraintImpl(LocalTime.of(1, 0), LocalTime.of(2, 0)))
         }
@@ -138,7 +138,7 @@ internal class ActivityImplTest {
 
     @Test
     fun `test date change on 0h0m`() {
-        val constraints = LinkedList<ActivityConstraintImpl>().apply {
+        val constraints = LinkedHashSet<ActivityConstraintImpl>().apply {
             add(ActivityConstraintImpl(LocalTime.of(22, 0), LocalTime.of(0, 0)))
         }
 
@@ -161,7 +161,7 @@ internal class ActivityImplTest {
 
     @Test
     fun `test ranges when start before end`() {
-        val constraints = LinkedList<ActivityConstraintImpl>().apply {
+        val constraints = LinkedHashSet<ActivityConstraintImpl>().apply {
             add(ActivityConstraintImpl(LocalTime.of(10, 0), LocalTime.of(15, 0)))
         }
 
@@ -177,7 +177,7 @@ internal class ActivityImplTest {
 
     @Test
     fun `test ranges when end before start`() {
-        val constraints = LinkedList<ActivityConstraintImpl>().apply {
+        val constraints = LinkedHashSet<ActivityConstraintImpl>().apply {
             add(ActivityConstraintImpl(LocalTime.of(22, 0), LocalTime.of(1, 0)))
         }
 

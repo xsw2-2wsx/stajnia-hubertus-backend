@@ -22,6 +22,6 @@ class ActivityEntity(
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "activity_constraints", joinColumns = [ JoinColumn(name = "activities_id" ) ])
-    var constraints: List<ActivityConstraintEmbeddable>,
+    var constraints: Set<ActivityConstraintEmbeddable>,
 
 )

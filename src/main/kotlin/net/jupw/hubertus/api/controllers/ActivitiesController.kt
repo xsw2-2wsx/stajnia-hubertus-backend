@@ -29,14 +29,14 @@ class ActivitiesController : ActivitiesApi {
     override fun activitiesPost(activity: Activity): ResponseEntity<Unit> {
         activityInteractor.saveActivity(activity.id, activity.name, activity.description, activity.points.toDouble(), activity.constraints.map {
             Pair(LocalTime.parse(it.startTime), LocalTime.parse(it.endTime))
-        })
+        }.toSet())
         return ResponseEntity.ok().build()
     }
 
     override fun activitiesPut(activity: Activity): ResponseEntity<Unit> {
         activityInteractor.modifyActivity(activity.id, activity.name, activity.description, activity.points.toDouble(), activity.constraints.map {
             Pair(LocalTime.parse(it.startTime), LocalTime.parse(it.endTime))
-        })
+        }.toSet())
         return ResponseEntity.ok().build()
     }
 }
