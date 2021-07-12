@@ -1,0 +1,18 @@
+description: User managment API
+tags:
+  - user managment
+parameters:
+  - name: userId
+    in: path
+    required: true
+    schema:
+      $ref: "../schemas/Id.yaml"
+delete:
+  description: Deletes specified user
+  tags:
+    - user managment
+  responses:
+    '200':
+      description: Operation sucessfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

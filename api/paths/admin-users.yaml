@@ -1,0 +1,25 @@
+summary: User managemnt API
+post:
+  description: Creates a user with specified username and sends back its password
+  tags:
+    - user managment
+  requestBody:
+    $ref: "../requestBodies/UserRequestBody.yaml"
+  responses:
+    '200':
+      $ref: "../responses/UserPasswordResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+
+put:
+  description: Edits a user
+  tags:
+    - user managment
+  requestBody:
+    $ref: "../requestBodies/UserRequestBody.yaml"
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
