@@ -1,0 +1,15 @@
+summary: Administrative API for a specific booking
+parameters:
+  - name: bookingId
+    in: query
+    required: true
+
+delete:
+  tags:
+    - booking managment
+
+  responses:
+    '200':
+      description: Operation successful
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
