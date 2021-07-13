@@ -1,0 +1,4 @@
+description: Contains a list of avaliable booking hours
+type: array
+items:
+  $ref: "Time.yaml"

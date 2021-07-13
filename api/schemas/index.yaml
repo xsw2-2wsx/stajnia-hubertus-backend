@@ -45,4 +45,7 @@ ConfigurationEntrySchema:
   $ref: "ConfigurationEntrySchema.yaml"
 
 Booking:
-    $ref: "Booking.yaml"
+  $ref: "Booking.yaml"
+
+AllowedTime:
+  $ref: "AllowedTime.yaml"

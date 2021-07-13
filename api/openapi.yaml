@@ -76,5 +76,8 @@ paths:
   /bookings/{bookingId}:
     $ref: "./paths/bookingsId.yaml"
 
+  /bookings/time:
+    $ref: "./paths/bookingTime.yaml"
+
   /admin/bookings/bookingId:
     $ref: "./paths/admin-bookingsId.yaml"

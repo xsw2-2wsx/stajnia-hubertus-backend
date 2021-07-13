@@ -1,0 +1,11 @@
+summary: Allows for obtaining times that are valid booking times
+get:
+  tags:
+    - bookings
+
+  responses:
+    '200':
+      $ref: "../responses/BookingTimeResponse.yaml"
+
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
