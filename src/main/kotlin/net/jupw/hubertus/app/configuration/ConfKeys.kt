@@ -32,11 +32,48 @@ enum class ConfKeys : ConfigurationKey {
         }
 
     },
+
+    BOOKING_HOURS_START {
+        override val displayName: String = "Początkowa godzina dozwolonych czasów rezerwacji"
+
+        override val defaultValue: String = "06:00:00"
+
+        override val description: String = """Pierwsza dozwolona godzina rezerwacji, dalsze są obliczane dodając do niej interwał"""
+
+        override fun validate(value: String) = value.validate { notBlank and time }
+
+    },
+
+    BOOKING_INTERVAL_MS {
+        override val displayName: String = "Interwał dozwoloncyh godzin"
+
+        override val defaultValue: String = "1800000"
+
+        override fun validate(value: String) = value.validate { int and min(0.0) }
+
+        override val description: String = """
+            Interwał dodawany do godziny początkowej w celu uzyskania kolejnych dozwolonych godzin. Przykładowo, przy 
+            godzinie początkowej 6:00 i interwale 30 min dozwolone godziny wynosić będą: 6:00, 6:30, 7:00, 7:30 ...
+        """.trimIndent()
+    },
+
+    BOOKING_HORUS_END {
+        override val displayName: String = "Ostatnia dozwolona godzina rezerwacji"
+
+        override val defaultValue: String = "23:00:00"
+
+        override val description: String = """
+            Ostatnia dozwolona godzina rezerwacji, nie może zostać przekroczona
+        """.trimIndent()
+
+        override fun validate(value: String) = value.validate { notBlank and time }
+
+    }
     ;
 
     companion object {
         fun valueOfOrNull(value: String): ConfigurationKey? = try {
-            ConfKeys.valueOf(value)
+            valueOf(value)
         } catch(e: Exception) {
             null
         }
