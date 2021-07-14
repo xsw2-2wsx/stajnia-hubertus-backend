@@ -1,5 +1,6 @@
 package net.jupw.hubertus.app.interactors
 
+import net.jupw.hubertus.app.data.converters.toUser
 import net.jupw.hubertus.app.data.entities.UserEntity
 import net.jupw.hubertus.app.data.repositories.UserRepository
 import net.jupw.hubertus.app.entities.User
@@ -97,15 +98,5 @@ class UserInteractor : UserDetailsService {
 
     private fun secRandomString(len: Int) =
         Base64.getEncoder().encodeToString(ByteArray(len).also { random.nextBytes(it) })
-
-    private fun UserEntity.toUser() = UserImpl(
-        id,
-        name,
-        password,
-        phone,
-        email,
-        isLocked,
-        roles.flatMap { it.authorities }
-    )
 
 }

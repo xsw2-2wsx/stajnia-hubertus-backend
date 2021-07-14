@@ -1,5 +1,7 @@
 package net.jupw.hubertus.app.interactors
 
+import net.jupw.hubertus.app.data.converters.toActivity
+import net.jupw.hubertus.app.data.converters.toConstraint
 import net.jupw.hubertus.app.data.entities.ActivityConstraintEmbeddable
 import net.jupw.hubertus.app.data.entities.ActivityEntity
 import net.jupw.hubertus.app.data.repositories.ActivityRepository
@@ -63,31 +65,5 @@ class ActivityInteractor {
     fun deleteActivity(id: Int) =
         if(activityRepository.existsById(id)) activityRepository.deleteById(id)
         else throw ActivityDoesNotExistException(id)
-
-    fun ActivityEntity.toActivity() = ActivityImpl(
-        id,
-        name,
-        description,
-        points,
-        constraints.map { it.toActivityConstraint() }.toSet()
-    )
-
-    fun Activity.toEntity() = ActivityEntity(
-        0,
-        name,
-        description,
-        points,
-        constraints.map { it.toEntity() }.toSet()
-    )
-
-    fun ActivityConstraintEmbeddable.toActivityConstraint() = ActivityConstraintImpl(
-        startTime, endTime
-    )
-
-    fun ActivityConstraint.toEntity() = ActivityConstraintEmbeddable(
-        startTime, endTime
-    )
-
-    fun Pair<LocalTime, LocalTime>.toConstraint() = ActivityConstraintEmbeddable(first, second)
 
 }
