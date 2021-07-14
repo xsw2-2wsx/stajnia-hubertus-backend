@@ -6,26 +6,49 @@ get:
   parameters:
     - name: rangeStart
       in: query
+      schema:
+        type: string
+
     - name: rangeEnd
       in: query
+      schema:
+        type: string
     - name: startTimeStart
       in: query
+      schema:
+        type: string
     - name: startTimeEnd
       in: query
+      schema:
+        type: string
     - name: endTimestart
       in: query
+      schema:
+        type: string
     - name: endTimeEnd
       in: query
+      schema:
+        type: string
     - name: creationTimeStart
       in: query
+      schema:
+        type: string
     - name: creationTimeEnd
       in: query
+      schema:
+        type: string
     - name: userId
       in: query
+      schema:
+        type: string
     - name: activityId
       in: query
+      schema:
+        type: string
     - name: subject
       in: query
+      schema:
+        type: string
 
   responses:
       '200':

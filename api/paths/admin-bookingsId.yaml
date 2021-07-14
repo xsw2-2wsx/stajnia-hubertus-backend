@@ -3,6 +3,8 @@ parameters:
   - name: bookingId
     in: query
     required: true
+    schema:
+      type: string
 
 delete:
   tags:
