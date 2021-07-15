@@ -4,9 +4,7 @@ import net.jupw.hubertus.api.models.ApiError
 import net.jupw.hubertus.api.models.ApiSubError
 import net.jupw.hubertus.app.configuration.exceptions.ConfigurationGroupDoesNotExistException
 import net.jupw.hubertus.app.configuration.exceptions.InvalidConfigurationKeyException
-import net.jupw.hubertus.app.exceptions.ActivityDoesNotExistException
-import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
-import net.jupw.hubertus.app.exceptions.UserNotFoundException
+import net.jupw.hubertus.app.exceptions.*
 import net.jupw.hubertus.util.validation.ValidationException
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -330,5 +328,26 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
             message = it.message,
             suggestedAction = "popraw dane"
         ) }
+    )
+
+    @ExceptionHandler(BookingDoesNotExistException::class)
+    fun handleBookingDoesNotExist(ex: BookingDoesNotExistException) = error (
+        status = HttpStatus.NOT_FOUND,
+        message = "Nie znaleziono rządanej rezerwacji",
+        suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
+    )
+
+    @ExceptionHandler(NotBookingOwnerException::class)
+    fun handleNotBookingOwner(ex: NotBookingOwnerException) = error (
+        status = HttpStatus.FORBIDDEN,
+        message = "Nie jesteś właścicielem tej rezerwacji",
+        suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
+    )
+
+    @ExceptionHandler(BookingHoursNotAllowedException::class)
+    fun handleBookingHoursNotAllowed(ex: BookingHoursNotAllowedException) = error (
+        status = HttpStatus.BAD_REQUEST,
+        message = "Rezerwacja o takich godzinach nie jest dozwolona ze względu na konfiguracje aplikacji",
+        suggestedAction = CONTACT_ADMIN_SUGGESTED_ACTION
     )
 }
