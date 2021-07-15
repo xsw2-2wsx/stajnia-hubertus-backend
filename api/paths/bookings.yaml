@@ -47,12 +47,12 @@ get:
     - name: userId
       in: query
       schema:
-        type: number
+        type: integer
 
     - name: activityId
       in: query
       schema:
-        type: number
+        type: integer
 
     - name: subject
       in: query
