@@ -380,7 +380,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         status = HttpStatus.CONFLICT,
         message = """Rezerwacji można dokonywać z przynajmniej ${ex.requiredDuration.toMinutes()} 
             | minutowym wyprzedzeniem (obecnie: ${ex.duration.toMinutes()} minut)
-            """.trimMargin(),
+            """.trimMargin().replace("\n", ""),
         suggestedAction = "Dokonaj rezerwacji na późniejszy termin"
     )
 }
