@@ -4,13 +4,16 @@ import net.jupw.hubertus.app.configuration.ConfKeys
 import net.jupw.hubertus.app.configuration.Configuration
 import net.jupw.hubertus.app.data.converters.toBooking
 import net.jupw.hubertus.app.data.converters.toEntity
+import net.jupw.hubertus.app.data.entities.ActivityEntity
 import net.jupw.hubertus.app.data.entities.BookingEntity
 import net.jupw.hubertus.app.data.entities.UserEntity
 import net.jupw.hubertus.app.data.repositories.BookingRepository
 import net.jupw.hubertus.app.entities.Booking
+import net.jupw.hubertus.app.entities.BookingImpl
 import net.jupw.hubertus.app.exceptions.BookingDoesNotExistException
 import net.jupw.hubertus.app.exceptions.BookingHoursNotAllowedException
 import net.jupw.hubertus.app.exceptions.NotBookingOwnerException
+import net.jupw.hubertus.business.services.BookingService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -34,6 +37,9 @@ class BookingInteractor {
 
     @Autowired
     private lateinit var activityInteractor: ActivityInteractor
+
+    @Autowired
+    private lateinit var bookingService: BookingService
 
     @PersistenceContext
     private lateinit var entityManager: EntityManager
@@ -71,11 +77,27 @@ class BookingInteractor {
         if(!getAllowedTimes().containsAll(listOf(startTime.toLocalTime(), endTime.toLocalTime())))
             throw BookingHoursNotAllowedException(startTime, endTime)
 
+        val activity = activityInteractor.findActivityById(activityId)
+
+        val bookings = filterBookings(rangeStart = startTime, rangeEnd = endTime)
+
+        val newBooking = BookingImpl(
+            0,
+            LocalDateTime.now(),
+            startTime,
+            endTime,
+            activity,
+            subject,
+            userInteractor.authenticatedUser
+        )
+
+        bookingService.validate(newBooking, bookings)
+
         bookingRepository.save(BookingEntity(
             0,
             LocalDateTime.now(),
             startTime, endTime,
-            activityInteractor.findActivityById(activityId).toEntity(),
+            entityManager.getReference(ActivityEntity::class.java, activity.id),
             subject,
             entityManager.getReference(UserEntity::class.java, userInteractor.authenticatedUser.id)
         ))
