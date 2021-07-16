@@ -10,6 +10,8 @@ class ActivityImpl(
     override var constraints: Set<ActivityConstraint>
 ) : Activity {
     override fun isAllowed(start: LocalDateTime, end: LocalDateTime): Boolean {
+        if(constraints.isEmpty()) return true
+
         var currentTime = start
         var constraint: ActivityConstraint? = null
 

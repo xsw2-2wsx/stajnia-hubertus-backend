@@ -190,4 +190,15 @@ internal class ActivityImplTest {
             )
         }
     }
+
+    @Test
+    fun `when no constraints specified, always allowed`() {
+        val activity = testActivity(emptySet())
+
+        assertTrue {
+            activity.isAllowed(
+                LocalDateTime.of(LocalDate.now(), LocalTime.MIN),
+                LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.MIN))
+        }
+    }
 }
