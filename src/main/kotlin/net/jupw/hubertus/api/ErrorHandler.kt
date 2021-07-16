@@ -363,7 +363,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(ActivityTypeNotAllowedException::class)
     fun handleActivityTypeNotAllowed(ex: ActivityTypeNotAllowedException) = error (
-        status = HttpStatus.FORBIDDEN,
+        status = HttpStatus.CONFLICT,
         message = "Ten typ aktywności nie jest dozwolony w tych godzinach",
         suggestedAction = "Zmień godziny rezerwacji",
     )
@@ -380,6 +380,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         status = HttpStatus.CONFLICT,
         message = """Rezerwacji można dokonywać z przynajmniej ${ex.requiredDuration.toMinutes()} 
             | minutowym wyprzedzeniem (obecnie: ${ex.duration.toMinutes()} minut)
-            """.trimMargin()
+            """.trimMargin(),
+        suggestedAction = "Dokonaj rezerwacji na późniejszy termin"
     )
 }
