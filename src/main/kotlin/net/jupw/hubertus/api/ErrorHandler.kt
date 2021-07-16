@@ -337,7 +337,7 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(BookingDoesNotExistException::class)
     fun handleBookingDoesNotExist(ex: BookingDoesNotExistException) = error (
         status = HttpStatus.NOT_FOUND,
-        message = "Nie znaleziono rządanej rezerwacji",
+        message = "Nie znaleziono żądanej rezerwacji",
         suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
     )
 
