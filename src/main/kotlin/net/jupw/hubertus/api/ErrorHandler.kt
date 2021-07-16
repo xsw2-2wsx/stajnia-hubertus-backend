@@ -5,6 +5,10 @@ import net.jupw.hubertus.api.models.ApiSubError
 import net.jupw.hubertus.app.configuration.exceptions.ConfigurationGroupDoesNotExistException
 import net.jupw.hubertus.app.configuration.exceptions.InvalidConfigurationKeyException
 import net.jupw.hubertus.app.exceptions.*
+import net.jupw.hubertus.business.exceptions.ActivityTypeNotAllowedException
+import net.jupw.hubertus.business.exceptions.InsufficientSpaceException
+import net.jupw.hubertus.business.exceptions.NotEnoughPrecedenceException
+import net.jupw.hubertus.util.InvalidTimeException
 import net.jupw.hubertus.util.validation.ValidationException
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -349,5 +353,33 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         status = HttpStatus.BAD_REQUEST,
         message = "Rezerwacja o takich godzinach nie jest dozwolona ze względu na konfiguracje aplikacji",
         suggestedAction = CONTACT_ADMIN_SUGGESTED_ACTION
+    )
+
+    @ExceptionHandler(InvalidTimeException::class)
+    fun handleInvalidTime(ex: InvalidTimeException) = error (
+        status = HttpStatus.BAD_REQUEST,
+        message = "Niepoprawnie sformatowany czas: '${ex.time}'"
+    )
+
+    @ExceptionHandler(ActivityTypeNotAllowedException::class)
+    fun handleActivityTypeNotAllowed(ex: ActivityTypeNotAllowedException) = error (
+        status = HttpStatus.FORBIDDEN,
+        message = "Ten typ aktywności nie jest dozwolony w tych godzinach",
+        suggestedAction = "Zmień godziny rezerwacji",
+    )
+
+    @ExceptionHandler(InsufficientSpaceException::class)
+    fun handleInsufficientSpace(ex: InsufficientSpaceException) = error (
+        status = HttpStatus.CONFLICT,
+        message = "Rezerwacja nie mieści się",
+        suggestedAction = "Zmień rezerwacje",
+    )
+
+    @ExceptionHandler(NotEnoughPrecedenceException::class)
+    fun handleNotEnoughPrecedence(ex: NotEnoughPrecedenceException) = error (
+        status = HttpStatus.CONFLICT,
+        message = """Rezerwacji można dokonywać z przynajmniej ${ex.requiredDuration.toMinutes()} 
+            | minutowym wyprzedzeniem (obecnie: ${ex.duration.toMinutes()} minut)
+            """.trimMargin()
     )
 }
