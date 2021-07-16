@@ -66,6 +66,8 @@ openApiGenerate {
 	skipValidateSpec.set(true)
 	configFile.set("swagger-codegen-spring-config.json")
 	generateApiDocumentation.set(true)
+
+	typeMappings.set(mapOf("java.time.OffsetDateTime" to "java.time.LocalDateTime"))
 }
 
 tasks.compileKotlin.configure {
