@@ -3,6 +3,7 @@ package net.jupw.hubertus.api.controllers
 import net.jupw.hubertus.api.models.User
 import net.jupw.hubertus.api.models.UserPassword
 import net.jupw.hubertus.api.toResponseEntity
+import net.jupw.hubertus.app.interactors.BookingInteractor
 import net.jupw.hubertus.app.interactors.UserInteractor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -11,6 +12,9 @@ class AdminController : AdminApi {
 
     @Autowired
     private lateinit var userInteractor: UserInteractor
+
+    @Autowired
+    private lateinit var bookingInteractor: BookingInteractor
 
     override fun adminUsersPost(user: User): ResponseEntity<UserPassword> =
         UserPassword(userInteractor.createUser(user.name)).toResponseEntity()
@@ -28,4 +32,6 @@ class AdminController : AdminApi {
         return ResponseEntity.ok().build()
     }
 
+    override fun adminBookingsBookingIdDelete(bookingId: Int): ResponseEntity<Unit> =
+        bookingInteractor.deleteBooking(bookingId).toResponseEntity()
 }
