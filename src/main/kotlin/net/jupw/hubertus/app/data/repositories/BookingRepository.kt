@@ -14,8 +14,7 @@ interface BookingRepository : CrudRepository<BookingEntity, Int> {
         FROM bookings 
         WHERE
             (:rangeStart is null or :rangeEnd is null or (
-                (start_time > :rangeStart and start_time < :rangeEnd) or
-                (end_time > :rangeStart and end_time < :rangeEnd)
+                start_time < :rangeEnd and end_time > :rangeStart
             )) and
             (:startTimeStart is null or start_time >= :startTimeStart) and
             (:startTimeEnd is null or start_time <= :startTimeEnd) and
