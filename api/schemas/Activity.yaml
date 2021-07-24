@@ -9,10 +9,6 @@ properties:
   points:
     type: number
     minimum: 0
-  constraints:
-    type: array
-    items:
-      $ref: "ActivityConstraint.yaml"
 required:
   - id
   - name

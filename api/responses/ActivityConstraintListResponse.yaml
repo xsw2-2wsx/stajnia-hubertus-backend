@@ -1,0 +1,7 @@
+description: Contains a list of ActivityConstraints
+content:
+  application/json:
+    schema:
+      type: array
+      items:
+        $ref: "../schemas/ActivityConstraint.yaml"

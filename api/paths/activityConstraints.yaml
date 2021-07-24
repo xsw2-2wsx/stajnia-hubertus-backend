@@ -1,0 +1,28 @@
+summary: Operations on activity constraints
+parameters:
+  - name: activityId
+    in: path
+    required: true
+    schema:
+      $ref: "../schemas/Id.yaml"
+
+get:
+  tags:
+    - activity constraints
+  responses:
+    '200':
+      $ref: "../responses/ActivityConstraintListResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  tags:
+    - activity constraints
+  requestBody:
+    $ref: "../requestBodies/ActivityConstraintRequestBody.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

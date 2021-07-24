@@ -1,4 +1,4 @@
-summary: Operations on Activities and their constraints
+summary: Operations on Activities
 get:
   tags:
     - activities
@@ -29,22 +29,5 @@ put:
   responses:
     '200':
       description: Activity addedd
-    default:
-      $ref: "../responses/ApiErrorResponse.yaml"
-
-delete:
-  tags:
-    - activities
-  description: Deletes specified activity
-  parameters:
-    - name: activityId
-      in: query
-      required: true
-      description: An id of activity to be deleted
-      schema:
-        $ref: "../schemas/Id.yaml"
-  responses:
-    '200':
-      description: Operation sucessfull
     default:
       $ref: "../responses/ApiErrorResponse.yaml"

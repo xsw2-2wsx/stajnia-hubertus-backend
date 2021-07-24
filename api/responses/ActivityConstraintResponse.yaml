@@ -1,0 +1,6 @@
+description: Contains a single Activity Constraint
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ActivityConstraint.yaml"
+

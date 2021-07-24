@@ -1,23 +1,26 @@
 summary: Operations on the activity with specified id
 parameters:
-  - name: activityId
+  - name: activityConstraintId
     in: path
     required: true
     schema:
       $ref: "../schemas/Id.yaml"
+
 get:
   tags:
-    - activities
+    - activity constraints
+
   responses:
     '200':
-      $ref: "../responses/ActivityResponse.yaml"
+      $ref: "../responses/ActivityConstraintResponse.yaml"
     default:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
   tags:
-    - activities
+    - activity constraints
   description: Deletes specified activity
+
   responses:
     '200':
       description: Operation sucessfull

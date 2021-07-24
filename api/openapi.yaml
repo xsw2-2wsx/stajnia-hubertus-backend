@@ -33,6 +33,7 @@ tags:
   - name: configuration
   - name: bookings
   - name: booking managment
+  - name: activity constraints
 
 paths:
   /auth:
@@ -59,6 +60,11 @@ paths:
   /activities/{activityId}:
     $ref: "./paths/activitiesId.yaml"
 
+  /activities/{activityId}/constraints:
+    $ref: "./paths/activityConstraints.yaml"
+
+  /activities/{activityId}/constraints/{activityConstraintId}:
+    $ref: "paths/activityConstraintsId.yaml"
 
   /configuration:
     $ref: "./paths/configuration.yaml"
