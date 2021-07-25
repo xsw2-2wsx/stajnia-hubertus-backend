@@ -1,0 +1,21 @@
+summary: Operations on roles
+get:
+  tags:
+    - role managment
+
+  responses:
+    '200':
+      $ref: "../responses/RoleListResponse.yaml"
+
+post:
+  tags:
+    - role managment
+
+  requestBody:
+    $ref: "../requestBodies/RoleRequestBody.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

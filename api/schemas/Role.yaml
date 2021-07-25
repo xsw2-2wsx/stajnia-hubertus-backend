@@ -1,0 +1,13 @@
+descripiton: Represents a user role in the system
+properties:
+  id:
+    type: integer
+
+  name:
+    type: string
+    minLength: 3
+    maxLength: 20
+
+  description:
+    type: string
+    maxLength: 100

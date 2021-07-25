@@ -34,6 +34,7 @@ tags:
   - name: bookings
   - name: booking managment
   - name: activity constraints
+  - name: role managment
 
 paths:
   /auth:
@@ -84,3 +85,12 @@ paths:
 
   /admin/bookings/bookingId:
     $ref: "./paths/admin-bookingsId.yaml"
+
+  /roles:
+    $ref: "./paths/roles.yaml"
+
+  /roles/{roleId}:
+    $ref: "./paths/rolesId.yaml"
+
+  /rolse/{roleId}/authorities:
+    $ref: "./paths/rolesIdAuthorities.yaml"

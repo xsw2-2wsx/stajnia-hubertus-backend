@@ -1,0 +1,40 @@
+summary: Operations on role authorities
+parameters:
+  - name: roleId
+    in: path
+    required: true
+    schema:
+      $ref: "../schemas/Id.yaml"
+
+get:
+  tags:
+    - role managment
+  responses:
+    '200':
+      $ref: "../responses/AuthorityListResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  tags:
+    - role managment
+
+  requestBody:
+    $ref: "../requestBodies/AuthorityListRequestBody.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+
+delete:
+  tags:
+    - role managment
+
+  responses:
+    '200':
+      description: Opeartion successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

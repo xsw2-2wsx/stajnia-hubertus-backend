@@ -1,0 +1,10 @@
+summary: Opeartions on all authorities
+get:
+  tags:
+    - role managment
+
+  responses:
+    '200':
+      $ref: "../responses/AuthorityListResponse.yaml"
+    defualt:
+      $ref: "../responses/ApiErrorResponse.yaml"

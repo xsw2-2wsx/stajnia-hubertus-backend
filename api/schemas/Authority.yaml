@@ -1,0 +1,8 @@
+description: Represents a permission to take a specified action
+properties:
+  key:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
