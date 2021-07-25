@@ -63,9 +63,6 @@ paths:
   /activities/{activityId}/constraints:
     $ref: "./paths/activityConstraints.yaml"
 
-  /activities/{activityId}/constraints/{activityConstraintId}:
-    $ref: "paths/activityConstraintsId.yaml"
-
   /configuration:
     $ref: "./paths/configuration.yaml"
 
