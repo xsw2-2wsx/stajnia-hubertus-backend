@@ -94,3 +94,6 @@ paths:
 
   /roles/{roleId}/authorities:
     $ref: "./paths/rolesIdAuthorities.yaml"
+
+  /authorities:
+    $ref: "./paths/authorities.yaml"

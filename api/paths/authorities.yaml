@@ -6,5 +6,5 @@ get:
   responses:
     '200':
       $ref: "../responses/AuthorityListResponse.yaml"
-    defualt:
+    default:
       $ref: "../responses/ApiErrorResponse.yaml"
