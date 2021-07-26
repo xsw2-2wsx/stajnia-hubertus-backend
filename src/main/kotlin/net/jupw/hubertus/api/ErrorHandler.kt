@@ -8,6 +8,7 @@ import net.jupw.hubertus.app.exceptions.*
 import net.jupw.hubertus.business.exceptions.ActivityTypeNotAllowedException
 import net.jupw.hubertus.business.exceptions.InsufficientSpaceException
 import net.jupw.hubertus.business.exceptions.NotEnoughPrecedenceException
+import net.jupw.hubertus.app.exceptions.RoleDoesNotExistException
 import net.jupw.hubertus.util.InvalidTimeException
 import net.jupw.hubertus.util.validation.ValidationException
 import org.apache.logging.log4j.LogManager
@@ -382,5 +383,19 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
             | minutowym wyprzedzeniem (obecnie: ${ex.duration.toMinutes()} minut)
             """.trimMargin().replace("\n", ""),
         suggestedAction = "Dokonaj rezerwacji na późniejszy termin"
+    )
+
+    @ExceptionHandler(RoleDoesNotExistException::class)
+    fun handleRoleDoesNotExist(ex: RoleDoesNotExistException) = error (
+        status = HttpStatus.BAD_REQUEST,
+        message = "Rola nie istnieje",
+        suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
+    )
+
+    @ExceptionHandler(AuthorityDoesNotExistException::class)
+    fun handleAuthorityDoesNotExist(ex: AuthorityDoesNotExistException) = error (
+        status = HttpStatus.BAD_REQUEST,
+        message = "Uprawnienie nie istnieje",
+        suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
     )
 }
