@@ -1,0 +1,33 @@
+summary: Operations on specific user role
+parameters:
+  - name: userId
+    in: path
+    required: true
+    schema:
+      $ref: "../schemas/Id.yaml"
+
+  - name: roleId
+    in: path
+    required: true
+    schema:
+      $ref: "../schemas/Id.yaml"
+
+get:
+  tags:
+    - role managment
+
+  responses:
+    '200':
+      $ref: "../responses/RoleResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+delete:
+  tags:
+    - role managment
+
+  respones:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

@@ -55,6 +55,12 @@ paths:
   /admin/users/{userId}/resetpassword:
     $ref: "./paths/changepw.yaml"
 
+  /admin/users/{userId}/roles:
+    $ref: "./paths/usersIdRoles.yaml"
+
+  /admin/users/{userId}/roles/{roleId}:
+    $ref: "./paths/usersIdRolesId.yaml"
+
   /activities:
     $ref: "./paths/activities.yaml"
 

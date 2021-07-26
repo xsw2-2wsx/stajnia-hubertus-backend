@@ -1,0 +1,29 @@
+summary: Modify what roles do specific users have
+parameters:
+  - name: userId
+    in: path
+    required: true
+    schema:
+      $ref: "../schemas/Id.yaml"
+
+get:
+  tags:
+    - role managment
+  responses:
+    '200':
+      $ref: "../responses/RoleListResponse.yaml"
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
+
+post:
+  tags:
+    - role managment
+
+  requestBody:
+    $ref: "../requestBodies/RoleIdRequestBody.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
