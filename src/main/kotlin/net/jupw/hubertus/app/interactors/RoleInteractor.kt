@@ -43,7 +43,7 @@ class RoleInteractor {
         findRoleEntity(roleId).authorities = emptyList()
     }
 
-    private fun findRoleEntity(id: Int) = roleRepository.findByIdOrNull(id)?: throw RoleDoesNotExistException(id)
+    fun findRoleEntity(id: Int) = roleRepository.findByIdOrNull(id)?: throw RoleDoesNotExistException(id)
 
 
 }

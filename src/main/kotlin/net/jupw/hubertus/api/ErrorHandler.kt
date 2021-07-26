@@ -398,4 +398,11 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
         message = "Uprawnienie nie istnieje",
         suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
     )
+
+    @ExceptionHandler(UserDoesNotHaveSpecifiedRoleException::class)
+    fun handleUserDoesNotHaveSpecifiedRole(ex: UserDoesNotHaveSpecifiedRoleException) = error (
+        status = HttpStatus.BAD_REQUEST,
+        message = "Ten użytkownik nie ma żądanej roli",
+        suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
+    )
 }

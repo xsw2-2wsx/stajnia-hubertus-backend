@@ -38,5 +38,5 @@ class UserEntity (
             referencedColumnName = "roles_id"
         )],
     )
-    var roles: List<RoleEntity>
+    var roles: MutableSet<RoleEntity>
 )

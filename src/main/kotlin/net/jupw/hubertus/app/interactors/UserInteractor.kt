@@ -1,12 +1,17 @@
 package net.jupw.hubertus.app.interactors
 
 import net.jupw.hubertus.app.data.converters.toUser
+import net.jupw.hubertus.app.data.entities.RoleEntity
 import net.jupw.hubertus.app.data.entities.UserEntity
 import net.jupw.hubertus.app.data.repositories.UserRepository
+import net.jupw.hubertus.app.entities.Role
+import net.jupw.hubertus.app.entities.RoleImpl
 import net.jupw.hubertus.app.entities.User
 import net.jupw.hubertus.app.entities.UserImpl
 import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
+import net.jupw.hubertus.app.exceptions.UserDoesNotHaveSpecifiedRoleException
 import net.jupw.hubertus.app.exceptions.UserNotFoundException
+import net.jupw.hubertus.app.security.Authorities
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
@@ -37,6 +42,9 @@ class UserInteractor : UserDetailsService {
 
     @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
+
+    @Autowired
+    private lateinit var roleInteractor: RoleInteractor
     
     val authenticatedUser: User
         get() = SecurityContextHolder.getContext().authentication.principal as User
@@ -58,7 +66,7 @@ class UserInteractor : UserDetailsService {
         val password = secRandomString(GENERATED_PASSWD_LEN)
 
         userRepository.save(UserEntity(
-            0, username, passwordEncoder.encode(password), null, null, false, emptyList()
+            0, username, passwordEncoder.encode(password), null, null, false, mutableSetOf()
         ))
 
         return password
@@ -66,7 +74,7 @@ class UserInteractor : UserDetailsService {
 
     @Transactional
     fun modifyUser(id: Int, name: String, email: String?, phone: String?, isLocked: Boolean) {
-        val userToEdit = userRepository.findByIdOrNull(id)?: throw UserNotFoundException(id)
+        val userToEdit = findUserEntity(id)
         val userWithUsername = userRepository.findByName(name)
 
         if(userWithUsername != null && userWithUsername.id != userToEdit.id)
@@ -89,14 +97,42 @@ class UserInteractor : UserDetailsService {
 
     @Transactional
     fun resetPassword(id: Int): String {
-        val user = userRepository.findByIdOrNull(id)?: throw UserNotFoundException(id)
+        val user = findUserEntity(id)
         val newPassword = secRandomString(GENERATED_PASSWD_LEN)
         user.password = passwordEncoder.encode(newPassword)
         log.info("Password of user ${ user.name } has been reset by ${ authenticatedUser.name }")
         return newPassword
     }
 
+    @Transactional
+    fun addRole(userId: Int, roleId: Int) {
+        val role = roleInteractor.findRoleEntity(roleId)
+        val user = findUserEntity(userId)
+
+        user.roles.add(role)
+    }
+
+    @Transactional
+    fun removeRole(userId: Int, roleId: Int) {
+        val user = findUserEntity(userId)
+        user.roles.removeIf { it.id == roleId }
+    }
+
+    fun getUserRole(userId: Int, roleId: Int): Role =
+        findUserEntity(userId)
+            .roles
+            .find { it.id == roleId }
+            ?.toRole()
+            ?: throw UserDoesNotHaveSpecifiedRoleException(userId, roleId)
+
+    private fun findUserEntity(id: Int) = userRepository.findByIdOrNull(id)?: throw UserNotFoundException(id)
+
     private fun secRandomString(len: Int) =
         Base64.getEncoder().encodeToString(ByteArray(len).also { random.nextBytes(it) })
+
+    fun getUserRoles(userId: Int): Set<Role> =
+        findUserEntity(userId).roles.map { it.toRole() }.toSet()
+
+    fun RoleEntity.toRole() = RoleImpl(id, name, description, authorities.map { Authorities.readAuthority(it) }.toSet())
 
 }
