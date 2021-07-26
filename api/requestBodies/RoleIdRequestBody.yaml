@@ -2,7 +2,5 @@ descripiton: Holds an Id of the role to be added
 content:
   application/json:
     schema:
-      properties:
-        roleId:
-          $ref: "../schemas/Id.yaml"
+      $ref: "../schemas/IdHolder.yaml"
 required: true

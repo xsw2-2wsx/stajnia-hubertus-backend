@@ -1,0 +1,7 @@
+descripiton: Holds a single Id
+properties:
+  id:
+    $ref: "Id.yaml"
+
+required:
+  - id

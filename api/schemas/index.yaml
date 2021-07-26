@@ -1,6 +1,9 @@
 Id:
   $ref: "Id.yaml"
 
+IdHolder:
+  $ref: "IdHolder.yaml"
+
 Time:
   $ref: "Time.yaml"
 
