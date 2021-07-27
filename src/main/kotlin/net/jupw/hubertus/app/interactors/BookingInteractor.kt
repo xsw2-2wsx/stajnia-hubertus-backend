@@ -16,6 +16,7 @@ import net.jupw.hubertus.app.exceptions.NotBookingOwnerException
 import net.jupw.hubertus.business.services.BookingService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.time.LocalDateTime
@@ -68,6 +69,7 @@ class BookingInteractor {
 
     fun getBooking(id: Int): Booking = bookingRepository.findByIdOrNull(id)?.toBooking()?: throw BookingDoesNotExistException(id)
 
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).USE_BOOKING)")
     fun createBooking(
         startTime: LocalDateTime,
         endTime: LocalDateTime,
@@ -103,6 +105,7 @@ class BookingInteractor {
         ))
     }
 
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).USE_BOOKING)")
     fun cancelBooking(id: Int) {
         val booking = bookingRepository.findByIdOrNull(id)?: throw BookingDoesNotExistException(id)
         if(booking.user.id != userInteractor.authenticatedUser.id) throw NotBookingOwnerException(id, userInteractor.authenticatedUser.id)
@@ -110,6 +113,8 @@ class BookingInteractor {
         bookingRepository.deleteById(id)
     }
 
+
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_BOOKINGS)")
     fun deleteBooking(id: Int) = bookingRepository.deleteById(id)
 
     fun getAllowedTimes(): Collection<LocalTime> {

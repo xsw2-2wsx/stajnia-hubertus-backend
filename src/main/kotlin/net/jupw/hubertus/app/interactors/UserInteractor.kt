@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -60,6 +61,7 @@ class UserInteractor : UserDetailsService {
         userRepository.findByName(username?: "")?.toUser()?:
         throw UsernameNotFoundException("User with username $username not found")
 
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_USERS)")
     fun createUser(username: String): String {
         if(userExists(username)) throw UserAlreadyExistException(username)
 
@@ -72,6 +74,7 @@ class UserInteractor : UserDetailsService {
         return password
     }
 
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_USERS)")
     @Transactional
     fun modifyUser(id: Int, name: String, email: String?, phone: String?, isLocked: Boolean) {
         val userToEdit = findUserEntity(id)
@@ -90,12 +93,14 @@ class UserInteractor : UserDetailsService {
         log.info("User ${userToEdit.name} (id ${userToEdit.id}) has been modified by ${authenticatedUser.name}")
     }
 
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_USERS)")
     fun deleteUser(id: Int) {
         userRepository.deleteById(id)
         log.info("User with id $id has been deleted by user with username ${ authenticatedUser.name }")
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).RESET_ANY_PASSWORD)")
     fun resetPassword(id: Int): String {
         val user = findUserEntity(id)
         val newPassword = secRandomString(GENERATED_PASSWD_LEN)
@@ -104,6 +109,7 @@ class UserInteractor : UserDetailsService {
         return newPassword
     }
 
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_USERS)")
     @Transactional
     fun addRole(userId: Int, roleId: Int) {
         val role = roleInteractor.findRoleEntity(roleId)
@@ -112,6 +118,7 @@ class UserInteractor : UserDetailsService {
         user.roles.add(role)
     }
 
+    @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_USERS)")
     @Transactional
     fun removeRole(userId: Int, roleId: Int) {
         val user = findUserEntity(userId)
