@@ -17,7 +17,8 @@ insert into users values (
     '{bcrypt}$2y$10$usBbY.FI5sSsGGkGFHbEeuI7edYKy9adWHGt4z3g.WP9nnKrAk4yW',
     null,
     null,
-    false
+    false,
+    null
 );
 
 insert into users_roles values (1, 1);

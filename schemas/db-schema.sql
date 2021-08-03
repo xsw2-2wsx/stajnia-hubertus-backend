@@ -11,6 +11,7 @@ CREATE TABLE users (
     users_phone varchar(15) NULL,
     users_email varchar(30) NULL,
     is_locked tinyint(1) NOT NULL DEFAULT false,
+    profile_pic_path varchar(20) NULL,
     UNIQUE KEY (users_name)
 );
 
