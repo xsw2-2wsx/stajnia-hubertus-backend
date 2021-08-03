@@ -1,0 +1,18 @@
+summary: Operations on the user with specified id
+get:
+  tags:
+    - users
+  parameters:
+    - name: userId
+      in: path
+      required: true
+      schema:
+        $ref: "../schemas/Id.yaml"
+
+  responses:
+    '200':
+      $ref: "../responses/ImageResponse.yaml"
+    '404':
+      description: This user does not have a profile picture
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

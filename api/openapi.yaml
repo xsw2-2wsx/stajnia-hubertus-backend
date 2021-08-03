@@ -35,6 +35,7 @@ tags:
   - name: booking managment
   - name: activity constraints
   - name: role managment
+  - name: profile
 
 paths:
   /auth:
@@ -48,6 +49,12 @@ paths:
 
   /users/{userId}:
     $ref: "./paths/usersId.yaml"
+
+  /users/{userId}/picture:
+    $ref: "./paths/usersIdProfilePicture.yaml"
+
+  /profile/picture:
+    $ref: "./paths/profileProfilePicture.yaml"
 
   /admin/users/{userId}:
     $ref: "./paths/admin-usersId.yaml"

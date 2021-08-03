@@ -1,0 +1,6 @@
+content:
+  image/jpg:
+    schema:
+      type: string
+      format: binary
+required: true

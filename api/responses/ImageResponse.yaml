@@ -1,0 +1,6 @@
+description: contains an image
+content:
+  image/jpg:
+    schema:
+      type: string
+      format: binary
