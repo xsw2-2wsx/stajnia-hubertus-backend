@@ -1,5 +1,6 @@
 summary: Operations on user proile picture
 post:
+  operationId: setProfilePicture
   tags:
     - profile
 
@@ -13,6 +14,7 @@ post:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
+  operationId: deleteProfilePicture
   tags:
     - profile
 

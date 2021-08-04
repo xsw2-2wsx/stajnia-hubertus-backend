@@ -1,5 +1,6 @@
 summary: Operations on the user with specified id
 get:
+  operationId: getUserProfilePicture
   tags:
     - users
   parameters:
