@@ -1,11 +1,47 @@
+ActivityConstraintListResponse:
+  $ref: "ActivityConstraintListResponse.yaml"
+
+ActivityConstraintResponse:
+  $ref: "ActivityConstraintResponse.yaml"
+
+ActivityListResponse:
+  $ref: "ActivityListResponse.yaml"
+
+ActivityResponse:
+  $ref: "ActivityResponse.yaml"
+
 ApiErrorResponse:
   $ref: "ApiErrorResponse.yaml"
 
 AuthenticatedResponse:
   $ref: "AuthenticatedResponse.yaml"
 
-UserResponse:
-  $ref: "UserResponse.yaml"
+AuthorityListResponse:
+  $ref: "AuthorityListResponse.yaml"
+
+BookingListResponse:
+  $ref: "BookingListResponse.yaml"
+
+BookingResponse:
+  $ref: "BookingResponse.yaml"
+
+BookingTimeResponse:
+  $ref: "BookingTimeResponse.yaml"
+
+ConfigurationEntrySchemaRespone:
+  $ref: "ConfigurationEntrySchemaResponse.yaml"
+
+ConfigurationGroupsResponse:
+  $ref: "ConfigurationGroupsResponse.yaml"
+
+ConfigurationValueResponse:
+  $ref: "ConfigurationValueResponse.yaml"
+
+RoleListResponse:
+  $ref: "RoleListResponse.yaml"
+
+RoleResponse:
+  $ref: "RoleResponse.yaml"
 
 UserListResponse:
   $ref: "UserListResponse.yaml"
@@ -13,23 +49,10 @@ UserListResponse:
 UserPasswordResponse:
   $ref: "UserPasswordResponse.yaml"
 
-ActivityResponse:
-  $ref: "ActivityResponse.yaml"
+UserResponse:
+  $ref: "UserResponse.yaml"
 
-ActivityListResponse:
-  $ref: "ActivityListResponse.yaml"
 
-ConfigurationGroupsResponse:
-  $ref: "ConfigurationGroupsResponse.yaml"
 
-ConfigurationEntrySchemaRespone:
-  $ref: "ConfigurationEntrySchemaResponse.yaml"
 
-ConfigurationEntryResponse:
-  $ref: "ConfigurationValueResponse.yaml"
 
-BookingResponse:
-  $ref: "BookingResponse.yaml"
-
-BookingListResponse:
-  $ref: "BookingListResponse.yaml"

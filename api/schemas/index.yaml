@@ -1,42 +1,32 @@
-Id:
-  $ref: "Id.yaml"
-
-IdHolder:
-  $ref: "IdHolder.yaml"
-
-Time:
-  $ref: "Time.yaml"
-
-DateTime:
-    $ref: "DateTime.yaml"
-
-ApiSubError:
-  $ref: "ApiSubError.yaml"
-
-ApiError:
-  $ref: "ApiError.yaml"
-
-
-User:
-  $ref: "User.yaml"
-
-AuthenticationRequest:
-  $ref: "AuthenticationRequest.yaml"
-
-AuthenticatedResponse:
-  $ref: "AuthenticatedResponse.yaml"
-
-UserPassword:
-  $ref: "UserPassword.yaml"
+Activity:
+  $ref: "Activity.yaml"
 
 ActivityConstraint:
   $ref: "ActivityConstraint.yaml"
 
-Activity:
-  $ref: "Activity.yaml"
+AllowedTime:
+  $ref: "AllowedTime.yaml"
 
-ConfigurationValue:
-  $ref: "ConfigurationValue.yaml"
+ApiError:
+  $ref: "ApiError.yaml"
+
+ApiSubError:
+  $ref: "ApiSubError.yaml"
+
+AuthenticatedResponse:
+  $ref: "AuthenticatedResponse.yaml"
+
+AuthenticationRequest:
+  $ref: "AuthenticationRequest.yaml"
+
+Authority:
+  $ref: "Authority.yaml"
+
+Booking:
+  $ref: "Booking.yaml"
+
+ConfigurationEntrySchema:
+  $ref: "ConfigurationEntrySchema.yaml"
 
 ConfigurationGroupKey:
   $ref: "ConfigurationGroupKey.yaml"
@@ -44,11 +34,26 @@ ConfigurationGroupKey:
 ConfigurationKey:
   $ref: "ConfigurationKey.yaml"
 
-ConfigurationEntrySchema:
-  $ref: "ConfigurationEntrySchema.yaml"
+ConfigurationValue:
+  $ref: "ConfigurationValue.yaml"
 
-Booking:
-  $ref: "Booking.yaml"
+DateTime:
+  $ref: "DateTime.yaml"
 
-AllowedTime:
-  $ref: "AllowedTime.yaml"
+Id:
+  $ref: "Id.yaml"
+
+IdHolder:
+  $ref: "IdHolder.yaml"
+
+Role:
+  $ref: "Role.yaml"
+
+Time:
+  $ref: "Time.yaml"
+
+User:
+  $ref: "User.yaml"
+
+UserPassword:
+  $ref: "UserPassword.yaml"
