@@ -15,13 +15,13 @@ class BookingsController : BookingsApi {
     @Autowired
     private lateinit var bookingInteractor: BookingInteractor
 
-    override fun bookingsBookingIdDelete(bookingId: Int): ResponseEntity<Unit> =
+    override fun cancelBookingById(bookingId: Int): ResponseEntity<Unit> =
         bookingInteractor.cancelBooking(bookingId).toResponseEntity()
 
-    override fun bookingsBookingIdGet(bookingId: Int): ResponseEntity<Booking> =
+    override fun getBookingById(bookingId: Int): ResponseEntity<Booking> =
         bookingInteractor.getBooking(bookingId).toModel().toResponseEntity()
 
-    override fun bookingsGet(
+    override fun filterBookings(
         rangeStart: String?,
         rangeEnd: String?,
         startTimeStart: String?,
@@ -48,7 +48,7 @@ class BookingsController : BookingsApi {
             subject,
         ).map { it.toModel() }.toResponseEntity()
 
-    override fun bookingsPost(booking: Booking): ResponseEntity<Unit> {
+    override fun createBooking(booking: Booking): ResponseEntity<Unit> {
         bookingInteractor.createBooking(
             booking.startTime,
             booking.endTime,
@@ -58,7 +58,7 @@ class BookingsController : BookingsApi {
         return ResponseEntity.ok().build()
     }
 
-    override fun bookingsTimeGet(): ResponseEntity<List<String>> =
+    override fun getBookingTimes(): ResponseEntity<List<String>> =
         bookingInteractor.getAllowedTimes().map { it.toString() }
             .toResponseEntity()
 }

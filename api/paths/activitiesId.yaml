@@ -6,6 +6,7 @@ parameters:
     schema:
       $ref: "../schemas/Id.yaml"
 get:
+  operationId: getActivityById
   tags:
     - activities
   responses:
@@ -15,6 +16,7 @@ get:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
+  operationId: deleteActivityById
   tags:
     - activities
   description: Deletes specified activity

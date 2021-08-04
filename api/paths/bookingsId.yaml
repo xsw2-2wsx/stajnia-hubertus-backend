@@ -6,6 +6,7 @@ parameters:
     schema:
       type: integer
 get:
+  operationId: getBookingById
   tags:
     - bookings
 
@@ -16,6 +17,7 @@ get:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
+  operationId: cancelBookingById
   tags:
     - bookings
 

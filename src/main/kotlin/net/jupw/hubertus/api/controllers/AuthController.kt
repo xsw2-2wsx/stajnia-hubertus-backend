@@ -15,7 +15,7 @@ class AuthController : AuthApi {
     @Autowired
     private lateinit var authInteractor: AuthInteractor
 
-    override fun authPost(authenticationRequest: AuthenticationRequest): ResponseEntity<AuthenticatedResponse> =
+    override fun auth(authenticationRequest: AuthenticationRequest): ResponseEntity<AuthenticatedResponse> =
         AuthenticatedResponse(authInteractor.authenticate(authenticationRequest.username, authenticationRequest.password))
             .toResponseEntity()
 }

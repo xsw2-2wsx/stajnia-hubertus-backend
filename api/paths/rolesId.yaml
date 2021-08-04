@@ -7,6 +7,7 @@ parameters:
       $ref: "../schemas/Id.yaml"
 
 get:
+  operationId: getRoleById
   tags:
     - role managment
 
@@ -17,6 +18,7 @@ get:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
+  operationId: deleteRoleById
   tags:
     - role managment
 

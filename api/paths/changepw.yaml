@@ -1,5 +1,6 @@
 summary: Resets specified user password
 patch:
+  operationId: resetPasswordByUserId
   tags:
     - user managment
   parameters:

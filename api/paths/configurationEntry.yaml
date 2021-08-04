@@ -12,6 +12,7 @@ parameters:
       type: string
 
 get:
+  operationId: getConfiguration
   tags:
     - configuration
   responses:
@@ -21,6 +22,7 @@ get:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 post:
+  operationId: setConfiguration
   tags:
     - configuration
   requestBody:
@@ -32,6 +34,7 @@ post:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
+  operationId: deleteConfiguration
   tags:
     - configuration
   responses:

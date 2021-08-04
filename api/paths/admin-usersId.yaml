@@ -8,6 +8,7 @@ parameters:
     schema:
       $ref: "../schemas/Id.yaml"
 delete:
+  operationId: deleteUserById
   description: Deletes specified user
   tags:
     - user managment

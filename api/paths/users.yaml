@@ -1,5 +1,6 @@
 summary: API related to users
 get:
+  operationId: getUsers
   description: Fetches all users
   tags:
     - users

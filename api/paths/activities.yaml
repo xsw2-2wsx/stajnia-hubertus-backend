@@ -1,5 +1,6 @@
 summary: Operations on Activities
 get:
+  operationId: getActivities
   tags:
     - activities
   responses:
@@ -9,6 +10,7 @@ get:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 post:
+  operationId: createActivity
   tags:
     - activities
   description: Creates a new activity
@@ -21,6 +23,7 @@ post:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 put:
+  operationId: modifyActivity
   tags:
     - activities
   description: Replaces an Activity

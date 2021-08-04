@@ -1,5 +1,6 @@
 summary: User managemnt API
 post:
+  operationId: createUser
   description: Creates a user with specified username and sends back its password
   tags:
     - user managment
@@ -13,6 +14,7 @@ post:
 
 
 put:
+  operationId: modifyUser
   description: Edits a user
   tags:
     - user managment
