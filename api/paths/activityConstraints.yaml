@@ -7,6 +7,7 @@ parameters:
       $ref: "../schemas/Id.yaml"
 
 get:
+  operationId: getActivityConstraintsByActivityId
   tags:
     - activity constraints
   responses:
@@ -16,6 +17,7 @@ get:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 post:
+  operationId: setActivityConstraintsByActivityId
   tags:
     - activity constraints
   requestBody:
@@ -28,6 +30,7 @@ post:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
+  operationId: deleteActivityConstraintsByActivityId
   tags:
     - activity constraints
   '200':

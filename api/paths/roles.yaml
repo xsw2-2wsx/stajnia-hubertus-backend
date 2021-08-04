@@ -1,5 +1,6 @@
 summary: Operations on roles
 get:
+  operationId: getRoles
   tags:
     - role managment
 
@@ -8,6 +9,7 @@ get:
       $ref: "../responses/RoleListResponse.yaml"
 
 post:
+  operationId: createRole
   tags:
     - role managment
 

@@ -15,11 +15,11 @@ class UsersController : UsersApi {
     @Autowired
     private lateinit var userInteractor: UserInteractor
 
-    override fun usersGet(): ResponseEntity<List<User>> =
+    override fun getUsers(): ResponseEntity<List<User>> =
         userInteractor.findAllUsers().map { it.convertToModel() }
             .toResponseEntity()
 
-    override fun usersUserIdGet(userId: Int): ResponseEntity<User> =
+    override fun getUserById(userId: Int): ResponseEntity<User> =
         userInteractor.findUserById(userId)
             .convertToModel()
             .toResponseEntity()

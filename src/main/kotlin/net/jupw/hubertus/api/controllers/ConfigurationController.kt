@@ -20,10 +20,10 @@ class ConfigurationController : ConfigurationApi {
     @Autowired
     private lateinit var configuration: Configuration
 
-    override fun configurationGet(): ResponseEntity<List<ConfigurationGroupKeyModel>> =
+    override fun getConfigurationGroups(): ResponseEntity<List<ConfigurationGroupKeyModel>> =
         ConfGroupKeys.values().map { it.toModel() }.toResponseEntity()
 
-    override fun configurationGroupKeyGet(groupKey: String): ResponseEntity<List<ConfigurationEntrySchema>> =
+    override fun describeKeysInGroup(groupKey: String): ResponseEntity<List<ConfigurationEntrySchema>> =
         when(ConfGroupKeys.valueOfOrNull(groupKey)) {
             null -> mutableListOf<ConfigurationEntrySchema>().toResponseEntity()
             ConfGroupKeys.DEFAULT -> ConfKeys.values()
@@ -31,16 +31,16 @@ class ConfigurationController : ConfigurationApi {
                 .toResponseEntity()
         }
 
-    override fun configurationGroupKeyKeyGet(groupKey: String, key: String): ResponseEntity<ConfigurationValue> {
+    override fun getConfiguration(groupKey: String, key: String): ResponseEntity<ConfigurationValue> {
         val groupKeyInstance = ConfGroupKeys.getGroupKey(groupKey)
         return ConfigurationValue(configuration[groupKeyInstance][groupKeyInstance.createKey(key)]).toResponseEntity()
     }
 
-    override fun configurationGroupKeyKeyDelete(groupKey: String, key: String): ResponseEntity<Unit> =
+    override fun deleteConfiguration(groupKey: String, key: String): ResponseEntity<Unit> =
         configuration.remove(ConfGroupKeys.getGroupKey(groupKey).createKey(key)).toResponseEntity()
 
 
-    override fun configurationGroupKeyKeyPost(
+    override fun setConfiguration(
         groupKey: String,
         key: String,
         configurationValue: ConfigurationValue

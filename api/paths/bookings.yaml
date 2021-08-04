@@ -1,5 +1,6 @@
 summary: Operations on bookings
 get:
+  operationId: filterBookings
   tags:
     - bookings
 
@@ -66,6 +67,7 @@ get:
         $ref: "../responses/ApiErrorResponse.yaml"
 
 post:
+  operationId: createBooking
   tags:
     - bookings
 

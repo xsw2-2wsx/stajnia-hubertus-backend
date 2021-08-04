@@ -16,31 +16,31 @@ class ActivitiesController : ActivitiesApi {
     @Autowired
     private lateinit var activityInteractor: ActivityInteractor
 
-    override fun activitiesActivityIdGet(activityId: Int): ResponseEntity<Activity> =
+    override fun getActivityById(activityId: Int): ResponseEntity<Activity> =
         activityInteractor.findActivityById(activityId).toModel().toResponseEntity()
 
-    override fun activitiesGet(): ResponseEntity<List<Activity>> =
+    override fun getActivities(): ResponseEntity<List<Activity>> =
         activityInteractor.findActivities().map { it.toModel() }.toMutableList().toResponseEntity()
 
-    override fun activitiesActivityIdDelete(activityId: Int): ResponseEntity<Unit> {
+    override fun deleteActivityById(activityId: Int): ResponseEntity<Unit> {
         activityInteractor.deleteActivity(activityId)
         return ResponseEntity.ok().build()
     }
 
-    override fun activitiesPost(activity: Activity): ResponseEntity<Unit> {
+    override fun createActivity(activity: Activity): ResponseEntity<Unit> {
         activityInteractor.saveActivity(activity.id, activity.name, activity.description, activity.points.toDouble())
         return ResponseEntity.ok().build()
     }
 
-    override fun activitiesPut(activity: Activity): ResponseEntity<Unit> {
+    override fun modifyActivity(activity: Activity): ResponseEntity<Unit> {
         activityInteractor.modifyActivity(activity.id, activity.name, activity.description, activity.points.toDouble())
         return ResponseEntity.ok().build()
     }
 
-    override fun activitiesActivityIdConstraintsGet(activityId: Int): ResponseEntity<List<ActivityConstraint>> =
+    override fun getActivityConstraintsByActivityId(activityId: Int): ResponseEntity<List<ActivityConstraint>> =
         activityInteractor.findActivityConstraints(activityId).map { it.toModel() }.toResponseEntity()
 
-    override fun activitiesActivityIdConstraintsPost(
+    override fun setActivityConstraintsByActivityId(
         activityId: Int,
         activityConstraint: List<ActivityConstraint>
     ): ResponseEntity<Unit> {
@@ -53,7 +53,7 @@ class ActivitiesController : ActivitiesApi {
         return ResponseEntity.ok().build()
     }
 
-    override fun activitiesActivityIdConstraintsDelete(activityId: Int): ResponseEntity<Unit> {
+    override fun deleteActivityConstraintsByActivityId(activityId: Int): ResponseEntity<Unit> {
         activityInteractor.removeActivityConstraints(activityId)
         return ResponseEntity.ok().build()
     }

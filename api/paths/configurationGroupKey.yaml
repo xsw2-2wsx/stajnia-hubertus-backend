@@ -6,6 +6,7 @@ parameters:
     schema:
       type: string
 get:
+  operationId: describeKeysInGroup
   tags:
     - configuration
   responses:

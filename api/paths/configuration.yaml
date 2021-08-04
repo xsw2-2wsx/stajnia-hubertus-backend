@@ -1,5 +1,6 @@
 summary: App configuration
 get:
+  operationId: getConfigurationGroups
   tags:
     - configuration
   responses:

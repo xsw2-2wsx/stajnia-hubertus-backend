@@ -17,22 +17,22 @@ class RolesController : RolesApi {
     @Autowired
     private lateinit var roleInteractor: RoleInteractor
 
-    override fun rolesGet(): ResponseEntity<List<Role>> =
+    override fun getRoles(): ResponseEntity<List<Role>> =
         roleInteractor.findRoles().map { it.toModel() }.toResponseEntity()
 
-    override fun rolesPost(role: Role): ResponseEntity<Unit> {
+    override fun createRole(role: Role): ResponseEntity<Unit> {
         roleInteractor.createRole(role.name, role.description, emptySet())
         return ResponseEntity.ok().build()
     }
 
 
-    override fun rolesRoleIdAuthoritiesDelete(roleId: Int): ResponseEntity<Unit> =
+    override fun deleteRoleAuthorities(roleId: Int): ResponseEntity<Unit> =
         roleInteractor.removeRoleAuthorities(roleId).toResponseEntity()
 
-    override fun rolesRoleIdAuthoritiesGet(roleId: Int): ResponseEntity<List<Authority>> =
+    override fun getAuthoritiesByRoleId(roleId: Int): ResponseEntity<List<Authority>> =
         roleInteractor.getRoleAuthorities(roleId).map { it.toModel() }.toResponseEntity()
 
-    override fun rolesRoleIdAuthoritiesPost(roleId: Int, requestBody: List<String>): ResponseEntity<Unit> {
+    override fun setRoleAuthorities(roleId: Int, requestBody: List<String>): ResponseEntity<Unit> {
         val authorities = requestBody.map {
             Authorities.valueOfOrNull(it)?: throw AuthorityDoesNotExistException(it)
         }.toSet()
@@ -44,9 +44,9 @@ class RolesController : RolesApi {
 
 
 
-    override fun rolesRoleIdDelete(roleId: Int): ResponseEntity<Unit> =
+    override fun deleteRoleById(roleId: Int): ResponseEntity<Unit> =
         roleInteractor.deleteRole(roleId).toResponseEntity()
 
-    override fun rolesRoleIdGet(roleId: Int): ResponseEntity<Role> =
+    override fun getRoleById(roleId: Int): ResponseEntity<Role> =
         roleInteractor.findRoleById(roleId).toModel().toResponseEntity()
 }

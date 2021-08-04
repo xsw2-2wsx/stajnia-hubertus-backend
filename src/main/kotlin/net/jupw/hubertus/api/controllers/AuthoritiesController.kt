@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class AuthoritiesController : AuthoritiesApi {
 
-    override fun authoritiesGet(): ResponseEntity<List<Authority>> =
+    override fun getAuthorities(): ResponseEntity<List<Authority>> =
         Authorities.values().map { it.toModel() }.toResponseEntity()
 
 }

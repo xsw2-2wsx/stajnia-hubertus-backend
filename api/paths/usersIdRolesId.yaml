@@ -13,6 +13,7 @@ parameters:
       $ref: "../schemas/Id.yaml"
 
 get:
+  operationId: getUserRoleById
   tags:
     - role managment
 
@@ -23,6 +24,7 @@ get:
       $ref: "../responses/ApiErrorResponse.yaml"
 
 delete:
+  operationId: deleteUserRoleById
   tags:
     - role managment
 
