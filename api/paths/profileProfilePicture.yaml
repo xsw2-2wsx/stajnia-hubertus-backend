@@ -11,3 +11,15 @@ post:
       description: Operation successfull
     default:
       $ref: "../responses/ApiErrorResponse.yaml"
+
+delete:
+  tags:
+    - profile
+
+  responses:
+    '200':
+      description: Operation successfull
+    '404':
+      description: This user does not have a profile picture
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
