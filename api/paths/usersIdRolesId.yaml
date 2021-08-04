@@ -28,7 +28,7 @@ delete:
   tags:
     - role managment
 
-  respones:
+  responses:
     '200':
       description: Operation successfull
     default:

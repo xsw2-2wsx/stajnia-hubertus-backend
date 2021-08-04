@@ -1,4 +1,4 @@
-descripiton: Holds a single Id
+description: Holds a single Id
 properties:
   id:
     $ref: "Id.yaml"

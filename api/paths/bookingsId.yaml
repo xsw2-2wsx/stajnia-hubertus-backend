@@ -1,7 +1,7 @@
 summary: Operations on bookings
 parameters:
   - name: bookingId
-    in: query
+    in: path
     required: true
     schema:
       type: integer
