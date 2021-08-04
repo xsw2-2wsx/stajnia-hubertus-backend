@@ -1,14 +1,27 @@
+ActivityConstraintListRequestBody:
+  $ref: "ActivityConstraintListRequestBody.yaml"
+
+ActivityRequestBody:
+  $ref: "ActivityRequestBody.yaml"
+
 AuthenticationRequestBody:
   $ref: "AuthenticationRequestBody.yaml"
 
-  UserRequestBody:
-    $ref: "UserRequestBody.yaml"
+AuthorityListRequestBody:
+  $ref: "AuthorityListRequestBody.yaml"
 
-  ActivityRequestBody:
-    $ref: "ActivityRequestBody.yaml"
+BookingRequestBody:
+  $ref: "BookingRequestBody.yaml"
 
-  ConfigurationEntryRequestBody:
-    $ref: "ConfigurationValueRequestBody.yaml"
+ConfigurationValueRequestBody:
+  $ref: "ConfigurationValueRequestBody.yaml"
 
-  BookingRequestBody:
-    $ref: "BookingRequestBody.yaml"
+RoleIdRequestBody:
+  $ref: "RoleIdRequestBody.yaml"
+
+RoleRequestBody:
+  $ref: "RoleRequestBody.yaml"
+
+UserRequestBody:
+  $ref: "UserRequestBody.yaml"
+

@@ -1,4 +1,4 @@
-descripiton: Holds an Id of the role to be added
+description: Holds an Id of the role to be added
 content:
   application/json:
     schema:

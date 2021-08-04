@@ -1,4 +1,4 @@
-descripiton: Represents a user role in the system
+description: Represents a user role in the system
 properties:
   id:
     type: integer

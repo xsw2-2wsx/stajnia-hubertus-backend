@@ -33,7 +33,9 @@ delete:
   operationId: deleteActivityConstraintsByActivityId
   tags:
     - activity constraints
-  '200':
-    description: Operation successfull
-  default:
-    $ref: "../responses/ApiErrorResponse.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"
