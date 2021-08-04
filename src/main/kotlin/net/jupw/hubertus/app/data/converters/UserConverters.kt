@@ -11,5 +11,6 @@ fun UserEntity.toUser() = UserImpl(
     phone,
     email,
     isLocked,
-    roles.flatMap { it.authorities }
+    roles.flatMap { it.authorities },
+    profilePicturePath,
 )

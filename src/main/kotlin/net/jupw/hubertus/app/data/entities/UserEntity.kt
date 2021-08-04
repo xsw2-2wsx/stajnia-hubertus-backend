@@ -38,5 +38,8 @@ class UserEntity (
             referencedColumnName = "roles_id"
         )],
     )
-    var roles: MutableSet<RoleEntity>
+    var roles: MutableSet<RoleEntity>,
+
+    @Column(name = "profile_pic_path")
+    var profilePicturePath: String?,
 )

@@ -10,6 +10,7 @@ class UserImpl(
     override var email: String?,
     override var isLocked: Boolean,
     override var authorities: List<String>,
+    override var profilePicturePath: String?,
 ) : User {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         authorities.map { GrantedAuthority { it } }.toMutableList()

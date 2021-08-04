@@ -68,7 +68,7 @@ class UserInteractor : UserDetailsService {
         val password = secRandomString(GENERATED_PASSWD_LEN)
 
         userRepository.save(UserEntity(
-            0, username, passwordEncoder.encode(password), null, null, false, mutableSetOf()
+            0, username, passwordEncoder.encode(password), null, null, false, mutableSetOf(), null
         ))
 
         return password

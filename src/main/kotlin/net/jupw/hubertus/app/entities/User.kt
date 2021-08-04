@@ -17,4 +17,6 @@ interface User : UserDetails, BookingOwner {
     var isLocked: Boolean
 
     var authorities: List<String>
+
+    var profilePicturePath: String?
 }
