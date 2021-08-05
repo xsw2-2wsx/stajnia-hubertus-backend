@@ -7,7 +7,7 @@ import net.jupw.hubertus.app.data.repositories.UserRepository
 import net.jupw.hubertus.app.entities.Role
 import net.jupw.hubertus.app.entities.RoleImpl
 import net.jupw.hubertus.app.entities.User
-import net.jupw.hubertus.app.entities.UserImpl
+import net.jupw.hubertus.app.exceptions.NoProfilePictureException
 import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
 import net.jupw.hubertus.app.exceptions.UserDoesNotHaveSpecifiedRoleException
 import net.jupw.hubertus.app.exceptions.UserNotFoundException
@@ -15,17 +15,19 @@ import net.jupw.hubertus.app.security.Authorities
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.io.Resource
+import org.springframework.core.io.ResourceLoader
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.io.File
 import java.security.SecureRandom
 import java.util.*
-import java.util.Collections.emptyList
 import javax.transaction.Transactional
 
 @Service
@@ -46,6 +48,12 @@ class UserInteractor : UserDetailsService {
 
     @Autowired
     private lateinit var roleInteractor: RoleInteractor
+
+    @Value("\${storage.profile.pictures}")
+    private lateinit var profilePictureLocation: String
+
+    @Autowired
+    private lateinit var resourceLoader: ResourceLoader
     
     val authenticatedUser: User
         get() = SecurityContextHolder.getContext().authentication.principal as User
@@ -131,6 +139,47 @@ class UserInteractor : UserDetailsService {
             .find { it.id == roleId }
             ?.toRole()
             ?: throw UserDoesNotHaveSpecifiedRoleException(userId, roleId)
+
+    @Transactional
+    fun setProfilePicture(image: Resource) {
+        val user = findUserEntity(authenticatedUser.id)
+        val relativePath = "${user.id}.jpg"
+        val absolutePath = "$profilePictureLocation/$relativePath"
+
+        val fileResource = resourceLoader.getResource(absolutePath)
+        if(!fileResource.isFile) throw IllegalStateException()
+        val file = fileResource.file
+
+        val fileOutputStream = file.outputStream()
+        val imageInputStream = image.inputStream
+
+        imageInputStream.copyTo(fileOutputStream)
+        imageInputStream.close()
+        fileOutputStream.close()
+
+        user.profilePicturePath = relativePath
+    }
+
+    @Transactional
+    fun deleteProfilePicture() {
+        val user = findUserEntity(authenticatedUser.id)
+        val relativePath = user.profilePicturePath?: throw NoProfilePictureException(user.id)
+        val absolutePath = "$profilePictureLocation/$relativePath"
+
+        val fileResource = resourceLoader.getResource(absolutePath)
+        if(!fileResource.isFile) throw IllegalStateException()
+
+        val file = fileResource.file
+        if(file.exists())
+            file.delete()
+
+        user.profilePicturePath = null
+    }
+
+    fun getProfilePicture(userId: Int): Resource {
+        val path = findUserEntity(userId).profilePicturePath?: throw NoProfilePictureException(userId)
+        return resourceLoader.getResource("$profilePictureLocation/$path")
+    }
 
     private fun findUserEntity(id: Int) = userRepository.findByIdOrNull(id)?: throw UserNotFoundException(id)
 
