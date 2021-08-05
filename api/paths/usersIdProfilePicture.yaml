@@ -14,6 +14,6 @@ get:
     '200':
       $ref: "../responses/ImageResponse.yaml"
     '404':
-      description: This user does not have a profile picture
+      description: User does not have a profile picture
     default:
-      $ref: "../responses/ApiErrorResponse.yaml"
+      description: Something went wrong
