@@ -23,9 +23,7 @@ properties:
     $ref: "Id.yaml"
 
 required:
-  - id
   - startTime
   - endTime
   - activityId
   - subject
-  - userId
