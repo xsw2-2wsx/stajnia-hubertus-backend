@@ -25,6 +25,9 @@ Authority:
 Booking:
   $ref: "Booking.yaml"
 
+ChangePasswordRequest:
+  $ref: "ChangePasswordRequest.yaml"
+
 ConfigurationEntrySchema:
   $ref: "ConfigurationEntrySchema.yaml"
 

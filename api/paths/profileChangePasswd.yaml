@@ -1,0 +1,14 @@
+summary: Allows to change password
+patch:
+  operationId: changePassword
+  tags:
+    - profile
+
+  requestBody:
+    $ref: "../requestBodies/ChangePasswordRequestBody.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

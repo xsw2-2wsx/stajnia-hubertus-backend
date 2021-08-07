@@ -56,6 +56,9 @@ paths:
   /profile/picture:
     $ref: "./paths/profileProfilePicture.yaml"
 
+  /profile/changepwd:
+    $ref: "./paths/profileChangePasswd.yaml"
+
   /admin/users/{userId}:
     $ref: "./paths/admin-usersId.yaml"
 
