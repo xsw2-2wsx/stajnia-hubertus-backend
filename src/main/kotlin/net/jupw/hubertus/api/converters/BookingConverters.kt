@@ -6,10 +6,10 @@ typealias BookingModel = net.jupw.hubertus.api.models.Booking
 
 fun Booking.toModel() = BookingModel(
     id,
-    creationTime,
     startTime,
     endTime,
     activity.id,
     subject,
-    user.id
+    user.id,
+    creationTime,
 )

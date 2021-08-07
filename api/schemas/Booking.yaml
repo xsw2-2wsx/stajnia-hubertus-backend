@@ -24,7 +24,6 @@ properties:
 
 required:
   - id
-  - creationTime
   - startTime
   - endTime
   - activityId
