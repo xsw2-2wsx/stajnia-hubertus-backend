@@ -7,10 +7,7 @@ import net.jupw.hubertus.app.data.repositories.UserRepository
 import net.jupw.hubertus.app.entities.Role
 import net.jupw.hubertus.app.entities.RoleImpl
 import net.jupw.hubertus.app.entities.User
-import net.jupw.hubertus.app.exceptions.NoProfilePictureException
-import net.jupw.hubertus.app.exceptions.UserAlreadyExistException
-import net.jupw.hubertus.app.exceptions.UserDoesNotHaveSpecifiedRoleException
-import net.jupw.hubertus.app.exceptions.UserNotFoundException
+import net.jupw.hubertus.app.exceptions.*
 import net.jupw.hubertus.app.security.Authorities
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -115,6 +112,14 @@ class UserInteractor : UserDetailsService {
         user.password = passwordEncoder.encode(newPassword)
         log.info("Password of user ${ user.name } has been reset by ${ authenticatedUser.name }")
         return newPassword
+    }
+
+    @Transactional
+    fun changePassword(oldPassword: String, newPassword: String) {
+        val user = findUserEntity(authenticatedUser.id)
+        if(!passwordEncoder.matches(oldPassword, user.password)) throw PasswordsDoNotMatchException(user.id)
+        user.password = passwordEncoder.encode(newPassword)
+
     }
 
     @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_USERS)")

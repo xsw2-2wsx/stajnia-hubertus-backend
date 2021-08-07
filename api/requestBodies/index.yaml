@@ -13,6 +13,9 @@ AuthorityListRequestBody:
 BookingRequestBody:
   $ref: "BookingRequestBody.yaml"
 
+ChangePasswordRequestBody:
+  $ref: "ChangePasswordRequestBody.yaml"
+
 ConfigurationValueRequestBody:
   $ref: "ConfigurationValueRequestBody.yaml"
 
