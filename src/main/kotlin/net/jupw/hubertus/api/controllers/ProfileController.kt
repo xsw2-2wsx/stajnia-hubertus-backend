@@ -1,5 +1,6 @@
 package net.jupw.hubertus.api.controllers
 
+import net.jupw.hubertus.api.models.ChangePasswordRequest
 import net.jupw.hubertus.api.toResponseEntity
 import net.jupw.hubertus.app.interactors.UserInteractor
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,4 +20,7 @@ class ProfileController : ProfileApi {
     override fun deleteProfilePicture(): ResponseEntity<Unit> =
         userInteractor.deleteProfilePicture().toResponseEntity()
 
+    override fun changePassword(changePasswordRequest: ChangePasswordRequest): ResponseEntity<Unit> =
+        userInteractor.changePassword(changePasswordRequest.oldPassword, changePasswordRequest.newPassword)
+            .toResponseEntity()
 }
