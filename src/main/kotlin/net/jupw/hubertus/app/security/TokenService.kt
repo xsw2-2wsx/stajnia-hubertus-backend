@@ -40,6 +40,14 @@ class TokenService {
             .setSubject(userId.toString())
             .compact()
 
+    fun createPasswordRecoveryAuthToken(userId: Int): String =
+        Jwts
+            .builder()
+            .configure(conf.passwdRecoveryValidity)
+            .setSubject(userId.toString())
+            .claim(Claims.PASSWORD_RECOVERY.value, true)
+            .compact()
+
     fun getAuthenticatedUserId(): Int? {
         val token = extractTokenFromRequest(currentRequest!!)?: return null
         try {
@@ -61,6 +69,20 @@ class TokenService {
         }
         return null
     }
+
+    fun isPasswordRecoveryToken(): Boolean {
+        val token = extractTokenFromRequest(currentRequest!!)?: return false
+
+        return Jwts
+            .parserBuilder()
+            .configure()
+            .build()
+            .parseClaimsJws(token)
+            .body
+            .get(Claims.PASSWORD_RECOVERY.value, Boolean::class.java)?: false
+    }
+
+
 
     private fun extractTokenFromRequest(request: HttpServletRequest): String? {
         val header: String = request.getHeader(HttpHeaders.AUTHORIZATION)?: return null
