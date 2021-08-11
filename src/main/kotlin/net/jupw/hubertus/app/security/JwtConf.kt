@@ -15,7 +15,7 @@ class JwtConf {
         private val log: Logger = LogManager.getLogger()
 
         const val DEFAULT_VALIDITY: Long = 900000
-        const val DEFAULT_PASSWD_RECOVERY_VALIDITY = 180000
+        const val DEFAULT_PASSWD_RECOVERY_VALIDITY: Long = 180000
     }
 
     @Value("\${api.auth.token.secret}")
@@ -45,6 +45,29 @@ class JwtConf {
             if(_validity == null) initValidity()
             return _validity!!
         }
+
+    @Value("\${api.auth.token.password.recovery.validity}")
+    private lateinit var passwdRecoveryValidityValue: String
+
+    private var _passwdRecoveryValidity: Long? = null
+
+    val passwdRecoveryValidity: Long
+        get() {
+            if(_passwdRecoveryValidity == null) initPasswdRecoveryValidity()
+            return _passwdRecoveryValidity!!
+        }
+
+    private fun initPasswdRecoveryValidity() {
+        if(passwdRecoveryValidityValue.isNotEmpty()) try {
+            _passwdRecoveryValidity = passwdRecoveryValidityValue.toLong()
+            return
+        }
+        catch (e: Exception) {
+            log.warn("Invalid password recovery validity time: $passwdRecoveryValidityValue, using default")
+        }
+        _passwdRecoveryValidity = DEFAULT_PASSWD_RECOVERY_VALIDITY
+    }
+
 
     private fun initKey() =
         if (secretValue.isEmpty()) _key = Keys.secretKeyFor(SignatureAlgorithm.HS512)
