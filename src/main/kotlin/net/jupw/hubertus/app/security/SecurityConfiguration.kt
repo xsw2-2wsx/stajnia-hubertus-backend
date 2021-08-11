@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Autowired
-    private lateinit var jwtConf: JWTConfiguration
+    private lateinit var tokenService: TokenService
 
     @Autowired
     private lateinit var authEntryPoint: AuthEntryPoint
@@ -38,7 +38,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .csrf()
             .disable()
 
-        http.addFilterBefore(JWTAuthenticationFilter(userDetailsService, jwtConf), UsernamePasswordAuthenticationFilter::class.java)
+        http.addFilterBefore(JWTAuthenticationFilter(userDetailsService, tokenService), UsernamePasswordAuthenticationFilter::class.java)
 
         http.exceptionHandling().authenticationEntryPoint(authEntryPoint)
 

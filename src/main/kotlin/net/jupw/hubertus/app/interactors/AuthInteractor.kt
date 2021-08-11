@@ -1,9 +1,7 @@
 package net.jupw.hubertus.app.interactors
 
-import io.jsonwebtoken.Jwts
 import net.jupw.hubertus.app.entities.User
-import net.jupw.hubertus.app.security.JWTConfiguration
-import net.jupw.hubertus.app.security.configure
+import net.jupw.hubertus.app.security.TokenService
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,16 +19,11 @@ class AuthInteractor {
     private lateinit var authManager: AuthenticationManager
 
     @Autowired
-    private lateinit var jwtConf: JWTConfiguration
+    private lateinit var tokenService: TokenService
 
     fun authenticate(username: String, password: String): String = try {
         val auth = authManager.authenticate(UsernamePasswordAuthenticationToken(username, password))
-
-        Jwts
-            .builder()
-            .configure(jwtConf)
-            .setSubject((auth.principal as User).id.toString())
-            .compact()
+        tokenService.createAuthenticationToken((auth.principal as User).id)
     }
     catch (e: DisabledException) {
         log.debug("User with username $username failed to obtain a token due to account being disabled")

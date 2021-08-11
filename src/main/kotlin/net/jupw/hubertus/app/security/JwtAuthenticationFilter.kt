@@ -1,28 +1,25 @@
 package net.jupw.hubertus.app.security
 
-import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.JwtException
-import io.jsonwebtoken.Jwts
 import net.jupw.hubertus.app.interactors.UserInteractor
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import org.springframework.http.HttpHeaders
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.LockedException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.web.filter.OncePerRequestFilter
-import java.security.SignatureException
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter(private val usersService: UserInteractor, private val jwtConf: JWTConfiguration) : OncePerRequestFilter() {
+class JWTAuthenticationFilter(private val usersService: UserInteractor, private val tokenService: TokenService) : OncePerRequestFilter() {
 
     companion object {
         private val log: Logger = LogManager.getLogger()
     }
+
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -30,25 +27,16 @@ class JWTAuthenticationFilter(private val usersService: UserInteractor, private 
         filterChain: FilterChain
     ) {
 
-        getToken(request)?.let { authenticateWithToken(it, request) }
+        tokenService.getAuthenticatedUserId()?.also { authenticateWithIdFromToken(it, request) }
 
         filterChain.doFilter(request, response)
 
     }
 
     // TODO: handle account deleted or locked
-    private fun authenticateWithToken(token: String, request: HttpServletRequest) = try {
+    private fun authenticateWithIdFromToken(userId: Int, request: HttpServletRequest) = try {
 
-        val userid: Int = Jwts
-            .parserBuilder()
-            .configure(jwtConf)
-            .build()
-            .parseClaimsJws(token)
-            .body
-            .subject
-            .toInt()
-
-        val userDetails = usersService.findUserById(userid)
+        val userDetails = usersService.findUserById(userId)
 
         if(!userDetails.isEnabled)
             throw DisabledException("User ${userDetails.username} failed token authentication due to account being disabled")
@@ -60,16 +48,6 @@ class JWTAuthenticationFilter(private val usersService: UserInteractor, private 
 
         SecurityContextHolder.getContext().authentication = auth
     }
-
-    catch (e: SignatureException) {
-        log.warn("Token authentication failed due invalid signature")
-    }
-    catch (e: ExpiredJwtException) {
-        log.debug("Token authentication failed due to expired token")
-    }
-    catch (e: JwtException) {
-        log.debug("Token authentication failed due to exception: $e")
-    }
     catch (e: LockedException) {
         log.debug(e.message)
     }
@@ -77,9 +55,5 @@ class JWTAuthenticationFilter(private val usersService: UserInteractor, private 
         log.debug(e.message)
     }
 
-    private fun getToken(request: HttpServletRequest): String? {
-        val header: String = request.getHeader(HttpHeaders.AUTHORIZATION)?: return null
 
-        return if(header.startsWith("Bearer ")) header.substring(7, header.length) else null
-    }
 }
