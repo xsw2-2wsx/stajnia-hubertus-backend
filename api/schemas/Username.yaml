@@ -1,0 +1,6 @@
+description: Holds username
+properties:
+  username:
+    type: string
+required:
+  - username

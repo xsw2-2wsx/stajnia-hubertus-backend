@@ -59,6 +59,9 @@ paths:
   /profile/changepwd:
     $ref: "./paths/profileChangePasswd.yaml"
 
+  /profile/recoverpwd:
+    $ref: "./paths/profileRecoverPassword.yaml"
+
   /admin/users/{userId}:
     $ref: "./paths/admin-usersId.yaml"
 

@@ -43,6 +43,9 @@ ConfigurationValue:
 DateTime:
   $ref: "DateTime.yaml"
 
+Username:
+  $ref: "Username.yaml"
+
 Id:
   $ref: "Id.yaml"
 

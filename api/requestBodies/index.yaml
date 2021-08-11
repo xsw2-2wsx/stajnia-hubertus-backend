@@ -25,6 +25,9 @@ RoleIdRequestBody:
 RoleRequestBody:
   $ref: "RoleRequestBody.yaml"
 
+UsernameRequestBody:
+  $ref: "UsernameRequestBody.yaml"
+
 UserRequestBody:
   $ref: "UserRequestBody.yaml"
 
