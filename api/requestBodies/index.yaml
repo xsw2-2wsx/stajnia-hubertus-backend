@@ -22,6 +22,9 @@ ConfigurationValueRequestBody:
 ImageUploadRequestBody:
   $ref: "ImageUploadRequestBody.yaml"
 
+PasswordRequestBody:
+  $ref: "PasswordRequestBody.yaml"
+
 RoleIdRequestBody:
   $ref: "RoleIdRequestBody.yaml"
 

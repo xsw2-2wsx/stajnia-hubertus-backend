@@ -55,11 +55,11 @@ IdHolder:
 Role:
   $ref: "Role.yaml"
 
+Password:
+  $ref: "Password.yaml"
+
 Time:
   $ref: "Time.yaml"
 
 User:
   $ref: "User.yaml"
-
-UserPassword:
-  $ref: "UserPassword.yaml"
