@@ -19,6 +19,9 @@ ChangePasswordRequestBody:
 ConfigurationValueRequestBody:
   $ref: "ConfigurationValueRequestBody.yaml"
 
+ImageUploadRequestBody:
+  $ref: "ImageUploadRequestBody.yaml"
+
 RoleIdRequestBody:
   $ref: "RoleIdRequestBody.yaml"
 
