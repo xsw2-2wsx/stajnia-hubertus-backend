@@ -79,7 +79,8 @@ class TokenService {
             .build()
             .parseClaimsJws(token)
             .body
-            .get(Claims.PASSWORD_RECOVERY.value, Boolean::class.java)?: false
+            .get(Claims.PASSWORD_RECOVERY.value, Boolean::class.javaObjectType)
+            ?: false
     }
 
 
