@@ -44,6 +44,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
         http.authorizeRequests()
             .antMatchers("/auth").permitAll()
+            .antMatchers("/profile/recoverpwd").permitAll()
             .anyRequest().authenticated()
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

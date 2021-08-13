@@ -9,6 +9,7 @@ import net.jupw.hubertus.app.entities.RoleImpl
 import net.jupw.hubertus.app.entities.User
 import net.jupw.hubertus.app.exceptions.*
 import net.jupw.hubertus.app.security.Authorities
+import net.jupw.hubertus.app.security.TokenService
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,13 +17,17 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.core.io.ResourceLoader
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.mail.javamail.JavaMailSender
+import org.springframework.mail.javamail.MimeMessageHelper
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import java.io.File
+import org.thymeleaf.ITemplateEngine
+import org.thymeleaf.context.Context
 import java.security.SecureRandom
 import java.util.*
 import javax.transaction.Transactional
@@ -41,6 +46,9 @@ class UserInteractor : UserDetailsService {
     private lateinit var userRepository: UserRepository
 
     @Autowired
+    private lateinit var tokenService: TokenService
+
+    @Autowired
     private lateinit var passwordEncoder: PasswordEncoder
 
     @Autowired
@@ -51,7 +59,14 @@ class UserInteractor : UserDetailsService {
 
     @Autowired
     private lateinit var resourceLoader: ResourceLoader
-    
+
+    @Autowired
+    private lateinit var templateEngine: ITemplateEngine
+
+    @Autowired
+    private lateinit var emailSender: JavaMailSender
+
+
     val authenticatedUser: User
         get() = SecurityContextHolder.getContext().authentication.principal as User
 
@@ -119,7 +134,38 @@ class UserInteractor : UserDetailsService {
         val user = findUserEntity(authenticatedUser.id)
         if(!passwordEncoder.matches(oldPassword, user.password)) throw PasswordsDoNotMatchException(user.id)
         user.password = passwordEncoder.encode(newPassword)
+    }
 
+    fun sendPasswordRecoveryEmail(username: String) {
+        val user = userRepository.findByName(username)?: return
+        val email = user.email?: return
+
+        val passwordRecoveryToken = tokenService.createPasswordRecoveryAuthToken(user.id)
+
+        val templateContext = Context().apply {
+            setVariable("username", user.name)
+            setVariable("token", passwordRecoveryToken)
+        }
+
+        val messageContentHtml: String = templateEngine.process("password-recovery-email.html", templateContext)
+
+        val message = emailSender.createMimeMessage()
+        val helper = MimeMessageHelper(message, "utf-8")
+        helper.setText(messageContentHtml, true)
+        helper.setSubject("Password recovery")
+        helper.setFrom("noreply@jupw.net")
+        helper.setTo(email)
+
+        emailSender.send(message)
+
+    }
+
+    @Transactional
+    fun recoverPassword(newPassword: String) {
+        if(!tokenService.isPasswordRecoveryToken()) throw AccessDeniedException("Not a password recovery token")
+
+        val user = findUserEntity(authenticatedUser.id)
+        user.password = passwordEncoder.encode(newPassword)
     }
 
     @PreAuthorize("hasAuthority(T(net.jupw.hubertus.app.security.Authorities).MANAGE_USERS)")
