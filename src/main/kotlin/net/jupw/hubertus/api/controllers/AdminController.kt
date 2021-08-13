@@ -1,10 +1,7 @@
 package net.jupw.hubertus.api.controllers
 
 import net.jupw.hubertus.api.converters.toModel
-import net.jupw.hubertus.api.models.IdHolder
-import net.jupw.hubertus.api.models.Role
-import net.jupw.hubertus.api.models.User
-import net.jupw.hubertus.api.models.UserPassword
+import net.jupw.hubertus.api.models.*
 import net.jupw.hubertus.api.toResponseEntity
 import net.jupw.hubertus.app.interactors.BookingInteractor
 import net.jupw.hubertus.app.interactors.UserInteractor
@@ -21,15 +18,15 @@ class AdminController : AdminApi {
     @Autowired
     private lateinit var bookingInteractor: BookingInteractor
 
-    override fun createUser(user: User): ResponseEntity<UserPassword> =
-        UserPassword(userInteractor.createUser(user.name)).toResponseEntity()
+    override fun createUser(user: User): ResponseEntity<Password> =
+        Password(userInteractor.createUser(user.name)).toResponseEntity()
 
     override fun modifyUser(user: User): ResponseEntity<Unit> =
         userInteractor.modifyUser(user.id, user.name, user.email, user.phone, user.locked)
             .toResponseEntity()
 
-    override fun resetPasswordByUserId(userId: Int): ResponseEntity<UserPassword> =
-        UserPassword(userInteractor.resetPassword(userId)).toResponseEntity()
+    override fun resetPasswordByUserId(userId: Int): ResponseEntity<Password> =
+        Password(userInteractor.resetPassword(userId)).toResponseEntity()
 
     override fun deleteUserById(userId: Int): ResponseEntity<Unit> =
         userInteractor.deleteUser(userId).toResponseEntity()
