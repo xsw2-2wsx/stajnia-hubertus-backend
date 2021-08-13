@@ -1,5 +1,7 @@
 package net.jupw.hubertus.api
 
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.JwtException
 import net.jupw.hubertus.api.models.ApiError
 import net.jupw.hubertus.api.models.ApiSubError
 import net.jupw.hubertus.app.configuration.exceptions.ConfigurationGroupDoesNotExistException
@@ -410,4 +412,18 @@ class ErrorHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(NoProfilePictureException::class)
     fun handleNoProfilePicture(ex: NoProfilePictureException) =
         ResponseEntity.notFound().build<Any>()
+
+    @ExceptionHandler(ExpiredJwtException::class)
+    fun handleExpiredToken(ex: ExpiredJwtException) = error(
+        HttpStatus.UNAUTHORIZED,
+        message = "Sesja wygasła",
+        suggestedAction = "Zaloguj się ponownie"
+    )
+
+    @ExceptionHandler(JwtException::class)
+    fun handleJwtException(ex: JwtException) = error(
+        status = HttpStatus.UNAUTHORIZED,
+        message = "Wystąpił błąd uwierzytelnienia",
+        suggestedAction = CONTACT_IF_ERROR_SUGGESTED_ACTION,
+    )
 }
