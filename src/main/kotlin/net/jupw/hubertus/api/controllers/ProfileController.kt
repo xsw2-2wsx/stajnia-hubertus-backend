@@ -1,7 +1,7 @@
 package net.jupw.hubertus.api.controllers
 
 import net.jupw.hubertus.api.models.ChangePasswordRequest
-import net.jupw.hubertus.api.models.Password
+import net.jupw.hubertus.api.models.PasswordHolder
 import net.jupw.hubertus.api.models.Username
 import net.jupw.hubertus.api.toResponseEntity
 import net.jupw.hubertus.app.interactors.UserInteractor
@@ -29,6 +29,6 @@ class ProfileController : ProfileApi {
     override fun sendPasswordRecoveryEmail(username: Username): ResponseEntity<Unit> =
         userInteractor.sendPasswordRecoveryEmail(username.username).toResponseEntity()
 
-    override fun recoverPassword(password: Password): ResponseEntity<Unit> =
-        userInteractor.recoverPassword(password.password).toResponseEntity()
+    override fun recoverPassword(passwordHolder: PasswordHolder): ResponseEntity<Unit> =
+        userInteractor.recoverPassword(passwordHolder.password).toResponseEntity()
 }

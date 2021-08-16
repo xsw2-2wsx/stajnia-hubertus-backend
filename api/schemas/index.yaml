@@ -58,6 +58,9 @@ Role:
 Password:
   $ref: "Password.yaml"
 
+PasswordHolder:
+  $ref: "PasswordHolder.yaml"
+
 Time:
   $ref: "Time.yaml"
 

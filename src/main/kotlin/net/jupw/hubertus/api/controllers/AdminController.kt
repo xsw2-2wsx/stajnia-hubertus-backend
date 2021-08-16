@@ -18,15 +18,15 @@ class AdminController : AdminApi {
     @Autowired
     private lateinit var bookingInteractor: BookingInteractor
 
-    override fun createUser(user: User): ResponseEntity<Password> =
-        Password(userInteractor.createUser(user.name)).toResponseEntity()
+    override fun createUser(user: User): ResponseEntity<PasswordHolder> =
+        PasswordHolder(userInteractor.createUser(user.name)).toResponseEntity()
 
     override fun modifyUser(user: User): ResponseEntity<Unit> =
         userInteractor.modifyUser(user.id, user.name, user.email, user.phone, user.locked)
             .toResponseEntity()
 
-    override fun resetPasswordByUserId(userId: Int): ResponseEntity<Password> =
-        Password(userInteractor.resetPassword(userId)).toResponseEntity()
+    override fun resetPasswordByUserId(userId: Int): ResponseEntity<PasswordHolder> =
+        PasswordHolder(userInteractor.resetPassword(userId)).toResponseEntity()
 
     override fun deleteUserById(userId: Int): ResponseEntity<Unit> =
         userInteractor.deleteUser(userId).toResponseEntity()
