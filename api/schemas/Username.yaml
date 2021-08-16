@@ -1,6 +1,4 @@
-description: Holds username
-properties:
-  username:
-    type: string
-required:
-  - username
+type: string
+minLength: 5
+maxLength: 20
+x-size-error: Nazwa użytkownika musi miec od 5 do 20 znaków

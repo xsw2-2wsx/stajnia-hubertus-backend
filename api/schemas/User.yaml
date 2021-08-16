@@ -3,11 +3,15 @@ properties:
   id:
     $ref: "Id.yaml"
   name:
-    type: string
+    $ref: "Username.yaml"
   phone:
     type: string
+    pattern: ^(\+\d\d)( ?\d{3}){3}
+    x-pattern-error: Nieprawidłowy numer telefonu
   email:
     type: string
+    pattern: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$
+    x-pattern-error: Nieprawidłowy adres email
   locked:
     type: boolean
 required:

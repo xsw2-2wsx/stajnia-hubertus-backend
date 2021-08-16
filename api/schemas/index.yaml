@@ -46,6 +46,9 @@ DateTime:
 Username:
   $ref: "Username.yaml"
 
+UsernameHolder:
+  $ref: "UsernameHolder.yaml"
+
 Id:
   $ref: "Id.yaml"
 

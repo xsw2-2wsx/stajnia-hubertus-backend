@@ -18,6 +18,7 @@ properties:
   subject:
     type: string
     maxLength: 15
+    x-size-error: Nazwa konia nie może przekraczać 15 znaków
 
   userId:
     $ref: "Id.yaml"

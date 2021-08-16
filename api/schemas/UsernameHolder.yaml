@@ -1,0 +1,6 @@
+description: Holds username
+properties:
+  username:
+    $ref: "Username.yaml"
+required:
+  - username

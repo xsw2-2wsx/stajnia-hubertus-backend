@@ -7,10 +7,12 @@ properties:
     type: string
     minLength: 3
     maxLength: 20
+    x-size-error: Nazwa roli musi mieć od 3 do 20 znaków
 
   description:
     type: string
     maxLength: 100
+    x-size-error: Opis roli nie może przekraczać 100 znaków
 
 required:
   - name

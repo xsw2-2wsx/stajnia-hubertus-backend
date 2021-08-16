@@ -2,5 +2,7 @@ description: Holds a configuration value
 properties:
   value:
     type: string
+    maxLength: 100
+    x-size-error: Wartość konfiguracji nie może przekraczać 100 znaków
 required:
   - value

@@ -4,8 +4,13 @@ properties:
     $ref: "Id.yaml"
   name:
     type: string
+    minLength: 5
+    maxLength: 30
+    x-size-error: Nazwa aktywności musi mieć od 5 do 30 znaków
   description:
     type: string
+    maxLength: 100
+    x-size-error: Opis aktywności nie może przekraczać 100 znaków
   points:
     type: number
     minimum: 0
