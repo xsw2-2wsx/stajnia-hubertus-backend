@@ -2,7 +2,7 @@ summary: Operations on roles
 get:
   operationId: getRoles
   tags:
-    - role managment
+    - role management
 
   responses:
     '200':
@@ -11,7 +11,7 @@ get:
 post:
   operationId: createRole
   tags:
-    - role managment
+    - role management
 
   requestBody:
     $ref: "../requestBodies/RoleRequestBody.yaml"

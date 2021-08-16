@@ -9,7 +9,7 @@ parameters:
 delete:
   operationId: deleteBookingById
   tags:
-    - booking managment
+    - booking management
 
   responses:
     '200':

@@ -3,7 +3,7 @@ post:
   operationId: createUser
   description: Creates a user with specified username and sends back its password
   tags:
-    - user managment
+    - user management
   requestBody:
     $ref: "../requestBodies/UserRequestBody.yaml"
   responses:
@@ -17,7 +17,7 @@ put:
   operationId: modifyUser
   description: Edits a user
   tags:
-    - user managment
+    - user management
   requestBody:
     $ref: "../requestBodies/UserRequestBody.yaml"
   responses:

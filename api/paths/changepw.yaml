@@ -2,7 +2,7 @@ summary: Resets specified user password
 patch:
   operationId: resetPasswordByUserId
   tags:
-    - user managment
+    - user management
   parameters:
     - name: userId
       in: path

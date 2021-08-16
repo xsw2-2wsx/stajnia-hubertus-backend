@@ -1,4 +1,4 @@
-description: User managment API
+description: User management API
 parameters:
   - name: userId
     in: path
@@ -9,7 +9,7 @@ delete:
   operationId: deleteUserById
   description: Deletes specified user
   tags:
-    - user managment
+    - user management
   responses:
     '200':
       description: Operation sucessfull

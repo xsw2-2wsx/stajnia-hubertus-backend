@@ -2,7 +2,7 @@ summary: Opeartions on all authorities
 get:
   operationId: getAuthorities
   tags:
-    - role managment
+    - role management
 
   responses:
     '200':

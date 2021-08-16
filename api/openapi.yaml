@@ -28,13 +28,13 @@ security:
 tags:
   - name: authentication
   - name: users
-  - name: user managment
+  - name: user management
   - name: activities
   - name: configuration
   - name: bookings
-  - name: booking managment
+  - name: booking management
   - name: activity constraints
-  - name: role managment
+  - name: role management
   - name: profile
 
 paths:

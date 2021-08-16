@@ -9,7 +9,7 @@ parameters:
 get:
   operationId: getAuthoritiesByRoleId
   tags:
-    - role managment
+    - role management
   responses:
     '200':
       $ref: "../responses/AuthorityListResponse.yaml"
@@ -19,7 +19,7 @@ get:
 post:
   operationId: setRoleAuthorities
   tags:
-    - role managment
+    - role management
 
   requestBody:
     $ref: "../requestBodies/AuthorityListRequestBody.yaml"
@@ -34,7 +34,7 @@ post:
 delete:
   operationId: deleteRoleAuthorities
   tags:
-    - role managment
+    - role management
 
   responses:
     '200':

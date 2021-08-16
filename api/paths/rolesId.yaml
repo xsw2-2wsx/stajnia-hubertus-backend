@@ -9,7 +9,7 @@ parameters:
 get:
   operationId: getRoleById
   tags:
-    - role managment
+    - role management
 
   responses:
     '200':
@@ -20,7 +20,7 @@ get:
 delete:
   operationId: deleteRoleById
   tags:
-    - role managment
+    - role management
 
   responses:
     '200':

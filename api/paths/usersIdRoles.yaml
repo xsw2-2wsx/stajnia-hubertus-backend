@@ -9,7 +9,7 @@ parameters:
 get:
   operationId: getUserRoles
   tags:
-    - role managment
+    - role management
   responses:
     '200':
       $ref: "../responses/RoleListResponse.yaml"
@@ -19,7 +19,7 @@ get:
 post:
   operationId: setUserRoles
   tags:
-    - role managment
+    - role management
 
   requestBody:
     $ref: "../requestBodies/RoleIdRequestBody.yaml"
