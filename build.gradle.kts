@@ -67,10 +67,11 @@ openApiGenerate {
 	generatorName.set("kotlin-spring")
 
 	skipValidateSpec.set(true)
-	configFile.set("swagger-codegen-spring-config.json")
+	configFile.set("openapi-generator/swagger-codegen-spring-config.json")
 	generateApiDocumentation.set(true)
 
 	typeMappings.set(mapOf("java.time.OffsetDateTime" to "java.time.LocalDateTime"))
+	templateDir.set("$rootDir/openapi-generator/templates")
 }
 
 tasks.compileKotlin.configure {

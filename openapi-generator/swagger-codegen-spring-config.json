@@ -1,0 +1,8 @@
+{
+  "modelPackage": "net.jupw.hubertus.api.models",
+  "apiPackage": "net.jupw.hubertus.api.controllers",
+  "dateLibrary": "java8",
+  "java8": true,
+  "interfaceOnly": true,
+  "useBeanValidation": true
+}

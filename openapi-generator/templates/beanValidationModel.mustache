@@ -1,0 +1,33 @@
+{{#pattern}}
+    @get:Pattern(regexp="{{{pattern}}}"{{#vendorExtensions.x-pattern-error}}, message="{{.}}"{{/vendorExtensions.x-pattern-error}}){{/pattern}}{{!
+minLength && maxLength set
+}}{{#minLength}}{{#maxLength}}
+    @get:Size(min = {{minLength}}, max = {{maxLength}}{{#vendorExtensions.x-size-error}}, message = "{{.}}"{{/vendorExtensions.x-size-error}}){{/maxLength}}{{/minLength}}{{!
+minLength set, maxLength not
+}}{{#minLength}}{{^maxLength}}
+    @get:Size(min={{minLength}}{{#vendorExtensions.x-size-error}}, message = "{{.}}"{{/vendorExtensions.x-size-error}}){{/maxLength}}{{/minLength}}{{!
+minLength not set, maxLength set
+}}{{^minLength}}{{#maxLength}}
+    @get:Size(max={{maxLength}}{{#vendorExtensions.x-size-error}}, message = "{{.}}"{{/vendorExtensions.x-size-error}}){{/maxLength}}{{/minLength}}{{!
+@Size: minItems && maxItems set
+}}{{#minItems}}{{#maxItems}}
+    @get:Size(min={{minItems}},max={{maxItems}}{{#vendorExtensions.x-size-error}}, message = "{{.}}"{{/vendorExtensions.x-size-error}}) {{/maxItems}}{{/minItems}}{{!
+@Size: minItems set, maxItems not
+}}{{#minItems}}{{^maxItems}}
+    @get:Size(min={{minItems}}{{#vendorExtensions.x-size-error}}, message = "{{.}}"{{/vendorExtensions.x-size-error}}){{/maxItems}}{{/minItems}}{{!
+@Size: minItems not set && maxItems set
+}}{{^minItems}}{{#maxItems}}
+    @get:Size(max={{maxItems}}{{#vendorExtensions.x-size-error}}, message = "{{.}}"{{/vendorExtensions.x-size-error}}){{/maxItems}}{{/minItems}}{{!
+check for integer or long / all others=decimal type with @Decimal*
+isInteger set
+}}{{#isInteger}}{{#minimum}}
+    @get:Min(value = {{minimum}}{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/minimum}}{{#maximum}}
+    @get:Max(value = {{maximum}}{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/maximum}}{{/isInteger}}{{!
+isLong set
+}}{{#isLong}}{{#minimum}}
+    @get:Min(value = {{minimum}}L{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/minimum}}{{#maximum}}
+    @get:Max(value = {{maximum}}L{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/maximum}}{{/isLong}}{{!
+Not Integer, not Long => we have a decimal value!
+}}{{^isInteger}}{{^isLong}}{{#minimum}}
+    @get:DecimalMin(value = "{{minimum}}"{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/minimum}}{{#maximum}}
+    @get:DecimalMax(value = "{{maximum}}"{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/maximum}}{{/isLong}}{{/isInteger}}
