@@ -28,12 +28,12 @@ class ActivitiesController : ActivitiesApi {
     }
 
     override fun createActivity(activity: Activity): ResponseEntity<Unit> {
-        activityInteractor.saveActivity(activity.id, activity.name, activity.description, activity.points.toDouble())
+        activityInteractor.saveActivity(0, activity.name, activity.description, activity.points.toDouble())
         return ResponseEntity.ok().build()
     }
 
-    override fun modifyActivity(activity: Activity): ResponseEntity<Unit> {
-        activityInteractor.modifyActivity(activity.id, activity.name, activity.description, activity.points.toDouble())
+    override fun modifyActivity(activityId: Int, activity: Activity): ResponseEntity<Unit> {
+        activityInteractor.modifyActivity(activityId, activity.name, activity.description, activity.points.toDouble())
         return ResponseEntity.ok().build()
     }
 

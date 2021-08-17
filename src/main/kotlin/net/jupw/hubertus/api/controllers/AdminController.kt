@@ -21,8 +21,8 @@ class AdminController : AdminApi {
     override fun createUser(user: User): ResponseEntity<PasswordHolder> =
         PasswordHolder(userInteractor.createUser(user.name)).toResponseEntity()
 
-    override fun modifyUser(user: User): ResponseEntity<Unit> =
-        userInteractor.modifyUser(user.id, user.name, user.email, user.phone, user.locked)
+    override fun modifyUser(userId: Int, user: User): ResponseEntity<Unit> =
+        userInteractor.modifyUser(userId, user.name, user.email, user.phone, user.locked)
             .toResponseEntity()
 
     override fun resetPasswordByUserId(userId: Int): ResponseEntity<PasswordHolder> =

@@ -21,16 +21,3 @@ post:
       description: Activity addedd
     default:
       $ref: "../responses/ApiErrorResponse.yaml"
-
-put:
-  operationId: modifyActivity
-  tags:
-    - activities
-  description: Replaces an Activity
-  requestBody:
-    $ref: "../requestBodies/ActivityRequestBody.yaml"
-  responses:
-    '200':
-      description: Activity addedd
-    default:
-      $ref: "../responses/ApiErrorResponse.yaml"

@@ -11,17 +11,3 @@ post:
       $ref: "../responses/UserPasswordResponse.yaml"
     default:
       $ref: "../responses/ApiErrorResponse.yaml"
-
-
-put:
-  operationId: modifyUser
-  description: Edits a user
-  tags:
-    - user management
-  requestBody:
-    $ref: "../requestBodies/UserRequestBody.yaml"
-  responses:
-    '200':
-      description: Operation successfull
-    default:
-      $ref: "../responses/ApiErrorResponse.yaml"

@@ -15,6 +15,5 @@ properties:
   locked:
     type: boolean
 required:
-  - id
   - name
   - locked
