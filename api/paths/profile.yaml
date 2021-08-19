@@ -1,0 +1,14 @@
+summary: Allows for editing the profile
+patch:
+  operationId: editProfile
+  tags:
+    - profile
+
+  requestBody:
+    $ref: "../requestBodies/ProfileEditRequestBody.yaml"
+
+  responses:
+    '200':
+      description: Operation successfull
+    default:
+      $ref: "../responses/ApiErrorResponse.yaml"

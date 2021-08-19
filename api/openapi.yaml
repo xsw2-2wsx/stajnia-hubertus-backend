@@ -53,6 +53,9 @@ paths:
   /users/{userId}/picture:
     $ref: "./paths/usersIdProfilePicture.yaml"
 
+  /profile:
+    $ref: "./paths/profile.yaml"
+
   /profile/picture:
     $ref: "./paths/profileProfilePicture.yaml"
 

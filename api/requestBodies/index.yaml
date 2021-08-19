@@ -25,6 +25,9 @@ ImageUploadRequestBody:
 PasswordRequestBody:
   $ref: "PasswordRequestBody.yaml"
 
+ProfileEditRequestBody:
+  $ref: "ProfileEditRequestBody.yaml"
+
 RoleIdRequestBody:
   $ref: "RoleIdRequestBody.yaml"
 

@@ -64,6 +64,9 @@ Password:
 PasswordHolder:
   $ref: "PasswordHolder.yaml"
 
+ProfileEditFrom:
+  $ref: "ProfileEditFrom.yaml"
+
 Time:
   $ref: "Time.yaml"
 

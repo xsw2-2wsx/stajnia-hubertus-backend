@@ -1,0 +1,6 @@
+description: Holds a profile edit request
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ProfileEditFrom.yaml"
+required: true

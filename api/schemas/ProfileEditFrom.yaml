@@ -1,0 +1,10 @@
+description: Form used in the profile edit API
+properties:
+  phone:
+    type: string
+    pattern: ^(\+\d\d)( ?\d{3}){3}
+    x-pattern-error: Nieprawidłowy numer telefonu
+  email:
+    type: string
+    pattern: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$
+    x-pattern-error: Nieprawidłowy adres email
