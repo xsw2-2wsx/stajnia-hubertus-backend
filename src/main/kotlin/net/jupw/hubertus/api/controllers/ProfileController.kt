@@ -2,6 +2,7 @@ package net.jupw.hubertus.api.controllers
 
 import net.jupw.hubertus.api.models.ChangePasswordRequest
 import net.jupw.hubertus.api.models.PasswordHolder
+import net.jupw.hubertus.api.models.ProfileEditFrom
 import net.jupw.hubertus.api.models.UsernameHolder
 import net.jupw.hubertus.api.toResponseEntity
 import net.jupw.hubertus.app.interactors.UserInteractor
@@ -15,6 +16,9 @@ class ProfileController : ProfileApi {
 
     @Autowired
     private lateinit var userInteractor: UserInteractor
+
+    override fun editProfile(profileEditFrom: ProfileEditFrom): ResponseEntity<Unit> =
+        userInteractor.editProfile(profileEditFrom.email, profileEditFrom.phone).toResponseEntity()
 
     override fun setProfilePicture(body: Resource): ResponseEntity<Unit> =
         userInteractor.setProfilePicture(body).toResponseEntity()

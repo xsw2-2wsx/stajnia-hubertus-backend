@@ -227,6 +227,13 @@ class UserInteractor : UserDetailsService {
         user.profilePicturePath = null
     }
 
+    @Transactional
+    fun editProfile(email: String?, phone: String?) {
+        val user = findUserEntity(authenticatedUser.id)
+        user.email = email
+        user.phone = phone
+    }
+
     fun getProfilePicture(userId: Int): Resource {
         val path = findUserEntity(userId).profilePicturePath?: throw NoProfilePictureException(userId)
         return resourceLoader.getResource("$profilePictureLocation/$path")
