@@ -3,4 +3,6 @@ content:
     schema:
       type: string
       format: binary
+      x-max-content-length-bytes: 20
+      x-content-length-error: Nieprawidłowa wielkość pliku
 required: true

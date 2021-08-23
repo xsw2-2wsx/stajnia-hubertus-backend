@@ -31,3 +31,4 @@ Not Integer, not Long => we have a decimal value!
 }}{{^isInteger}}{{^isLong}}{{#minimum}}
     @get:DecimalMin(value = "{{minimum}}"{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/minimum}}{{#maximum}}
     @get:DecimalMax(value = "{{maximum}}"{{#vendorExtensions.x-range-error}}, message = "{{.}}"{{/vendorExtensions.x-range-error}}){{/maximum}}{{/isLong}}{{/isInteger}}
+{{#vendorExtensions.x-max-content-length-bytes}}@ResourceLength(maxLengthBytes = "{{.}}"{{#vendorExtensions.x-content-length-error}}, message = "{{.}}"{{/vendorExtensions.x-content-length-error}}){{/vendorExtensions.x-max-content-length-bytes}}
